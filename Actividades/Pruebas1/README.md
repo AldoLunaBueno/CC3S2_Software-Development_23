@@ -1,4 +1,24 @@
-## Actividad 1. Introducción a las pruebas
+## Actividad 1. Introducción a las pruebas <!-- omit in toc -->
+
+- [Teoría](#teoría)
+  - [Pruebas en software](#pruebas-en-software)
+  - [Pruebas sistemáticas](#pruebas-sistemáticas)
+  - [Elección de casos de prueba mediante partición](#elección-de-casos-de-prueba-mediante-partición)
+  - [Incluir límites en la partición](#incluir-límites-en-la-partición)
+  - [Uso de varias particiones](#uso-de-varias-particiones)
+  - [Cobertura](#cobertura)
+- [Ejercicios y soluciones](#ejercicios-y-soluciones)
+  - [Ejercicio 1](#ejercicio-1)
+  - [Ejercicio 2](#ejercicio-2)
+  - [Ejercicio 3](#ejercicio-3)
+  - [Ejercicio 4](#ejercicio-4)
+  - [Ejercicios 5](#ejercicios-5)
+  - [Ejercicio 6](#ejercicio-6)
+  - [Ejercicio 7](#ejercicio-7)
+  - [Ejercicio 8](#ejercicio-8)
+  - [Ejercicio 9](#ejercicio-9)
+  - [Ejercicio 10](#ejercicio-10)
+
 
 **Indicaciones**
 
@@ -18,9 +38,9 @@ Aquí hay algunos enfoques que desafortunadamente no funcionan bien en el mundo 
 - Es menos probable que las pruebas aleatorias
 - Las pruebas aleatorias o estadísticas no funcionan bien para el software.
 
-**Ejercicio 1**
+[Ejercicio 1](#ejercicio-1)
 
-**Ejercicio 2**
+[Ejercicio 2](#ejercicio-2)
 
 ### Pruebas sistemáticas
 
@@ -31,9 +51,9 @@ Las pruebas sistemáticas significan que estamos eligiendo casos de prueba de un
 - Exhaustivo
 - Pequeño
 
-**Ejercicio 3**
+[Ejercicio 3](#ejercicio-3)
 
-**Ejercicio 4**
+[Ejercicio 4](#ejercicio-4)
 
 ### Elección de casos de prueba mediante partición
 
@@ -101,9 +121,9 @@ El conjunto de pruebas podría ser:
 - (a,b) = (10, -8) para cubrir a > b
 - (a,b) = (9, 9) para cubrir a = b
 
-**Ejercicios 5**
+[Ejercicio 5](#ejercicios-5)
 
-**Ejercicio 6**
+[Ejercicio 6](#ejercicio-6)
 
 
 ### Incluir límites en la partición
@@ -156,7 +176,7 @@ a = Integer.MAX_VALUE
 a = 17 para cubrir el subdominio 0 < a < Integer.MAX_VALUE 
 a = -3 para cubrir el subdominio Integer.MIN_VALUE < a < 0 
 ```
-**Ejercicio 7**
+[Ejercicio 7](#ejercicio-7)
 
 ### Uso de varias particiones
 
@@ -204,11 +224,11 @@ Particionar `a` y `b` de forma independiente aumenta el riesgo de que ya no est�
 
 Un conjunto de pruebas con 6 casos de prueba cuidadosamente elegidos puede cubrir los subdominios de las tres particiones.
 
-**Ejercicio 8**
+[Ejercicio 8](#ejercicio-8)
 
-**Ejercicio 9**
+[Ejercicio 9](#ejercicio-9)
 
-**Ejercicio 10**
+[Ejercicio 10](#ejercicio-10)
 
 
 ### Cobertura
@@ -472,6 +492,6 @@ Con este enfoque, ¿cuántos casos de prueba se necesitan para cubrir las siguie
 // particion en b: 0, positive, negativo
 // particion en a.multiply(b): 0, positivo, negativo
 ````
-
+**Solución**
 
 
