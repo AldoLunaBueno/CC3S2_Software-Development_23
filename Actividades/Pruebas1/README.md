@@ -302,6 +302,11 @@ Un conjunto de pruebas es correcto si:
 
 **Solución**
 
+- _Correcto._ Aunque es correcto, no es de mucho ayuda. Si todos los casos de prueba fallan, es posible que haya un solapamiento de los dominios de que están siendo probados. Si aparece el error al que son sensibles estos casos de prueba, obtendremos demasiados resultados fallidos y poca información acerca del error que los causó.
+- _Correcto._ Detecta los errores. Al ser pocos resultados fallidos, la información que obtenemos es más relevante, por lo que nos facilita la detección de los errores en la implementación.
+- _Correcto._ El propósito de los casos de prueba es detectar errores en una implementación. Si la implementación es legal (sin errores), entonces todos los casos de prueba deben pasar.
+- _Incorrecto._ Si la implementación es legal, todos los casos de prueba pasan, no solo algunos.
+  
 ### Ejercicio 4
 
 Un conjunto de pruebas vacío no contiene casos de prueba. Suponiendo una especificación no trivial, un conjunto de pruebas vacío es:
@@ -312,7 +317,7 @@ Un conjunto de pruebas vacío no contiene casos de prueba. Suponiendo una especi
 
 **Solución**
 
-
+- No es correcto, ya que 
 
 ### Ejercicios 5
 
@@ -327,7 +332,6 @@ public static int sqrt(int x)
 ```
 
 Evalúe la calidad de cada una de las siguientes particiones candidatas. ¿Son los subdominios propuestos separados y completos, formando así una partición? ¿Son correctos, en el sentido de que cada subdominio puede ser cubierto por un caso de prueba legal? Para una buena partición debes marcar las tres alternativas.
-
 ```
 // particion: x < 0; x >= 0
 ```
