@@ -261,7 +261,6 @@ boolean andAll(boolean[] bits) {
   }
   return result;
 }
-
 ``` 
 Abejita, quien escribió este método y cree que debería funcionar, lo prueba en un par de casos de prueba elegidos al azar que se muestran a continuación. ¿Cuál es el resultado de cada caso de prueba?
 
@@ -272,7 +271,10 @@ Abejita, quien escribió este método y cree que debería funcionar, lo prueba e
 
 **Solución**
 
-
+-  El primer caso de prueba, en donde se evalúa un arreglo de 32 valores lleno de valores `true`, da como resultado `true`. Este resultado es el esperado, lo cual significa que este caso de prueba no nos ayuda a descubrir el error de la función evaluada.
+- El segundo caso de prueba, en el que se alternan `false` y `true`, da como resultado `false`. Tampoco ayuda por la misma razón que en el caso anterior.
+- En el código de la función, el error off-by-one se expresa dentro del bucle `for` en la condición de continuación. Esta condición no permite recoger el valor de verdad almacenado en la última posición del arreglo de valores de verdad dado como parámetro; es decir, solo abarca los 31 primeros valores de este arreglo. Esto es un error porque, si todos los valores son `true` excepto el último, el resultado será `true` a pesar de que el valor esperado es `false`. Esto nos da una idea para definir un mejor caso de prueba.
+- Lo único que puede variar es el parámetro. Este es un arreglo de valores de verdad que se pueden combinar de múltiples formas. Si por cada combinación definiéramos un caso de prueba, se requerirían 2<sup>32</sup> casos de prueba para probar exhaustivamente la función, algo inasumible.
 
 ### Ejercicio 2
 
