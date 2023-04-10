@@ -15,21 +15,44 @@
 
 ¿Cuáles de las siguientes no son buenas historias? ¿Por qué?
 
-- El usuario puede ejecutar el sistema en Windows XP y Linux. 
-- Todos los gráficos y tablas se realizan utilizando una biblioteca de terceros. 
+- El usuario puede ejecutar el sistema en Windows XP y Linux.
+- Todos los gráficos y tablas se realizan utilizando una biblioteca de terceros.
 - El usuario puede deshacer hasta cincuenta comandos. 
 - El software se lanzará el 30 de junio. 
 - El software estará escrito en Java. 
 - El usuario puede seleccionar su país de una lista desplegable. 
 - El sistema utilizará Log4J para registrar todos los mensajes de error en un archivo. 
-- Se te pedirá al usuario que guarde su trabajo si no lo ha guardado durante 15 minutos. 
+- Se le pedirá al usuario que guarde su trabajo si no lo ha guardado durante 15 minutos. 
 - El usuario puede seleccionar la función "Exportar a XML". 
 - El usuario puede exportar datos a XML
 
 **Solución**
 
-
-
+- El usuario puede ejecutar el sistema en Windows XP y Linux.
+  - ❌ Mala US. Demasiado general. Podría tratarse como una decisión crítica que se hace en la planificación previa a todos los sprints, pero no como una US.
+- Todos los gráficos y tablas se realizan utilizando una biblioteca de terceros.
+  - ❌ Mala US. Demasiado general y no sigue la plantilla de las US.  Además, no está claro cuál es el rol que obtiene el beneficio.
+- El usuario puede deshacer hasta cincuenta comandos. 
+  - ❌ Mala US. No sigue la plantilla, ya que falta el beneficio. Además, es muy específico (el requerimiento de deshacer hasta cincuenta comandos es para los criterios de aceptación).
+  - ✔ Propuesta: _Como usuario, necesito deshacer los comandos para tener control sobre el flujo de trabajo._
+- El software se lanzará el 30 de junio.
+  - ❌ Mala US. Es una decisión comercial que, aunque puede ser importante, nada tiene que ver con las características del software. Además, no está claro cuál es el rol ni cuál es el beneficio.
+- El software estará escrito en Java.
+  - ❌ Mala US. Es una decisión crítica, pero no dice nada sobre lo que hace el software en favor del usuario. Además, no está claro cuál es el rol ni cuál es el beneficio.
+- El usuario puede seleccionar su país de una lista desplegable. 
+  - ❌ Mala US. Considera el rol y el objetivo, pero no el beneficio. Es más, el objetivo está mal planteado porque hace referencia a un elemento gráfico, una lista desplegable.
+  - ✔ Propuesta: _Como usuario, necesito seleccionar un país para obtener la hora correspondiente en el sistema de husos horarios._
+- El sistema utilizará Log4J para registrar todos los mensajes de error en un archivo.
+  - ❌ Mala US. Sigue la plantilla de rol, objetivo y beneficio, pero el rol es incorrecto. Las US se muestran desde la perspectiva de un usuario humano, no desde la de un sistema informático como en este caso.
+  - ✔ Propuesta: _Como usuario, necesito que todos los mensajes de error vayan a un archivo para depurarlos._
+- Se le pedirá al usuario que guarde su trabajo si no lo ha guardado durante 15 minutos.
+  - ❌ Mala US. No sigue la plantilla y es muy específico.
+  - ✔ Propuesta: _Como usuario, necesito que se me recuerde guardar el trabajo para no perder los nuevos avances._
+- El usuario puede seleccionar la función "Exportar a XML".
+  - ❌ Mala US. Los detalles de la implementación, como el nombre de una función del software, no importan.
+- El usuario puede exportar datos a XML.
+  - ❌ Mala US. No está claro cuál es es beneficio. Hay muchos motivos por los que podría querer hacerlo, pero el más inmediato es que quiere usar los datos fuera de la aplicación.
+  - ✔ Propuesta: _Como usuario, necesito exportar los datos a XML para usarlos fuera de la aplicación._
 ## 2. Más ejemplos de US
 
 ¿Cuáles de las siguientes no son buenas historias? ¿Por qué?
