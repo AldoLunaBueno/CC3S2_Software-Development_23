@@ -65,7 +65,20 @@
 
 **Solución**
 
-
+- Un usuario puede dominar rápidamente el sistema. 
+  - ❌ Mala US. Expresa un requerimiento demasiado general.
+- Un usuario puede editar la dirección en un currículum.
+  - ❌ Mala US. Demasiado específico. Un currículum tiene por lo general muchos campos que pueden ser editados de la misma forma en que se edita la dirección, así que sería mejor generalizar el objetivo. Por otro lado, falta especificar el beneficio.
+  - ✔ Propuesta: _Como usuario, necesito editar los campos de un currículum para presentarlo a una oposición laboral._
+- Un usuario puede agregar, editar y eliminar múltiples currículos.
+  - ❌ Mala US. Se muestran múltiples objetivos y no se especifica el beneficio. Quizás sería más útil como una épica.
+  - ✔ Propuesta épica: _Como usuario, necesito agregar, editar y eliminar múltiples currículos para gestionarlos._
+- El sistema puede calcular aproximaciones de puntos de silla para distribuciones de formas cuadráticas en variables normales.
+  - ❌ Mala US. El rol no es el de un usuario humano.
+  - ✔ Propuesta: _Como usuario, necesito calcular aproximaciones de puntos de silla para distribuciones de formas cuadráticas en variables normales._
+- Todos los errores de tiempo de ejecución se registran de manera coherente.
+  - ❌ Mala US. No se especifica cuál es el rol ni cuál es el beneficio.
+  - ✔ Propuesta: Como usuario desarrollador, necesito que se registren todos los errores de tiempo de ejecución de manera coherente para depurarlos.
 
 ## 3. Ventajas de las US
 
