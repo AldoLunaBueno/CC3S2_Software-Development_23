@@ -29,30 +29,30 @@
 **Solución**
 
 - El usuario puede ejecutar el sistema en Windows XP y Linux.
-  - ❌ Mala US. Demasiado general. Podría tratarse como una decisión crítica que se hace en la planificación previa a todos los sprints, pero no como una US.
+  - ✔ Buena. Es una característica específica del software. Aunque pensamos que podría tratarse más bien como una decisión crítica que se hace en la planificación previa a todos los sprints.
 - Todos los gráficos y tablas se realizan utilizando una biblioteca de terceros.
-  - ❌ Mala US. Demasiado general y no sigue la plantilla de las US.  Además, no está claro cuál es el rol que obtiene el beneficio.
+  - ✔ Buena. Aunque falta el beneficio (que podría ser lograr una uniformidad en la presentación de los datos), el objetivo apunta a una restricción del software bien definida.
 - El usuario puede deshacer hasta cincuenta comandos. 
-  - ❌ Mala US. No sigue la plantilla, ya que falta el beneficio. Además, es muy específico (el requerimiento de deshacer hasta cincuenta comandos es para los criterios de aceptación).
-  - ✔ Propuesta: _Como usuario, necesito deshacer los comandos para tener control sobre el flujo de trabajo._
+  - ❌ Mala. Es muy específica (el requerimiento de deshacer hasta cincuenta comandos es para los criterios de aceptación).
+  - ❔ Propuesta: _Como usuario, necesito deshacer los comandos para tener control sobre el flujo de trabajo._
 - El software se lanzará el 30 de junio.
-  - ❌ Mala US. Es una decisión comercial que, aunque puede ser importante, nada tiene que ver con las características del software. Además, no está claro cuál es el rol ni cuál es el beneficio.
+  - ❌ Mala. Es una decisión comercial que, aunque puede ser importante, nada tiene que ver con las características del software. Se debería considerar durante la planificación. Además, no está claro cuál es el rol ni cuál es el beneficio.
 - El software estará escrito en Java.
-  - ❌ Mala US. Es una decisión crítica, pero no dice nada sobre lo que hace el software en favor del usuario. Además, no está claro cuál es el rol ni cuál es el beneficio.
+  - ❌ Mala. Es una decisión crítica, pero no dice nada sobre lo que hace el software en favor del usuario. Además, no está claro cuál es el rol ni cuál es el beneficio.
 - El usuario puede seleccionar su país de una lista desplegable. 
-  - ❌ Mala US. Considera el rol y el objetivo, pero no el beneficio. Es más, el objetivo está mal planteado porque hace referencia a un elemento gráfico, una lista desplegable.
-  - ✔ Propuesta: _Como usuario, necesito seleccionar un país para obtener la hora correspondiente en el sistema de husos horarios._
+  - ❌ Mala. Considera el rol y el objetivo, pero no el beneficio. Es más, el objetivo está mal planteado porque hace referencia a un elemento gráfico, una lista desplegable.
+  - ❔ Propuesta: _Como usuario, necesito seleccionar un país para obtener la hora correspondiente en el sistema de husos horarios._
 - El sistema utilizará Log4J para registrar todos los mensajes de error en un archivo.
-  - ❌ Mala US. Sigue la plantilla de rol, objetivo y beneficio, pero el rol es incorrecto. Las US se muestran desde la perspectiva de un usuario humano, no desde la de un sistema informático como en este caso.
-  - ✔ Propuesta: _Como usuario, necesito que todos los mensajes de error vayan a un archivo para depurarlos._
+  - ❌ Mala. Aporta datos irrelevantes. Sigue la plantilla de rol, objetivo y beneficio, pero el rol es incorrecto. Las US se deben mostrar desde la perspectiva de un usuario humano, no desde la de un sistema informático como en este caso.
+  - ❔ Propuesta: _Como usuario, necesito que todos los mensajes de error vayan a un archivo para depurarlos._
 - Se le pedirá al usuario que guarde su trabajo si no lo ha guardado durante 15 minutos.
-  - ❌ Mala US. No sigue la plantilla y es muy específico.
-  - ✔ Propuesta: _Como usuario, necesito que se me recuerde guardar el trabajo para no perder los nuevos avances._
+  - ❌ Mala. No sigue la plantilla y es muy específico.
+  - ❔ Propuesta: _Como usuario, necesito que se me recuerde guardar el trabajo para no perder los nuevos avances._
 - El usuario puede seleccionar la función "Exportar a XML".
-  - ❌ Mala US. Los detalles de la implementación, como el nombre de una función del software, no importan.
+  - ❌ Mala. Los detalles de la implementación, como el nombre de una función del software, no importan.
 - El usuario puede exportar datos a XML.
-  - ❌ Mala US. No está claro cuál es es beneficio. Hay muchos motivos por los que podría querer hacerlo, pero el más inmediato es que quiere usar los datos fuera de la aplicación.
-  - ✔ Propuesta: _Como usuario, necesito exportar los datos a XML para usarlos fuera de la aplicación._
+  - ✔ Buena. Solo faltaría específicar el beneficio. Hay muchos motivos por los que podría querer hacerlo, pero el más inmediato es que quiere usar los datos fuera de la aplicación.
+  - ❔ Propuesta: _Como usuario, necesito exportar los datos a XML para usarlos fuera de la aplicación._
 ## 2. Más ejemplos de US
 
 ¿Cuáles de las siguientes no son buenas historias? ¿Por qué?
@@ -66,23 +66,22 @@
 **Solución**
 
 - Un usuario puede dominar rápidamente el sistema. 
-  - ❌ Mala US. Expresa un requerimiento demasiado general.
+  - ❌ Mala. Expresa un requerimiento demasiado general y ambiguo.
 - Un usuario puede editar la dirección en un currículum.
-  - ❌ Mala US. Demasiado específico. Un currículum tiene por lo general muchos campos que pueden ser editados de la misma forma en que se edita la dirección, así que sería mejor generalizar el objetivo. Por otro lado, falta especificar el beneficio.
-  - ✔ Propuesta: _Como usuario, necesito editar los campos de un currículum para presentarlo a una oposición laboral._
+  - ❌ Mala. Demasiado específico. Un currículum tiene por lo general muchos campos que pueden ser editados de la misma forma en que se edita la dirección, así que sería mejor generalizar el objetivo. Por otro lado, falta especificar el beneficio.
+  - ❔ Propuesta: _Como usuario, necesito editar los campos de un currículum para presentarlo a una oposición laboral._
 - Un usuario puede agregar, editar y eliminar múltiples currículos.
-  - ❌ Mala US. Se muestran múltiples objetivos y no se especifica el beneficio. Quizás sería más útil como una épica.
-  - ✔ Propuesta épica: _Como usuario, necesito agregar, editar y eliminar múltiples currículos para gestionarlos._
+  - ❌ Mala. Se muestran múltiples objetivos y no se especifica el beneficio. Quizás sería más útil como una épica.
+  - ❔ Propuesta épica: _Como usuario, necesito agregar, editar y eliminar múltiples currículos para gestionarlos._
 - El sistema puede calcular aproximaciones de puntos de silla para distribuciones de formas cuadráticas en variables normales.
-  - ❌ Mala US. El rol no es el de un usuario humano.
-  - ✔ Propuesta: _Como usuario, necesito calcular aproximaciones de puntos de silla para distribuciones de formas cuadráticas en variables normales._
+  - ❌ Mala. El cliente seguramente maneja el lenguaje tan específico que usa esta US, pero los desarrolladores pueden tener problemas para entenderlo en esos términos. Además, el rol no es el de un usuario humano. Probablemente el cliente haya escrito la US. (Cualquier agente relacionado con el producto puede crear US). Convendría conversar con el cliente para llegar a un entendimiento mayor de lo que quiere el cliente, porque es muy específico de su área.
 - Todos los errores de tiempo de ejecución se registran de manera coherente.
-  - ❌ Mala US. No se especifica cuál es el rol ni cuál es el beneficio.
-  - ✔ Propuesta: Como usuario desarrollador, necesito que se registren todos los errores de tiempo de ejecución de manera coherente para depurarlos.
+  - ✔ Buena. No se especifica cuál es el rol ni cuál es el beneficio, pero el objetivo está bien.
+  - ❔ Propuesta: _Como usuario desarrollador, necesito que se registren todos los errores de tiempo de ejecución de manera coherente para depurarlos._
 
 ## 3. Ventajas de las US
 
-3 . ¿Cuáles son cuatro buenas razones para usar historias de usuarios para expresar requisitos? 
+¿Cuáles son cuatro buenas razones para usar historias de usuarios para expresar requisitos? 
 
 **Solución**
 
@@ -94,7 +93,8 @@
 
 **Solución**
 
-
+- Lenguaje ambiguo. Las US deben ser entendibles para todas las personas alrededor del proyecto para que así todos puedan contribuir. Sin embargo, para ello se debe sacrificar la precisión de un lenguaje más técnico.
+- No escalables. En un proyecto grande se pueden plantear miles de requerimientos. Las US se desbordan frente a la complejidad de estas situaciones, y hacen falta otros recursos adicionales a las US para hacerlas escalables.
 
 ## 5. Sistema escalable
 
@@ -102,6 +102,7 @@
 
 **Solución**
 
+- No es la mejor opción, pero una forma sería definir US que progresivamente vayan aumentando el número de usuarios simultáneos. Por ejemplo, una que especifíque 10 usuarios simultáneos, luego otra con 50, otra con 100, 200, 500 y 1000.
 
 
 ## 6. ¿Cuándo Agile no conviene?
@@ -114,7 +115,7 @@ Proporciona algunos ejemplos de sistemas que podrían beneficiarse de una consid
 
 ## 7. Pet Store
 
-Imaginemos que tu y un amigo tienen una web de Pet Store y, durante este mes, presentan un 10% de descuento en la suscripción Premium. Entonces, cada vez que un usuario de una cuenta gratuita inicia sesión, se le muestra un mensaje que dice:
+Imaginemos que tú y un amigo tienen una web de Pet Store y, durante este mes, presentan un 10% de descuento en la suscripción Premium. Entonces, cada vez que un usuario de una cuenta gratuita inicia sesión, se le muestra un mensaje que dice:
 
 ```
  ¡Suscríbete a Premium ahora con un 10 % de descuento!
@@ -190,3 +191,5 @@ Encuentra más ejemplos usando Cucumber.
 ## 10. ¿Dónde escribir US?
 
 ¿Prefieres escribir historias en tarjetas de notas o en un sistema de software? 
+
+En un sistema de software. El trabajo remoto es muy común hoy en día y escribir historias en tarjetas físicas es muy inconveniente en ese contexto.
