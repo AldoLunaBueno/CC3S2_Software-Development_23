@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TictocToe/TicTacToe.iml" filepath="$PROJECT_DIR$/TictocToe/TicTacToe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Total.iml" filepath="$PROJECT_DIR$/.idea/Total.iml" />
+    </modules>
+  </component>
+</project>
