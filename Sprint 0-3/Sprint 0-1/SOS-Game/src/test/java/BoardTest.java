@@ -12,7 +12,12 @@ class BoardTest {
     @After
     void tearDown() {
     }
+    @Test
+    void testConfig() {}
+    Board board = new Board();
 
+
+    // AC 3.1 Comienzo de un nuevo juego exitoso
     @Test
     void testNewBoard() {
         Board board = new Board();
