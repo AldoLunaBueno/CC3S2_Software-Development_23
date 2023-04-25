@@ -1,3 +1,26 @@
-public class BoardTest {
+import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
 
+class BoardTest {
+
+    @Before
+    void setUp() {
+    }
+
+    @After
+    void tearDown() {
+    }
+
+    @Test
+    void testNewBoard() {
+        Board board = new Board();
+        for (int row = 0; row<8; row++) {
+            for (int column = 0; column<8; column++) {
+                assertEquals(board.getCell(row, column), "");
+            }
+        }
+        assertEquals(board.getTurn(), "Blue");
+    }
 }
