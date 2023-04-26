@@ -2,10 +2,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-/*
- * Este código fue escrito por
- * Prof. Chua Hock Chuan, Nanyang Technological University
- */
+
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
