@@ -49,7 +49,6 @@ public class CalculatorTest
         );
         assertEquals("No se puede calcular la raíz cuadrada"
                         + " de un argumento negativo", exception.getMessage());
-
     }
 }
 
