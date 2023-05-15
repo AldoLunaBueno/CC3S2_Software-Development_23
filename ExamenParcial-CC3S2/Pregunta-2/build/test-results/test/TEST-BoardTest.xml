@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="BoardTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-05-15T17:44:07" hostname="ALDO" time="0.02">
+  <properties/>
+  <testcase name="whenPutPieceInOccupiedCellThrowsRuntimeException()" classname="BoardTest" time="0.017"/>
+  <testcase name="whenPutPieceFailsXAxisThrowsRuntimeException()" classname="BoardTest" time="0.001"/>
+  <testcase name="whenPutPieceFailsYAxisThrowsRuntimeException()" classname="BoardTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
