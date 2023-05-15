@@ -56,11 +56,11 @@ empleado junior
 **Pregunta:** Realiza una salida de muestra. Ten en cuenta que la identificación(ID) de un empleado puede
 variar en tu caso porque genera un número aleatorio para obtener la identificación (ID) del empleado.
 
-![](2023-05-14-19-49-45.png)
+![](sources/2023-05-14-19-49-45.png)
 
 Esta salida es proporcionada por el método `showEmpDetail()` de la clase `Cliente`:
 
-![](2023-05-14-20-48-05.png)
+![](sources/2023-05-14-20-48-05.png)
 
 **Pregunta:** ¿Cuál es el problema con este diseño?
 
@@ -97,7 +97,7 @@ comprensible.
 
 La salida es la misma de antes. Sin embargo, vemos la primera diferencia en la implementación del método `showEmpDetail()` de la clase `Cliente`.
 
-![](2023-05-14-20-46-01.png)
+![](sources/2023-05-14-20-46-01.png)
 
 Aquí nos damos cuenta de que, por ejemplo, el método `checkSeniority()` ahora es llamado por un objeto de la clase `SeniorityChecker`. Además, se le pasa como parámetro de número entero la experiencia del empleado. Si bien este y el otro método `generateEmpId()` se separaron en clases distintas, se ve que su uso es un poco precario. Esto porque nada nos previene de introducir, por ejemplo en el primer método, un entero arbitrario.
 
@@ -180,36 +180,34 @@ El método `evaluateDistinction()` puede tener que modificarse según el criteri
 
 **Pregunta:** Realiza una salida de muestra.
 
-![](2023-05-14-22-43-36.png)
+![](sources/2023-05-14-22-43-36.png)
 
-![](2023-05-14-22-43-05.png)
+![](sources/2023-05-14-22-43-05.png)
 
 **Pregunta:** Modifica el método de evaluateDistinction() y agrega otra instrucción if para considerar a
 los estudiantes de comercio. ¿Está bien modificar el método evaluateDistinction() de esta manera?
 
 En la clase `DistinctionDecider` primero nos vimos obligados a agregar la línea 8 para definir el nuevo arreglo de departamentos de comercio, con la variable `trade`. Luego recién agregamos el condicional en la línea 23.
 
-![](2023-05-14-23-02-24.png)
+![](sources/2023-05-14-23-02-24.png)
 
 Y, para mostrar su uso, en el método `enrollStudents()` de la clase `Cliente` instanciamos dos estudiantes de esta nueva rama de comercio.
 
-![](2023-05-14-23-09-37.png)
+![](sources/2023-05-14-23-09-37.png)
 
 Aquí mostramos la ejecución:
 
-![](2023-05-14-22-59-23.png)
+![](sources/2023-05-15-06-08-50.png)
 
-Si bien logramos la salida esperada, nos dimos cuenta de dos cosas. La primera es que para modificar el método `evaluateDistinction()` tuvimos que cambiar algo fuera del método, pero denetro de la clase: crear una nueva variable de instancia `trade`. La segunda es que nos pasó que, intentando mejorar la ortografía de los departamentos, la salida de las distinciones cambió porque los departamentos escritos en `Cliente` tenían una tilde más o menos respecto de los escritos en `DistinctionDecider` y ya no eran reconocidos por los condicionales dentro del método `evaluateDistinction()`. 
+![](sources/2023-05-14-22-59-23.png)
+
+Si bien logramos la salida esperada, nos dimos cuenta de dos cosas. La primera es que para modificar el método `evaluateDistinction()` tuvimos que cambiar algo fuera del método, pero dentro de la clase: crear una nueva variable de instancia `trade`. La segunda es que nos pasó que, intentando mejorar la ortografía de los departamentos, la salida de las distinciones cambió porque los departamentos escritos en `Cliente` tenían una tilde más o menos respecto de los escritos en `DistinctionDecider` y ya no eran reconocidos por los condicionales dentro del método `evaluateDistinction()`. 
 
 Claramente esta implementación da problemas a la hora de modificar cosas.
 
 ### Mejor programa
 
-**Pregunta:** Para abordar este problema, puedes escribir un mejor programa. Puedes modificar el código dado de la actividad y utilizar el principio OCP que sugiere que escribamos segmentos de código (como clases o métodos) que están abiertos para la extensión pero cerrados para la modificación.
-
-El OCP se puede lograr de diferentes maneras, pero la abstracción es el corazón de este principio. Si puedes diseñar tu aplicación siguiendo el OCP, tu aplicación es flexible y extensible.  No siempre es fácil implementar completamente este principio, pero el cumplimiento parcial de OCP puede generarte un
-mayor beneficio. 
-
+El OCP se puede lograr de diferentes maneras, pero la abstracción es el corazón de este principio. Si puedes diseñar tu aplicación siguiendo el OCP, tu aplicación es flexible y extensible. No siempre es fácil implementar completamente este principio, pero el cumplimiento parcial de OCP puede generarte un mayor beneficio. 
 
 ### Demostración con OCP
 
@@ -221,9 +219,32 @@ mayor beneficio.
 - ArtsDistinctionDecider.java
 - Cliente.java
 
-**Pregunta:**. Realiza una salida de muestra de tu respuesta. Explica los cambios realizados
+**Pregunta:**. Para abordar este problema, puedes escribir un mejor programa. Puedes modificar el código dado de la actividad y utilizar el principio OCP que sugiere que escribamos segmentos de código (como clases o métodos) que están abiertos para la extensión pero cerrados para la modificación. Realiza una salida de muestra de tu respuesta. Explica los cambios realizados
+
+La salida es la misma que antes:
+
+![](sources/2023-05-15-06-38-56.png)
+
+Pero ahora tenemos abstracción: la clase abstracta `Estudiante` y la interface `DistinctionDecider`. La clase abstracta es extendida por `ArteEstudiante` y `CienciaEstudiante`. La interface es implementada por `ArtsDistinctionDecider` y `ScienceDistinctionDecider`.
+
+Creemos que no era necesario crear la clase abstracta, ya que las clases que la extienden por ahora son exxactamente iguales.
+
+![](sources/2023-05-15-06-56-05.png)
+
+Además, ¿qué pasa si uno crea la clase `TradeDistinctionDecider` pero se olvida de crear la clase `ComercioEstudiante`?
+
+Pero, bueno, ahora veamos una de las implementaciones de la interface:
+
+![](sources/2023-05-15-06-59-10.png)
+
+El método `evaluateDistinction()` de la interface es implementado aquí. Para esto de todos modos es necesario crear un lista de nombres de los departamentos profesionales. La llamamos `science`. Además, refactorizamos el método con una técnica llamada cláusula de guarda para evitar caer en un futuro en el anidamiento masivo, que ya es hasta un meme:
+
+![](sources/2023-05-15-07-09-57.png)
+
 
 **Pregunta:**  ¿Cuáles son las principales ventajas ahora?
+
+
 
 ## LSP - Principio de Sustitución de Liskov
 

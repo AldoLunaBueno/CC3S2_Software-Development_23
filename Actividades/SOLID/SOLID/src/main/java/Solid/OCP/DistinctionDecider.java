@@ -1,5 +1,7 @@
 package Solid.OCP;
 
+import java.util.List;
+
 interface DistinctionDecider {
-    // completa
+    void evaluateDistinction(Estudiante estudiante);
 }

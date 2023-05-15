@@ -33,8 +33,8 @@ public class Cliente {
     }
 
     private static List<Estudiante> enrollScienceStudents() {
-        Estudiante Irene = new CienciaEstudiante("Irene", "R1", 81.5,"Ciencia de la computacion.");
-        Estudiante jessica = new CienciaEstudiante("Jessica", "R2", 72,"Fisica");
+        Estudiante Irene = new CienciaEstudiante("Irene", "R1", 81.5,"Ciencia de la Computación");
+        Estudiante jessica = new CienciaEstudiante("Jessica", "R2", 72,"Física");
         List<Estudiante> CienciasEstudiantes = new ArrayList<Estudiante>();
         CienciasEstudiantes.add(Irene);
         CienciasEstudiantes.add(jessica);
@@ -44,10 +44,10 @@ public class Cliente {
     private static List<Estudiante> enrollArtsStudents() {
         Estudiante chalo = new ArteEstudiante("Chalo", "R3", 71,"Historia");
         Estudiante claudio = new ArteEstudiante("Claudio", "R4", 66.5,"Literatura");
-        List<Estudiante> ArtesEstudiantes = new ArrayList<Estudiante>();
-        ArtesEstudiantes.add(chalo);
-        ArtesEstudiantes.add(claudio);
-        return ArtesEstudiantes;
+        List<Estudiante> artesEstudiantes = new ArrayList<Estudiante>();
+        artesEstudiantes.add(chalo);
+        artesEstudiantes.add(claudio);
+        return artesEstudiantes;
     }
 
 
