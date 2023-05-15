@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Cliente {
     public static void main(String[] args) {
-        System.out.println("Demostracion sin OCP");
+        System.out.println("Demostración sin OCP");
         List<Estudiante> enrolledStudents = enrollStudents();
 
         // Muestra todos los resultados
@@ -23,16 +23,20 @@ public class Cliente {
     }
 
     private static List<Estudiante> enrollStudents() {
-        Estudiante irene = new Estudiante("Irene", "R1", 81.5, "Ciencia de la Computacion.");
-        Estudiante jessica= new Estudiante("Jessica", "R2", 72, "Fisica");
+        Estudiante irene = new Estudiante("Irene", "R1", 81.5, "Ciencia de la Computación");
+        Estudiante jessica= new Estudiante("Jessica", "R2", 72, "Física");
         Estudiante chalo = new Estudiante("Chalo", "R3", 71, "Historia");
         Estudiante claudio = new Estudiante("Claudio", "R4", 66.5, "Literatura");
+        Estudiante gonzalo = new Estudiante("Gonzalo", "R5", 71, "Carpintería");
+        Estudiante enrique = new Estudiante("Enrique", "R6", 65, "Fontanería");
 
         List<Estudiante> estudiantes = new ArrayList<Estudiante>();
         estudiantes.add(irene);
         estudiantes.add(jessica);
         estudiantes.add(chalo);
         estudiantes.add(claudio);
+        estudiantes.add(gonzalo);
+        estudiantes.add(enrique);
         return estudiantes;
     }
 }

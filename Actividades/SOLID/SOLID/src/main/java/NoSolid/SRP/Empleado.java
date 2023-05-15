@@ -14,7 +14,7 @@ public class Empleado {
     }
 
     public String checkSeniority(double experienceInYears){
-        return  experienceInYears > 5 ?"senior":"junior";
+        return experienceInYears > 5 ? "senior" : "junior";
     }
     public String generateEmpId(String empFirstName){
         int random = new Random().nextInt(1000);

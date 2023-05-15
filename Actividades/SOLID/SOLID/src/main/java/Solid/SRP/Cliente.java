@@ -26,6 +26,7 @@ public class Cliente {
 
         // Verifica el nivel laboral
         SeniorityChecker seniorityChecker = new SeniorityChecker();
-        System.out.println("Este empleado es un" +  " empleado "+ seniorityChecker.checkSeniority(emp.experienceInYears) );
+        System.out.println("Este empleado es un" +  " empleado "
+                + seniorityChecker.checkSeniority(emp.experienceInYears) );
     }
 }

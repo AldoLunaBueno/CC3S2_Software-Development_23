@@ -1,45 +1,76 @@
-## SOLID
+# SOLID <!-- omit in toc -->
 
-###  Actividad grupal
+- [SRP - Principio de responsabilidad única](#srp---principio-de-responsabilidad-única)
+  - [Programa inicial](#programa-inicial)
+  - [Demostración sin SRP](#demostración-sin-srp)
+  - [Mejor programa](#mejor-programa)
+  - [Demostración con SRP](#demostración-con-srp)
+- [OCP - Principio abierto/cerrado](#ocp---principio-abiertocerrado)
+  - [Programa inicial](#programa-inicial-1)
+  - [Demostración sin OCP](#demostración-sin-ocp)
+  - [Mejor programa](#mejor-programa-1)
+  - [Demostración con OCP](#demostración-con-ocp)
+- [LSP - Principio de Sustitución de Liskov](#lsp---principio-de-sustitución-de-liskov)
+  - [Programa inicial](#programa-inicial-2)
+  - [¿Cuál es la solución?](#cuál-es-la-solución)
+  - [ISP - Principio de segregación de interfaz](#isp---principio-de-segregación-de-interfaz)
+  - [Programa inicial](#programa-inicial-3)
+  - [Mejor programa](#mejor-programa-2)
+- [DIP - Principio de inversión de dependencia](#dip---principio-de-inversión-de-dependencia)
+  - [Programa inicial](#programa-inicial-4)
+  - [Mejor programa](#mejor-programa-3)
+
+
+**Actividad grupal**
 
 Descarga la actividad incompleta desde aquí:
 https://github.com/kapumota/Actividades/tree/main/SOLID/SOLID  
 Inicia un repositorio llamado CC-3S2 y dentro una carpeta llamada Actividades. Dentro de esta carpeta abre una carpeta llamada SOLID y coloca todas tus respuestas.
 No es una tarea calificada, solo es un repaso de lo realizado en clase.
 
-### Principio de responsabilidad única
+## SRP - Principio de responsabilidad única
 Una clase actúa como un contenedor que puede contener muchas cosas, como datos, propiedades o
 métodos. Si ingresas demasiados datos o métodos que no están relacionados entre sí, terminarás con
 una clase voluminosa que te puede crear problemas en el futuro. 
 
-#### Programa inicial
+### Programa inicial
 El código inicial tiene una clase Empleado con tres métodos diferentes. Aquí están los detalles:
 
-- displayEmpDetail() muestra el nombre del empleado y su experiencia laboral en años.
+- `displayEmpDetail()` muestra el nombre del empleado y su experiencia laboral en años.
 
-- El método generateEmpId() genera una identificación de empleado mediante la concatenación
+- `generateEmpId()` genera una identificación de empleado mediante la concatenación
 de cadenas. La lógica es simple: concateno la primera palabra del primer nombre con un número
 aleatorio para formar una identificación de empleado. Después de la demostración dentro del
 método main() (el código del cliente) creo dos instancias de Empleado y uso estos métodos para
 mostrar los detalles relevantes.
 
-- El método checkSeniority() evalúa si un empleado es una persona mayor. Supongamos que si el
+- `checkSeniority()` evalúa si un empleado es una persona con mayor experiencia. Supongamos que si el
 empleado tiene más de 5 años de experiencia, es un empleado senior; de lo contrario, es un
 empleado junior
 
-#### Demostración sin SRP
+### Demostración sin SRP
 
 - Empleado.java
 - Cliente.java
 
-**Pregunta:**: Realiza una salida de muestra. Ten en cuenta que la identificación(ID) de un empleado puede
+**Pregunta:** Realiza una salida de muestra. Ten en cuenta que la identificación(ID) de un empleado puede
 variar en tu caso porque genera un número aleatorio para obtener la identificación (ID) del empleado.
 
+![](2023-05-14-19-49-45.png)
 
+Esta salida es proporcionada por el método `showEmpDetail()` de la clase `Cliente`:
 
-**Pregunta:**: ¿Cuál es el problema con este diseño?
+![](2023-05-14-20-48-05.png)
 
-#### Mejor programa
+**Pregunta:** ¿Cuál es el problema con este diseño?
+
+El problema es que la clase `Empleado` hay métodos que podrían crecer mucho, y mantenerlos dentro de esta clase haría su uso y mantenimiento más difícil. 
+
+En la clase `Empleado` tenemos dos métodos que en el futuro pueden mejorarse y volverse complejos: `checkSeniority()` y `generateEmpId()`. ¿Por qué? En cuanto al primer método, se pueden añadir etapas intermedias entre junior y senior, o añadir más parámetros en el cálculo como la calidad de la experiencia, o la cantidad e impacto de los proyectos desarrollados. En cuanto al segundo, se pueden generar los códigos de identificación con algoritmos más elaborados, que tomen en cuenta factores como el año de ingreso a la empresa.
+
+En la clase `Empleado` hay un tercer método llamado  `displayEmpDetail()`. También puede cambiar, pero no con la misma fuerza que los otros dos métodos, por lo que no parece necesario crear una clase específica para él.
+
+### Mejor programa
 
 En la siguiente demostración, se presentan dos clases más. La clase SeniorityChecker ahora contiene el
 método checkSeniority() y la clase GeneradorIDEmpleado contiene el método generateEmpId(...) para
@@ -55,7 +86,7 @@ generateEmpId() de GeneradorIDEmpleado y al método checkSeniority() de Seniorit
 Debes entender que este método no era necesario, pero hace que el código del cliente sea simple y fácilmente
 comprensible.
 
-#### Demostración con SRP
+### Demostración con SRP
 
 - Empleado.java
 - GeneradorIdEmpleado.java
@@ -64,11 +95,17 @@ comprensible.
 
 **Pregunta:** Realiza una demostración completa que sigue a SRP. Explica los resultados.
 
+La salida es la misma de antes. Sin embargo, vemos la primera diferencia en la implementación del método `showEmpDetail()` de la clase `Cliente`.
+
+![](2023-05-14-20-46-01.png)
+
+Aquí nos damos cuenta de que, por ejemplo, el método `checkSeniority()` ahora es llamado por un objeto de la clase `SeniorityChecker`. Además, se le pasa como parámetro de número entero la experiencia del empleado. Si bien este y el otro método `generateEmpId()` se separaron en clases distintas, se ve que su uso es un poco precario. Esto porque nada nos previene de introducir, por ejemplo en el primer método, un entero arbitrario.
+
 **Importante:** Ten en cuenta que el SRP no dice que una clase deba tener como máximo un método. Aquí el
 énfasis está en la responsabilidad individual. puede haber métodos estrechamente relacionados que
 pueden ayudarte a implementar una responsabilidad. 
 
-### Principio abierto/cerrado
+## OCP - Principio abierto/cerrado
 
 El Principio Abierto-Cerrado (OCP) fue acuñado en 1988 por Bertrand Meyer. Dice: Un artefacto de
 software debe estar abierto para extensión pero cerrado para modificación. 
@@ -82,14 +119,14 @@ base y ser utilizada por clases de clientes. Pero también es abierto, ya que cu
 usarlo como padre, agregando nuevas funciones. Cuando se define una clase descendiente, no hay
 necesidad de cambiar el original o molestar a sus clientes."
 
-Pero la herencia promueve un acoplamiento estrecho. En programación, se gusta eliminar estos
+Pero la herencia promueve un acoplamiento estrecho. En programación, se busca eliminar estos
 acoplamientos estrechos. Robert C. Martin mejoró la definición y la convirtió en OCP polimórfico. La
 nueva propuesta usa clases base abstractas que usan los protocolos en lugar de una superclase para
 permitir diferentes implementaciones. Estos protocolos están cerrados a la modificación y proporcionan
 otro nivel de abstracción que permite un acoplamiento débil.
 
 
-#### Programa inicial
+### Programa inicial
 
 Supongamos que hay un pequeño grupo de estudiantes que toman un examen semestral. 
 Irene, Jessica, Chalo y Claudio son los cuatro estudiantes de
@@ -130,9 +167,11 @@ public void evaluateDistinction() {
 `
 ```
 
-**Pregunta:** ¿Por qué?.
+**Pregunta:** ¿Por qué?
 
-#### Demostración sin OCP
+El método `evaluateDistinction()` puede tener que modificarse según el criterio para evaluar a los estudiantes, y también se puede complicar. Conviene entonces manejarlo en una clase aparte.
+
+### Demostración sin OCP
 
 - Estudiante.java
 - DistinctionDecider.java
@@ -141,18 +180,38 @@ public void evaluateDistinction() {
 
 **Pregunta:** Realiza una salida de muestra.
 
+![](2023-05-14-22-43-36.png)
+
+![](2023-05-14-22-43-05.png)
+
 **Pregunta:** Modifica el método de evaluateDistinction() y agrega otra instrucción if para considerar a
-los estudiantes de comercio. ¿Está bien modificar el método evaluateDistinction()de esta manera?.
+los estudiantes de comercio. ¿Está bien modificar el método evaluateDistinction() de esta manera?
 
-#### Mejor programa
+En la clase `DistinctionDecider` primero nos vimos obligados a agregar la línea 8 para definir el nuevo arreglo de departamentos de comercio, con la variable `trade`. Luego recién agregamos el condicional en la línea 23.
 
-**Pregunta:** Para abordar este problema, puedes escribir un mejor programa. Puedes modificar el código dado de la actividad y utilizar el  principio OCP que sugiere que escribamos segmentos de código (como clases o métodos) que están abiertos para la extensión pero cerrados para la modificación. 
+![](2023-05-14-23-02-24.png)
+
+Y, para mostrar su uso, en el método `enrollStudents()` de la clase `Cliente` instanciamos dos estudiantes de esta nueva rama de comercio.
+
+![](2023-05-14-23-09-37.png)
+
+Aquí mostramos la ejecución:
+
+![](2023-05-14-22-59-23.png)
+
+Si bien logramos la salida esperada, nos dimos cuenta de dos cosas. La primera es que para modificar el método `evaluateDistinction()` tuvimos que cambiar algo fuera del método, pero denetro de la clase: crear una nueva variable de instancia `trade`. La segunda es que nos pasó que, intentando mejorar la ortografía de los departamentos, la salida de las distinciones cambió porque los departamentos escritos en `Cliente` tenían una tilde más o menos respecto de los escritos en `DistinctionDecider` y ya no eran reconocidos por los condicionales dentro del método `evaluateDistinction()`. 
+
+Claramente esta implementación da problemas a la hora de modificar cosas.
+
+### Mejor programa
+
+**Pregunta:** Para abordar este problema, puedes escribir un mejor programa. Puedes modificar el código dado de la actividad y utilizar el principio OCP que sugiere que escribamos segmentos de código (como clases o métodos) que están abiertos para la extensión pero cerrados para la modificación.
 
 El OCP se puede lograr de diferentes maneras, pero la abstracción es el corazón de este principio. Si puedes diseñar tu aplicación siguiendo el OCP, tu aplicación es flexible y extensible.  No siempre es fácil implementar completamente este principio, pero el cumplimiento parcial de OCP puede generarte un
 mayor beneficio. 
 
 
-#### Demostración con OCP
+### Demostración con OCP
 
 - Estudiante.java
 - ArteEstudiante.java
@@ -166,11 +225,11 @@ mayor beneficio.
 
 **Pregunta:**  ¿Cuáles son las principales ventajas ahora?
 
-### Principio de Sustitución de Liskov
+## LSP - Principio de Sustitución de Liskov
 
 El LSP dice que deberías poder sustituir un tipo padre (o base) con un subtipo. Significa que en un segmento de programa. puedes usar una clase derivada en lugar de una clase base sin alterar la correción del programa.
 
-#### Programa inicial
+### Programa inicial
 
 **Pregunta:** Utilizas un portal de pago en línea para pagar una factura. Como eres un usuario registrado, cuando realizas una solicitud de pago en este portal, también se muestra tus pagos anteriores. Considera un ejemplo simplificado basado en este escenario de la vida real. 
 Supongamos que también tienes un portal de pago donde un usuario registrado puede realizar una solicitud de pago. Utiliza el método newPayment() para esto. En este portal, también puedes mostrar los detalles del último pago del usuario utilizando un método llamado previousPaymentInfo(). Se crea la clase de ayuda PaymentHelper para mostrar todos los pagos anteriores y las nuevas solicitudes de pago de estos usuarios. Utiliza showPreviousPayments() y processNewPayments() para estas actividades.
@@ -210,7 +269,7 @@ String name;
 
 **Pregunta:** Realiza una salida de muestra y describe la excepción resultante. ¿Cuál es el problema?.
 
-#### ¿Cuál es la solución?
+### ¿Cuál es la solución?
 
 La primera solución obvia que se te puede ocurrir es introducir una cadena if-else para verificar si la instancia de pago es un pago de usuario invitado (GuestUserPayment) o un pago de usuario registrado (RegisteredUserPayment). ¿Es una buena solución?
 
@@ -238,11 +297,11 @@ Ajusta estos nuevos nombres en la clase auxilial. Debes tener completados los si
 
 **Problema:** ¿cuáles son los cambios clave?. Explica tus resultados.
 
-### Principio de segregación de interfaz
+### ISP - Principio de segregación de interfaz
 
 Sugiere que no contamines una interfaz con  métodos innecesarios solo para admitir una (o algunas) de las clases de implementación de esta interfaz. La idea es que un cliente no debe depender de un método que no utiliza.
 
-#### Programa inicial
+### Programa inicial
 
 Supongamos que tiene la interfaz Impresora con dos métodos, printDocument() y sendFax(). Hay varios usuarios de esta clase. Para simplificar, consideremos solo dos de ellos: BasicPrinter y AdvancedPrinter.
 
@@ -283,7 +342,7 @@ Realiza una demostración:
 
 **Problema:** Supongamos que necesitas admitir otra impresora que pueda imprimir, enviar faxes y fotocopiar. En este caso, si agregas un método de fotocopiado en la interfaz Impresora, los dos clientes existentes, ImpresoraBasica y Impresora Avanzada, deben adaptarse al cambio.
 
-#### Mejor programa
+### Mejor programa
 
 Busquemos una mejor solución. Entiendes que hay dos actividades diferentes: una es imprimir unos documentos y la otra es enviar un fax. Entonces, en el siguiente ejemplo, crea dos interfaces llamada Impresora y DispositivoFax. Impresora contiene el método printDocument() y FaxDevice contiene el
 método SendFax(). La idea es sencilla:
@@ -312,7 +371,7 @@ public void sendFax() {
 
 **Pregunta:** ¿Viste el problema potencial con esto! . Pero, ¿qué sucede si usas un método vacío, en lugar de lanzar la excepción?.
 
-### Principio de inversión de dependencia
+## DIP - Principio de inversión de dependencia
 
 El DIP cubre dos cosas importantes:
 
@@ -327,7 +386,7 @@ fácilmente. Esta idea también te ayuda a diseñar frameworks agradables.
 
 Robert C. Martin explica que un modelo de desarrollo de software tradicional en esos días (como el análisis y el diseño estructurados) tiende a crear software en el que los módulos de alto nivel solían depender de módulos de bajo nivel. Pero en OOP, un programa bien diseñado se opone a esta idea. Aquí se invierte la estructura de dependencia que a menudo resulta de un método de procedimiento tradicional. Esta es la razón por la que usó la palabra "inversión" en este principio.
 
-#### Programa inicial
+### Programa inicial
 
 Supongamos que tienes una aplicación de dos capas. Usando esta aplicación, un usuario puede guardar una identificación de empleado en una base de datos. Para demostrar esto, usamos una aplicación de consola en lugar de una aplicación GUI. Tiene dos clases, InterfazUsuario y OracleDatabase. Según su
 nombre. InterfazUsuario representa una interfaz de usuario como un formulario donde un usuario puede escribir una identificación de empleado y hacer clic en el botón Guardar para guardar la identificación en una base de datos. OracleDatabase se utiliza para imitar una base de datos Oracle.
@@ -354,7 +413,7 @@ Tienes los archivos siguientes:
 
 **Pregunta:** Realiza una salida de muestra. ¿Cuáles son los problemas que adolece el código?
 
-#### Mejor programa
+### Mejor programa
 
 En la lista de programas verás la siguiente jerarquía:
 
