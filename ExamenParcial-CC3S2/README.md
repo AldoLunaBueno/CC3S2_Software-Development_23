@@ -44,6 +44,7 @@ Aprovechamos para refactorizar las pruebas y así hacerlas más legibles y conci
 Como se ve, las pruebas pasan.
 
 Ahora sí refactorizamos el código de producción. Primero extraemos el bucle anidado que inicializa el tablero en el método `initBoard()`:
+
 ![](sources/2023-05-15-16-48-01.png)
 
 Luego extraemos las partes del método putPiece() en tres métodos:
