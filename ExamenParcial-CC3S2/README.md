@@ -1,13 +1,19 @@
 # Examen parcial - CC3S2 <!-- omit in toc -->
 
-- [Pregunta 1](#pregunta-1)
-  - [Requisito 1](#requisito-1)
-  - [Requisito 2](#requisito-2)
+- [Pregunta 1. TicTacToe](#pregunta-1-tictactoe)
+  - [Requisito 1. Colocación en el tablero](#requisito-1-colocación-en-el-tablero)
+    - [Red-Green...](#red-green)
+    - [... Refactor](#-refactor)
+  - [Requisito 2. Turnos](#requisito-2-turnos)
+    - [Red-Green...](#red-green-1)
+    - [... Refactor](#-refactor-1)
 
 
-## Pregunta 1
+## Pregunta 1. TicTacToe
 
-### Requisito 1
+### Requisito 1. Colocación en el tablero
+
+#### Red-Green...
 
 **1. Cuando una pieza se coloca en cualquier lugar fuera del eje x, se lanza RuntimeException**
 
@@ -29,14 +35,43 @@ Ahora añadimos la matriz de cadenas `grid` para registrar las jugadas, y así a
 
 ![](sources/2023-05-15-12-44-49.png)
 
-Aprovechamos también para refactorizar las pruebas y así hacerlas más legibles y concisas usando varias anotaciones de JUnit4 como `@BeforeEach`:
+#### ... Refactor
+
+Aprovechamos para refactorizar las pruebas y así hacerlas más legibles y concisas usando varias anotaciones de JUnit4 como `@BeforeEach`:
 
 ![](sources/2023-05-15-12-51-51.png)
 
 Como se ve, las pruebas pasan.
 
-### Requisito 2
+Ahora sí refactorizamos el código de producción. Primero extraemos el bucle anidado que inicializa el tablero en el método `initBoard()`:
+![](sources/2023-05-15-16-48-01.png)
+
+Luego extraemos las partes del método putPiece() en tres métodos:
+
+![](sources/2023-05-15-16-58-38.png)
+
+Y, como se puede apreciar en la captura, las pruebas pasan, así que la refactorización no dañó nada.
+
+Cabe resaltar que encapsulamos la variable `grid` para protegerla y disminuir el riesgo de equivocarnos o de que otro se equivoque en el tema del desplazamiento en una unidad (no usamos `grid[x][y]`, sino `grid[x-1][y-1]`). Para esto definimos un setter y un getter que detallamos en esta captura:
+
+![](sources/2023-05-15-17-00-08.png)
+
+El setter se usa en `putPiece()` luego de las verificaciones, mientras que el getter se usa en el método extraído `checkOccupied()`.
+
+### Requisito 2. Turnos
+
+#### Red-Green...
+
+**1. El primer turno lo debe jugar el jugador X.**
 
 
 
+**2. Si el último turno fue jugado por X, entonces el próximo turno debe ser jugado por O**
 
+
+
+**3. Si el último turno fue jugado por O, entonces el próximo turno debe ser jugado por X**
+
+
+
+#### ... Refactor
