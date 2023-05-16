@@ -5,11 +5,7 @@
   - [Refactorizando con LSP](#refactorizando-con-lsp)
 - [Pregunta 2. TicTacToe](#pregunta-2-tictactoe)
   - [Requisito 1. Colocación en el tablero](#requisito-1-colocación-en-el-tablero)
-    - [Red-Green...](#red-green)
-    - [... Refactor](#-refactor)
   - [Requisito 2. Turnos](#requisito-2-turnos)
-    - [Red-Green...](#red-green-1)
-    - [... Refactor](#-refactor-1)
 
 
 ## Pregunta 1. Members
@@ -79,19 +75,23 @@ La ejecución ahora sí funciona como se espera, y el código ya está refactori
 
 ### Requisito 1. Colocación en el tablero
 
-#### Red-Green...
+1. Cuando una pieza se coloca en cualquier lugar fuera del eje x, se lanza RuntimeException
+2. Cuando una pieza se coloca en cualquier lugar fuera del eje y, se lanza RuntimeException
+3. Cuando una pieza se coloca en un espacio ocupado, se lanza RuntimeException
 
-**1. Cuando una pieza se coloca en cualquier lugar fuera del eje x, se lanza RuntimeException**
+**Red-Green...**
+
+_1. Cuando una pieza se coloca en cualquier lugar fuera del eje x, se lanza RuntimeException_
 
 El método para colocar la pieza no lo llamamos `jugar()`, sino `putPiece()` porque así empezamos a programarlo y nos parece más descriptivo. En el siguiente punto mostramos la implementación para este y el siguiente criterio de aceptación.
 
-**2. Cuando una pieza se coloca en cualquier lugar fuera del eje y, se lanza RuntimeException**
+_2. Cuando una pieza se coloca en cualquier lugar fuera del eje y, se lanza RuntimeException_
 
 ![](sources/2023-05-15-11-36-48.png)
 
 ![](sources/2023-05-15-11-42-45.png)
 
-**3. Cuando una pieza se coloca en un espacio ocupado, se lanza RuntimeException**
+_3. Cuando una pieza se coloca en un espacio ocupado, se lanza RuntimeException_
 
 ![](sources/2023-05-15-11-57-41.png)
 
@@ -101,7 +101,7 @@ Ahora añadimos la matriz de cadenas `grid` para registrar las jugadas, y así a
 
 ![](sources/2023-05-15-12-44-49.png)
 
-#### ... Refactor
+**Refactor**
 
 Aprovechamos para refactorizar las pruebas y así hacerlas más legibles y concisas usando varias anotaciones de JUnit4 como `@BeforeEach`:
 
@@ -113,7 +113,7 @@ Ahora sí refactorizamos el código de producción. Primero extraemos el bucle a
 
 ![](sources/2023-05-15-16-48-01.png)
 
-Luego extraemos las partes del método putPiece() en tres métodos:
+Luego extraemos las partes del método `putPiece()` en tres métodos:
 
 ![](sources/2023-05-15-16-58-38.png)
 
@@ -127,18 +127,62 @@ El setter se usa en `putPiece()` luego de las verificaciones, mientras que el ge
 
 ### Requisito 2. Turnos
 
-#### Red-Green...
+1. El primer turno lo debe jugar el jugador X.
+2. Si el último turno fue jugado por X, entonces el próximo turno debe ser jugado por O
+3. Si el último turno fue jugado por O, entonces el próximo turno debe ser jugado por X
 
-**1. El primer turno lo debe jugar el jugador X.**
+**Red-Green...**
 
+_1. El primer turno lo debe jugar el jugador X._
 
+Para hacer la prueba de este requisito nos damos cuenta de que necesitamos que el método getter sea público:
 
-**2. Si el último turno fue jugado por X, entonces el próximo turno debe ser jugado por O**
+![](sources/2023-05-15-23-31-34.png)
 
+La prueba pasa por ahora porque por defecto en todos los turnos se marca _X_. Esto puede cambiar al implementar los siguientes requisitos.
 
+_2. Si el último turno fue jugado por X, entonces el próximo turno debe ser jugado por O_
 
-**3. Si el último turno fue jugado por O, entonces el próximo turno debe ser jugado por X**
+Esta prueba sí tenía que fallar:
 
+![](sources/2023-05-15-23-59-40.png)
 
+Implementamos la lógica condicional dentro del método `putPiece()` apoyados por una variable que nos guarda cuál fue el último turno llamada `lastTurn`. La inicializamos con el valor de _O_ para que el primer turno se coloque _X_.
 
-#### ... Refactor
+![](sources/2023-05-15-23-45-46.png)
+
+Ahora la prueba sí pasa.
+
+_3. Si el último turno fue jugado por O, entonces el próximo turno debe ser jugado por X_
+
+La lógica implementada es suficiente para que la prueba creada para este requisito empiece en verde:
+
+![](sources/2023-05-16-00-03-17.png)
+
+No tiene ningún valor para el propósito de garantizar la calidad del código, así que se elimina. 
+
+Nos quedamos enbtonces con estas cinco pruebas:
+
+- `whenPutPieceFailsXAxisThrowsRuntimeException()`
+- `whenPutPieceFailsYAxisThrowsRuntimeException()`
+- `whenPutPieceInOccupiedCellThrowsRuntimeException()`
+- `firstTurnPutX()`
+- `givenLastTurnXThenPutO()`
+
+**Refactor**
+
+Lo que más huele en nuestro código seguramente sea el método `putPiece()`, con su lógica condicional en la que se repiten varias veces los caracteres _X_ y _O_. Podemos confundirnos fácilmente con esto. Es mejor evitar manipular estas cadenas y en su lugar usar una clase _enum_. Por eso creamos la clase `Turn`:
+
+![](sources/2023-05-16-00-19-03.png)
+
+En vez de los caracteres ahora usamos las instancias `CROSS` y `BALL`, una solución a prueba de errores de digitación.
+
+El primer cambio que hicimos fue convertir la variable lastTurn de tipo `String` a `Turn`, como se ve en la línea 15.
+
+Ahora modificmos el método `putPiece()`:
+
+![](sources/2023-05-16-00-26-36.png)
+
+Podríamos simplificar esta estructura condicional por completo cambiando antes `lastTurn` y luego pasándolo como parámetro a `setPieceAtGrid()`, pero creemos que así como está es más claro. Solo vamos a extraerla en un método llamado `putPieceBasedOnTurn()`:
+
+![](sources/2023-05-16-00-32-52.png)
