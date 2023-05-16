@@ -1,6 +1,9 @@
 # Examen parcial - CC3S2 <!-- omit in toc -->
 
-- [Pregunta 1. TicTacToe](#pregunta-1-tictactoe)
+- [Pregunta 1. Members](#pregunta-1-members)
+  - [Sin LSP](#sin-lsp)
+  - [Refactorizando con LSP](#refactorizando-con-lsp)
+- [Pregunta 2. TicTacToe](#pregunta-2-tictactoe)
   - [Requisito 1. Colocación en el tablero](#requisito-1-colocación-en-el-tablero)
     - [Red-Green...](#red-green)
     - [... Refactor](#-refactor)
@@ -9,7 +12,70 @@
     - [... Refactor](#-refactor-1)
 
 
-## Pregunta 1. TicTacToe
+## Pregunta 1. Members
+
+### Sin LSP
+
+Creamos la clase base abstracta `Member` y la extendemos en las tres clases que representan los tipos de miembros o membresías: `PremiumMember`, `VipMember` y `FreeMemeber`. No hemos implementado nada aún, por lo que salen mensajes de error:
+
+![](sources/2023-05-15-17-18-12.png)
+
+
+Sigamos con la solución sin LSP. Como la clase `FreeMember` debe implementar el método `organizeTournament()` ahora que ha extendido la clase abstracta, pero no queremos implementarla porque no es una función cubierta por esa membresía, intentamos lanzar una excepción. Sin embargo, el IDE no nos deja, y con mucha razón:
+
+![](sources/2023-05-15-21-56-20.png)
+
+Entonces, solo mostraremos el mensaje:
+
+![](sources/2023-05-15-22-17-49.png)
+
+Ahora creamos una clase `Cliente` que va a usar todas las clases implementadas previamente. Definimos un método `organizeTournametsByMemeber()` que toma una lista de miembros, sin importar de qué clase derivada sean, y hace uso del método `organizeTournament()` que en teoría implementan todas.
+
+![](sources/2023-05-15-22-16-10.png)
+
+La lista de miembros es generada con `enrolledMembers()`. Pero entre los miembros que le pasamos hay uno de tipo `FreeMember`, para el cual su campo `name` es _Inspectora Motita_, así que no hará lo que el cliente espera.
+
+Para que sea más interesante, añadimos un método a la clase abstracta para poder imprimir el nombre del miembro en los mensajes. Lo usamos en todas las clases de manera similar a como se muestra para la clase `PremiumMember`:
+
+![](sources/2023-05-15-22-32-55.png)
+
+Este es el resultado de la ejecución del cliente:
+
+![](sources/2023-05-15-22-33-41.png)
+
+### Refactorizando con LSP
+
+El cliente no debe poder usar un miembro `FreeMember` para llamar el método `organizeTournament()`. Para impedir esto, borramos el método de la clase abstracta base `Member` y creamos otra clase abstracta que recoge este método. Llamamos a esta clase `OrganizerMember`. Entonces, así nos va quedando la implementación:
+
+- `Member` no tiene `organizeTournament()`:
+  ![](sources/2023-05-15-22-46-34.png)
+
+- `OrganizerMember` ahora tiene `organizeTournament()`:
+  ![](sources/2023-05-15-22-48-22.png)
+
+- `FreeMember` extiende `Member`, así que no tiene `organizeTournament()`:
+  ![](sources/2023-05-15-22-48-46.png)
+
+- `PremiumMember` extiende `OrganizerMember`, así que sí tiene `organizeTournament()`:
+  ![](sources/2023-05-15-22-52-08.png)
+
+¿Y cuál será ese problema que nuestro IDE resalta en rojo? Pues que ahora el cliente no puede llamar el método `organizeTournament()` en todos los miembros de tipo `Member` a secas. 
+
+![](sources/2023-05-15-22-56-22.png)
+
+Ahora tienen que ser de tipo `OrganizerMember`, pero esto a su vez obliga al cliente a replantear su lista de miembros generada por `enrolledMembers()`:
+
+![](sources/2023-05-15-22-58-06.png)
+
+Sintiéndolo mucho, Inspectora Motita, tenemos que retirarla de la lista:
+
+![](sources/2023-05-15-23-01-40.png)
+
+La ejecución ahora sí funciona como se espera, y el código ya está refactorizado siguiendo el principio LSP:
+
+![](sources/2023-05-15-23-03-42.png)
+
+## Pregunta 2. TicTacToe
 
 ### Requisito 1. Colocación en el tablero
 

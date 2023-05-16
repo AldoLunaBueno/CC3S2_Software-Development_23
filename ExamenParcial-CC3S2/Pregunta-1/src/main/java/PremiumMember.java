@@ -1,2 +1,13 @@
-public class PremiumMember extends Member {
+public class PremiumMember extends OrganizerMember {
+    public PremiumMember(String name) {
+        super(name);
+    }
+    @Override
+    public void joinTournament() {
+        System.out.println(getName() + " se unió a un torneo.");
+    }
+    @Override
+    public void organizeTournament() {
+        System.out.println(getName() + " organizó un torneo.");
+    }
 }

@@ -4,5 +4,8 @@ public abstract class Member {
         this.name = name;
     }
     public abstract void joinTournament();
-    public abstract void organizeTournament();
+
+    public String getName() {
+        return name;
+    }
 }
