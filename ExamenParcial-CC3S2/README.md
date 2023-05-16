@@ -6,6 +6,9 @@
 - [Pregunta 2. TicTacToe](#pregunta-2-tictactoe)
   - [Requisito 1. Colocación en el tablero](#requisito-1-colocación-en-el-tablero)
   - [Requisito 2. Turnos](#requisito-2-turnos)
+- [Pregunta 3](#pregunta-3)
+- [Pregunta 4](#pregunta-4)
+  - [a) ¿Qué son las pruebas sistemáticas y efectivas?](#a-qué-son-las-pruebas-sistemáticas-y-efectivas)
 
 
 ## Pregunta 1. Members
@@ -186,3 +189,13 @@ Ahora modificmos el método `putPiece()`:
 Podríamos simplificar esta estructura condicional por completo cambiando antes `lastTurn` y luego pasándolo como parámetro a `setPieceAtGrid()`, pero creemos que así como está es más claro. Solo vamos a extraerla en un método llamado `putPieceBasedOnTurn()`:
 
 ![](sources/2023-05-16-00-32-52.png)
+
+## Pregunta 3
+
+
+## Pregunta 4
+
+### a) ¿Qué son las pruebas sistemáticas y efectivas?
+
+Las pruebas efectivas y sistemáticas se refieren a un método de escribir pruebas que son lo suficientemente fuertes como para detectar errores que importan mientras se saltan las pruebas que realmente no agregan valor.
+
