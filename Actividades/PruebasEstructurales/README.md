@@ -33,9 +33,9 @@ Considera el siguiente requisito para un pequeño programa que cuenta la cantida
 Dada una oración, el programa debe contar la cantidad de palabras que terminan con "s" o "r". 
 Una palabra termina cuando aparece una no letra. El programa devuelve el número de palabras. 
 
-Un desarrollador implementa este requisito como se muestra en la siguiente lista. Archivo `CountWords.java``.
+Un desarrollador implementa este requisito como se muestra en la siguiente lista. Archivo `CountWords.java`.
 
-```
+```java
 public class CountWords {
    public int count(String str) {
      int words = 0;
@@ -50,7 +50,7 @@ public class CountWords {
         last = str.charAt(i);     //3
     }
    if (last == 'r' || last == 's') {
-        words; 
+        words++; 
           }
        return words;
    }
