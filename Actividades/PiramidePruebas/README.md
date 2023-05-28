@@ -103,7 +103,7 @@ A menudo se usa una pirámide para ilustrar esta idea, como se muestra en la fig
 
 |![](Imagenes/TrianguloPruebas.png) |
 |:---:|
-| Figura 1 |
+| Figura 2 |
 
 El tamaño de una parte en la pirámide representa el número relativo de pruebas a realizar en cada nivel de prueba. 
 
@@ -196,7 +196,7 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <summary>
 <b>2.</b> Considera este requisito: "Una tienda web ejecuta un trabajo por lotes, una vez al día, para entregar todos los pedidos que se han pagado. También establece la fecha de entrega según si el pedido es de un cliente internacional. Los pedidos se recuperan de una base de datos externa. Los pedidos que se han pagado se envían a un servicio web externo”. Como evaluador, debes decidir qué nivel de prueba (unidad, integración o sistema) aplicar.  ¿Qué tipo de prueba aplicarias a este caso?
 </summary><br>
-  Puesto que es una tienda web, la complejidad no reside en la lógica del negocio, sino en las consultas que se hacen a la base de datos para recoger la información de los productos. Por esto necesitamos más pruebas de integración. Estas prueban un componente, como puede ser una clase DAO, junto con un componente externo, que vendría a ser la base de datos.
+  Puesto que es una tienda web, la complejidad no reside en la lógica del negocio, sino en las consultas que se hacen a la base de datos para recuperar la información pertinente de los productos. Por eso necesitamos más pruebas de integración. Estas prueban un componente de nuestra aplicación que interactúa con un componente externo, el cual vendría a ser la base de datos o el servicio web del que hablan aquí.
 </details>
 
 
@@ -204,15 +204,15 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <summary>
 <b>3.</b> Inspectora Motita acaba de comenzar una consultoría para una empresa que desarrolla una aplicación móvil para ayudar a las personas a mantenerse al día con sus ejercicios diarios. Los miembros del equipo de desarrollo son fanáticos de las pruebas de software automatizadas y más específicamente, de las pruebas unitarias. Tienen una alta cobertura de código de prueba de unidad  pero los usuarios aún informan una cantidad significativa de errores. Motita, que está bien versada en pruebas de software, explica un principio de prueba al equipo. ¿De cuál principio habló?
 </summary><br>
-
+Seguramente Motita habló de las pruebas de integración. Probablemente el fanatismo de estos desarrolladores por las pruebas unitarias y la alta cobertura que tenían hizo que sintieran una falsa seguridad en ellas y no invirtieran recursos en hacer también suficientes pruebas de integración. Una aplicación para mantener un seguimiento de las rutinas de las personas y crear reportes significativos necesita guardar mucha información, y las consultas para recuperarla podrían ser complejas. Entonces, los errores podrían estar en la interacción entre la aplicación y la base de datos que usan.
 </details>
 
 
 <details>
 <summary>
-<b>4.</b> Monky  un tester de software junior, acaba de unirse a una empresa de pago en línea muy grande en Escocia. Como primera tarea, Monky analiza los informes de errores de los últimos dos años. Él observa que más del 50% de los errores ocurren en el módulo de pagos internacionales. El le promete a su gerente que diseñará casos de prueba que cubran completamente el módulo de pagos internacionales y así encontrar todos los errores. ¿Pueden las pruebas exhaustivas pueden explicar por qué esto no es posible?
+<b>4.</b> Monky  un tester de software junior, acaba de unirse a una empresa de pago en línea muy grande en Escocia. Como primera tarea, Monky analiza los informes de errores de los últimos dos años. Él observa que más del 50 % de los errores ocurren en el módulo de pagos internacionales. El le promete a su gerente que diseñará casos de prueba que cubran completamente el módulo de pagos internacionales y así encontrar todos los errores. ¿Pueden las pruebas exhaustivas explicar por qué esto no es posible?
 </summary><br>
-
+Monky no se da cuenta de que lo que quiere hacer es una prueba exahustiva de un módulo que posiblemente sea muy complejo. Tendría que crear pruebas para cada método, considerando todas las combinaciones posibles de entradas en diferentes escenarios. Monky pasaría el resto de su vida tratando de cumplir su promesa, y moriría como junior porque no habría aprendido nada haciendo eso. En su lugar, debería usar un enfoque de pruebas basado en riesgos o en prioridades, un enfoque que filtre qué es importante cubrir con pruebas.
 </details>
 
 <details>
@@ -226,7 +226,7 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <summary>
 <b>6.</b> Una universidad (X) ha creado un software interno para gestionar la nómina de los empleados. La aplicación utiliza tecnologías web  de Java y almacena datos en una base de datos de Postgres. La aplicación recupera, modifica e inserta con frecuencia grandes cantidades de datos. Toda esta comunicación se realiza mediante clases Java que envían consultas SQL (complejas) a la base de datos. Como evaluadores sabemos que un error puede estar en cualquier lugar, incluso en las consultas SQL. También sabemos que hay muchas formas de ejercitar nuestro sistema. ¿Cuál  es una buena opción para detectar errores en consultas SQL?
 </summary><br>
-
+La mejor opción para detectar los errores en consultas SQL es crear pruebas de integración.
 </details>
 
 <details>
@@ -234,7 +234,6 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <b>7.</b> Chalito, un evaluador de software con mucha experiencia, visita FCX!, una red social enfocada en emparejar personas según los cursos que llevan. Los usuarios no informan errores a menudo, ya que  los desarrolladores cuentan con sólidas prácticas de prueba. Sin embargo, los usuarios dicen que el software no cumple lo que promete. ¿Qué principio de prueba se aplica aquí?
 </summary><br>
 Aquí parece que no se usaron pruebas de aceptación. Su nombre refleja muy bien su intención: verificar que el producto de software satisface las expectativas de los clientes y usuarios, es decir, verificar que estos acepten el producto.
-
 </details>
 
 <details>
@@ -255,5 +254,5 @@ Aquí parece que no se usaron pruebas de aceptación. Su nombre refleja muy bien
 <summary>
 <b>10.</b> Indica algunas recomendaciones a seguir para mantener una aplicación web comprobable.
 </summary><br>
-
+Entendemos que una aplicación comprobable significa que se puede verificar que hace lo que se supone que debe hacer. ¿Y cómo se comprueba esto? Principalmente sometiendo la aplicación a diferentes pruebas: unitarias, de integración, de sistema, de rendimiento, de estrés, de usabilidad, etc. Pueden ser manuales, pero es recomendable automatizar tantas como sean posibles.
 </details>
