@@ -188,18 +188,18 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <summary>
 <b>1.</b> ¿Qué nivel de prueba suele realizar el personal de administración de un sistema?
 </summary>
-<pre>
+<p>
 Si hablamos de la administración de un sistema, quiere decir que está desplegado. Entonces, la principal preocupación de un evaluador debe ser tratar de anticiparse a los posibles errores que pueda encontrar el usuario. Entonces, tiene más sentido que hagan pruebas que se acerquen más a la realidad del sistema en uso. Y es por eso que van a optar por usar más cualquiera de los niveles antes que el inferior de las pruebas unitarias.
-</pre>
+</p>
 </details>
 
 <details>
 <summary>
 <b>2.</b> Considera este requisito: "Una tienda web ejecuta un trabajo por lotes, una vez al día, para entregar todos los pedidos que se han pagado. También establece la fecha de entrega según si el pedido es de un cliente internacional. Los pedidos se recuperan de una base de datos externa. Los pedidos que se han pagado se envían a un servicio web externo”. Como evaluador, debes decidir qué nivel de prueba (unidad, integración o sistema) aplicar.  ¿Qué tipo de prueba aplicarias a este caso?
 </summary>
-<pre>
+
 Puesto que es una tienda web, la complejidad no reside en la lógica del negocio, sino en las consultas que se hacen a la base de datos para recoger la información de los productos. Por esto necesitamos más pruebas de integración. Estas prueban un componente, como puede ser una clase DAO, junto con un componente externo, que vendría a ser la base de datos.
-</pre>
+
 </details>
 
 
