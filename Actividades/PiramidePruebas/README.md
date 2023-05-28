@@ -187,8 +187,6 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 <details><summary>CLICK ME</summary>
 <p>
 
-#### yes, even hidden code blocks!
-
 ```python
 print("hello world!")
 ```
