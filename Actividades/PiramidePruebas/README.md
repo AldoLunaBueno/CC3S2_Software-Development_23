@@ -186,9 +186,11 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 
 <details><summary>CLICK ME</summary>
 <p>
-```python
+  
+```
 print("hello world!")
 ```
+  
 </p>
 </details>
 
@@ -197,10 +199,10 @@ print("hello world!")
 <b>1.</b> ¿Qué nivel de prueba suele realizar el personal de administración de un sistema?
 </summary>
 <p>
+  
 ```python
-print()
-```
 Si hablamos de la administración de un sistema, quiere decir que está desplegado. Entonces, la principal preocupación de un evaluador debe ser tratar de anticiparse a los posibles errores que pueda encontrar el usuario. Entonces, tiene más sentido que hagan pruebas que se acerquen más a la realidad del sistema en uso. Y es por eso que van a optar por usar más cualquiera de los niveles antes que el inferior de las pruebas unitarias.
+```
 
 </p>
 </details>
