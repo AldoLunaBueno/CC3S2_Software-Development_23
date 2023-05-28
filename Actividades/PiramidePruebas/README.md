@@ -184,6 +184,18 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 
 ## Ejercicios
 
+<details><summary>CLICK ME</summary>
+<p>
+
+#### yes, even hidden code blocks!
+
+```python
+print("hello world!")
+```
+
+</p>
+</details>
+
 <details>
 <summary>
 <b>1.</b> ¿Qué nivel de prueba suele realizar el personal de administración de un sistema?
