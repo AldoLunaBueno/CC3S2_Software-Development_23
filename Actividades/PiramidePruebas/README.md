@@ -1,4 +1,14 @@
-# Curso de Desarrollo de Software 
+# Curso de Desarrollo de Software <!-- omit in toc -->
+
+- [La pirámide de pruebas y dónde debemos centrarnos](#la-pirámide-de-pruebas-y-dónde-debemos-centrarnos)
+  - [Pruebas unitarias](#pruebas-unitarias)
+  - [Pruebas de integración](#pruebas-de-integración)
+  - [Pruebas del sistema](#pruebas-del-sistema)
+  - [Cuándo usar cada nivel de prueba](#cuándo-usar-cada-nivel-de-prueba)
+  - [¿Por qué se prefieren las pruebas unitarias?](#por-qué-se-prefieren-las-pruebas-unitarias)
+  - [¿Qué pruebas en los diferentes niveles?](#qué-pruebas-en-los-diferentes-niveles)
+- [Comentarios](#comentarios)
+- [Ejercicios](#ejercicios)
 
 El presente texto ha sido preparado de manera exclusiva para los alumnos del curso Desarrollo de Software CC3S2 basado en el libro Effective Software Testing de Muricio Aniche Manning 2022.
 
@@ -31,7 +41,7 @@ Aquí hay una definición de prueba unitaria dada por Roy Osherove (2009): “Un
 
 Para muchos desarrolladores una  prueba unitaria significa probar un (pequeño) conjunto de clases que no dependen de sistemas externos (como bases de datos o servicios web) o cualquier otra cosa que no se controle por completo. Cuando pruebas un conjunto de clases juntas, el número de clases tiende a ser pequeño. Esto se debe principalmente a que probar muchas clases juntas puede ser demasiado difícil, no porque no sea una prueba unitaria. 
 
-Pero, ¿qué pasa si una clase que quiero probar depende de otra clase que se comunica, por ejemplo, con una base de datos (figura)? 
+Pero, ¿qué pasa si una clase que quiero probar depende de otra clase que se comunica, por ejemplo, con una base de datos (figura 1)? 
 
 
 |![](Imagenes/Prueba.png) |
@@ -174,26 +184,92 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 
 ## Ejercicios
 
-Responde las siguientes preguntas:
+<details>
+<summary>
+<b>1.</b> ¿Qué nivel de prueba suele realizar el personal de administración de un sistema?
+</summary>
+<pre>
+Si hablamos de la administración de un sistema, quiere decir que está desplegado. Entonces, la principal preocupación de un evaluador debe ser tratar de anticiparse a los posibles errores que pueda encontrar el usuario. Entonces, tiene más sentido que hagan pruebas que se acerquen más a la realidad del sistema en uso. Y es por eso que van a optar por usar más cualquiera de los niveles antes que el inferior de las pruebas unitarias.
+</pre>
+</details>
 
-1. ¿Qué nivel de prueba suele realizar el personal de administración de un sistema?
+<details>
+<summary>
+<b>2.</b> Considera este requisito: "Una tienda web ejecuta un trabajo por lotes, una vez al día, para entregar todos los pedidos que se han pagado. También establece la fecha de entrega según si el pedido es de un cliente internacional. Los pedidos se recuperan de una base de datos externa. Los pedidos que se han pagado se envían a un servicio web externo”. Como evaluador, debes decidir qué nivel de prueba (unidad, integración o sistema) aplicar.  ¿Qué tipo de prueba aplicarias a este caso?
+</summary>
+<pre>
+Puesto que es una tienda web, la complejidad no reside en la lógica del negocio, sino en las consultas que se hacen a la base de datos para recoger la información de los productos. Por esto necesitamos más pruebas de integración. Estas prueban un componente, como puede ser una clase DAO, junto con un componente externo, que vendría a ser la base de datos.
+</pre>
+</details>
 
 
+<details>
+<summary>
+<b>3.</b> Inspectora Motita acaba de comenzar una consultoría para una empresa que desarrolla una aplicación móvil para ayudar a las personas a mantenerse al día con sus ejercicios diarios. Los miembros del equipo de desarrollo son fanáticos de las pruebas de software automatizadas y más específicamente, de las pruebas unitarias. Tienen una alta cobertura de código de prueba de unidad  pero los usuarios aún informan una cantidad significativa de errores. Motita, que está bien versada en pruebas de software, explica un principio de prueba al equipo. ¿De cuál principio habló?
+</summary>
+<pre>
 
-2. Considera este requisito: "Una tienda web ejecuta un trabajo por lotes, una vez al día, para entregar todos los pedidos que se han pagado. También establece la fecha de entrega según si el pedido es de un cliente internacional. Los pedidos se recuperan de una base de datos externa. Los pedidos que se han pagado se envían a un servicio web externo”. Como evaluador, debes decidir qué nivel de prueba (unidad, integración o sistema) aplicar.  ¿Qué tipo de prueba aplicarias a este caso?
+</pre>
+</details>
 
-3. Inspectora Motita acaba de comenzar una consultoría para una empresa que desarrolla una aplicación móvil para ayudar a las personas a mantenerse al día con sus ejercicios diarios. Los miembros del equipo de desarrollo son fanáticos de las pruebas de software automatizadas y más específicamente, de las pruebas unitarias. Tienen una alta cobertura de código de prueba de unidad  pero los usuarios aún informan una cantidad significativa de errores. Motita, que está bien versada en pruebas de software, explica un principio de prueba al equipo. ¿De cuál principio habló?.
 
-4. Monky  un tester de software junior, acaba de unirse a una empresa de pago en línea muy grande en Escocia. Como primera tarea, Monky analiza los informes de errores de los últimos dos años. Él observa que más del 50% de los errores ocurren en el módulo de pagos internacionales. El le promete a su gerente que diseñará casos de prueba que cubran completamente el módulo de pagos internacionales y así encontrar todos los errores. ¿Pueden las pruebas exhaustivas pueden explicar por qué esto no es posible?
+<details>
+<summary>
+<b>4.</b> Monky  un tester de software junior, acaba de unirse a una empresa de pago en línea muy grande en Escocia. Como primera tarea, Monky analiza los informes de errores de los últimos dos años. Él observa que más del 50% de los errores ocurren en el módulo de pagos internacionales. El le promete a su gerente que diseñará casos de prueba que cubran completamente el módulo de pagos internacionales y así encontrar todos los errores. ¿Pueden las pruebas exhaustivas pueden explicar por qué esto no es posible?
+</summary>
+<pre></pre>
+</details>
 
-5. ¿Cuál es la razón principal por la que el número de pruebas recomendadas del sistema en la pirámide de pruebas es menor que el número de pruebas unitarias?
+<details>
+<summary>
+<b>5.</b> ¿Cuál es la razón principal por la que el número de pruebas del sistema recomendadas en la pirámide de pruebas es menor que el número de pruebas unitarias?
+</summary>
+<pre>
+Se hacen muy pocas pruebas del sistema porque consumen muchos recursos frente a los beneficios que aportan. Con recursos nos referimos principalmente al tiempo: toma mucho tiempo tanto escribirlas como correrlas.
+</pre>
+</details>
 
-6. Una universidad (X) ha creado un software interno para gestionar la nómina de los empleados. La aplicación utiliza tecnologías web  de Java y almacena datos en una base de datos de Postgres. La aplicación recupera, modifica e inserta con frecuencia grandes cantidades de datos. Toda esta comunicación se realiza mediante clases Java que envían consultas SQL (complejas) a la base de datos. Como evaluadores sabemos que un error puede estar en cualquier lugar, incluso en las consultas SQL. También sabemos que hay muchas formas de ejercitar nuestro sistema. ¿Cuál  es una buena opción para detectar errores en consultas SQL?
+<details>
+<summary>
+<b>6.</b> Una universidad (X) ha creado un software interno para gestionar la nómina de los empleados. La aplicación utiliza tecnologías web  de Java y almacena datos en una base de datos de Postgres. La aplicación recupera, modifica e inserta con frecuencia grandes cantidades de datos. Toda esta comunicación se realiza mediante clases Java que envían consultas SQL (complejas) a la base de datos. Como evaluadores sabemos que un error puede estar en cualquier lugar, incluso en las consultas SQL. También sabemos que hay muchas formas de ejercitar nuestro sistema. ¿Cuál  es una buena opción para detectar errores en consultas SQL?
+</summary>
+<pre>
 
-7. Chalito, un evaluador de software con mucha experiencia, visita FCX!, una red social enfocada en emparejar personas según los cursos que llevan. Los usuarios no informan errores a menudo, ya que  los desarrolladores cuentan con sólidas prácticas de prueba. Sin embargo, los usuarios dicen que el software no cumple lo que promete. ¿Qué principio de prueba se aplica aquí?
+</pre>
+</details>
 
-8. Kapumota cree firmemente en las pruebas unitarias. De hecho, este es el único tipo de prueba que realiza para cualquier proyecto del que forma parte. ¿Qué principio de prueba no ayudará a convencer a Kapumota de que debe alejarse de su enfoque de "pruebas unitarias únicas"?
+<details>
+<summary>
+<b>7.</b> Chalito, un evaluador de software con mucha experiencia, visita FCX!, una red social enfocada en emparejar personas según los cursos que llevan. Los usuarios no informan errores a menudo, ya que  los desarrolladores cuentan con sólidas prácticas de prueba. Sin embargo, los usuarios dicen que el software no cumple lo que promete. ¿Qué principio de prueba se aplica aquí?
+</summary>
+<pre>
+Aquí parece que no se usaron pruebas de aceptación. Su nombre refleja muy bien su intención: verificar que el producto de software satisface las expectativas de los clientes y usuarios, es decir, verificar que estos acepten el producto.
+</pre>
+</details>
 
-9. TDD se ha convertido en una práctica popular entre los desarrolladores. Según ellos, el TDD tiene varios beneficios. Indica algunos ejemplos no se considera un beneficio el TDD.
+<details>
+<summary>
+<b>8.</b> Kapumota cree firmemente en las pruebas unitarias. De hecho, este es el único tipo de prueba que realiza para cualquier proyecto del que forma parte. ¿Qué principio de prueba no ayudará a convencer a Kapumota de que debe alejarse de su enfoque de "pruebas unitarias únicas"?
+</summary>
+<pre>
 
-10. Indica algunas recomendaciones a seguir para mantener una aplicación web comprobable.
+</pre>
+</details>
+
+<details>
+<summary>
+<b>9.</b> TDD se ha convertido en una práctica popular entre los desarrolladores. Según ellos, el TDD tiene varios beneficios. Indica algunos ejemplos de por qué no se considera un beneficio el TDD.
+</summary>
+<pre>
+
+</pre>
+</details>
+
+<details>
+<summary>
+<b>10.</b> Indica algunas recomendaciones a seguir para mantener una aplicación web comprobable.
+</summary>
+<pre>
+
+</pre>
+</details>
