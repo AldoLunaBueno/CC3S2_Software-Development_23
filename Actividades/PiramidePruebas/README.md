@@ -186,11 +186,9 @@ La idea es que tu prueba sea lo más económica posible de escribir, lo más rá
 
 <details><summary>CLICK ME</summary>
 <p>
-
 ```python
 print("hello world!")
 ```
-
 </p>
 </details>
 
