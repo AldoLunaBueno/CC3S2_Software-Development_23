@@ -1,18 +1,28 @@
-## Curso de desarrollo de software
+# Diseño por contrato <!-- omit in toc -->
 
-Inicia un repositorio llamado CC-3S2 y dentro una carpeta llamada Actividades. Dentro de esta carpeta abre una carpeta llamada DesignContracts y coloca todas tus respuestas.
+- [Introducción](#introducción)
+- [Reglas](#reglas)
+  - [Regla de precondición asumida](#regla-de-precondición-asumida)
+  - [Reglas de violación de pre/postcondiciones](#reglas-de-violación-de-prepostcondiciones)
+  - [Regla de precondición razonable](#regla-de-precondición-razonable)
+  - [Regla de disponibilidad de precondiciones](#regla-de-disponibilidad-de-precondiciones)
+- [Cambio de Contrato](#cambio-de-contrato)
+  - [Impacto del cambio de contrato](#impacto-del-cambio-de-contrato)
+  - [Regla de cambio de contrato](#regla-de-cambio-de-contrato)
+  - [Cambio de contrato en desarrollo incremental](#cambio-de-contrato-en-desarrollo-incremental)
 
-Esta actividad es individual.
+---
+## Introducción
 
-### Diseño por contrato
+1. El diseño por contrato ve a la precondición y la postcondición de un método como un contrato entre el método (proveedor o servidor) y sus llamadores (cliente): 
+si un cliente llama al método con la precondición satisfecha, entonces el proveedor entrega un estado final en el que se satisface la poscondición (el resultado que el cliente espera).
 
-El diseño por contrato ve a la precondición y la postcondición de un método como un contrato entre el método (proveedor o servidor) y sus llamadores (cliente): 
-si un cliente llama al método con la precondición satisfecha, entonces el proveedor entrega un estado final en el que el se satisface la poscondición. 
-
-El **contrato** es un acuerdo formal de los derechos y obligaciones de cada parte: 
+2. El **contrato** es un acuerdo formal de los derechos y obligaciones de cada parte: 
 la precondición es una obligación para el cliente y un derecho para el proveedor, mientras que la postcondición es un derecho para el cliente y una obligación para el proveedor. 
 
-#### Regla de precondición asumida
+## Reglas
+
+### Regla de precondición asumida
 
 El diseño por contrato adopta el diseño de precondición. El método asume que tu precondición siempre se cumple. 
 
@@ -50,7 +60,7 @@ TriangleType result = reportTriangle(a,b,c);
 ¿cuáles son los resultados para `(90, 45, 45)`, `(120, 40, 20)` y `(50, 60, 70)`= , ¿qué sucede con `(90, -45, 135)` ?. 
 ¿Quién es el responsable de este fallo, el proveedor o el cliente?. Corrige este error. 
 
-#### Reglas de violación de pre/postcondiciones
+### Reglas de violación de pre/postcondiciones
 
 La violación de una precondición o postcondición en tiempo de ejecución indica la existencia de un error. 
 
@@ -124,20 +134,19 @@ La llamada `isVowel('E')` devuelve `false` lo cual es incorrecto. En este caso, 
 
 Según la regla de violación de la postcondición, el código de proveedor anterior es defectuoso. 
 
-
-#### Regla de precondición razonable 
+### Regla de precondición razonable 
 
 La regla de la precondición razonable requiere que la precondición aparezca en la documentación oficial distribuida a los autores de los clientes y que la necesidad de la precondición se justifique lógicamente en términos de la especificación, no para la conveniencia de implementación del proveedor. 
 
 En el diseño por contrato, la precondición pretende aclarar qué casos no puede manejar el método en relación con los requisitos lógicos. Por ejemplo, es razonable requerir `p.length > 0` para `sort(int [ ] p)`. Otros buenos ejemplos son `list.length >0` para `max(int[ ] list)` , `not empty()` para `pop()` y `x>=0` para `sqrt(double x)`. 
 
-#### Regla de disponibilidad de precondiciones
+### Regla de disponibilidad de precondiciones
 
 La regla de disponibilidad de precondiciones establece que cada cliente del método debe poder verificar su precondición. La precondición no debe utilizar métodos privados ocultos a los clientes. Por ejemplo, los clientes de isVowel(letter) deberían poder llamar a Character.isLetter(letter). Para  la precondición amount>0 y getBalance() >=amount del método withdraw(double amount) en una clase BankAccount, el método getBalance() debe ser visible para los clientes. 
 
-### Cambio de Contrato
+## Cambio de Contrato
 
-#### Impacto del cambio de contrato
+### Impacto del cambio de contrato
 
 Durante el desarrollo y el mantenimiento del software, podemos actualizar un método por varios motivos, como la adición y modificación de la funcionalidad, la corrección de errores, la refactorización y el ajuste del rendimiento. 
 
@@ -161,7 +170,7 @@ assert y > 0;
 Ahora actualicemos `int f1(int x)` con una nueva precondición `x > 10` mientras mantenemos la postcondición sin cambios. 
 El cliente ya no cumple la nueva precondición sin cambios, el código de cliente aún cumple la precondición. Sin embargo, si la llamada devuelve 0, la aserción después de la llamada falla y  por lo tanto, el código de cliente finaliza de manera anormal. 
 
-#### Regla de cambio de contrato 
+### Regla de cambio de contrato 
 
 Generalmente, necesitamos inspeccionar todo el código del cliente cuando el contrato de un método ha cambiado. Hay algunas circunstancias en las que el cambio de precondición y posterior puede no romper el código del cliente, incluido el código de prueba. 
 
@@ -201,7 +210,7 @@ for (int i = 0; i < count; i ++){
 
 ¿Qué sucede si modificamos `genRandomIntegers`. mantenemos la precondición pero cambiamos la postcondición a `list.length=count-1`?.  
 
-#### Cambio de contrato en desarrollo incremental
+### Cambio de contrato en desarrollo incremental
 
 Un caso especial de cambio de contrato es agregar código nuevo a un método mientras se conserva la funcionalidad existente para el desarrollo incremental (por ejemplo, en TDD). 
 
