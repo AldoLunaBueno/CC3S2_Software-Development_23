@@ -11,6 +11,8 @@
   - [Regla de cambio de contrato](#regla-de-cambio-de-contrato)
   - [Cambio de contrato en desarrollo incremental](#cambio-de-contrato-en-desarrollo-incremental)
 
+> Esta actividad es individual.
+
 ---
 ## Introducción
 

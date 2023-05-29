@@ -1,10 +1,13 @@
-## Curso de desarrollo de software
+# Pre-post condiciones <!-- omit in toc -->
 
-Inicia un repositorio llamado CC-3S2 y dentro una carpeta llamada Actividades. Dentro de esta carpeta abre una carpeta llamada Pre-postcondiciones y coloca todas tus respuestas.
+- [Introducción](#introducción)
+- [Precondiciones asumidas frente a precondiciones validadas](#precondiciones-asumidas-frente-a-precondiciones-validadas)
+- [Especificación de pre-postcondiciones](#especificación-de-pre-postcondiciones)
 
-Esta actividad es individual.
+> Esta actividad es individual.
 
-### Pre-post condiciones
+---
+## Introducción
 
 Las precondiciones y postcondiciones son  conceptos para describir la funcionalidad de los programas de computadora. 
 
@@ -29,6 +32,8 @@ Esto significa que `cualquier ejecución de M, comenzando en un estado de progra
 {x >= 9} x := x + 5; {x >= 13}
 ```
 
+> En cierta forma, el par precondición-postcondición de un método es como el par dominio-rango de una función matemática. Solo que puede llegar a ser mucho más complejo que eso.
+
 La precondición y postcondición de un método describen qué (`what`) se espera que haga el método, en lugar de cómo (`how`) hacerlo en el cuerpo del método. 
 
 Se pueden especificar como comentarios en el código fuente y/o como parte de la documentación de la API. 
@@ -39,7 +44,8 @@ La violación en tiempo de ejecución de una aserción de precondición o postco
 
 Este último se ocupa de las condiciones (por ejemplo, datos de entrada incorrectos) que se espera que ocurran. 
 
-#### Precondiciones asumidas frente a precondiciones validadas 
+---
+## Precondiciones asumidas frente a precondiciones validadas 
 
 Hay dos opciones para manejar la precondición de un método: la precondición asumida y la precondición de validación. 
 
@@ -77,45 +83,48 @@ Cell.CROSS, or Cell.NAUGHT
 
 Una alternativa es validar la precondición en el cuerpo del método de la siguiente manera:
 
-```
+```java
 public Cell getCell(int row, int column) {
-	if (row >= 0 && row < TOTALROWS 
- && column >= 0 && column < TOTALCOLUMNS) {
+    if (row >= 0 && row < TOTALROWS 
+            && column >= 0 && column < TOTALCOLUMNS) {
 		return grid[row][column];
 	} else {
-		return null;
-	}
+	    return null;
+    }
 }
 ```
 
-**Pregunta:** Indica cuales son los cambios de la precondición y la postcondición del ejemplo anterior.
+<details>
+<summary>
+<b>Pregunta:</b> Indica cuales son los cambios de la precondición y la postcondición del ejemplo anterior.
+</summary><br>
 
+Antes en `getCell()` la precondición era simplemente que los valores de entrada fueran enteros y la postcondición solo era que retorne una objeto de tipo Cell. Ahora la precondición codificada en el método con una estructura condicional exige que ambos valores de entrada sean enteros en un determinado rango de valores positivos. En la notación de Hoare, el método ahora es así:
+Antes:   {(row, column: int)} getCell {Cell}  
+Después: {(row, column: int) && (0 <= row < TOTALROWS) && (0 <= column < TOTALCOLUMNS)} getCell {Cell}
+</details>
+
+<br>
 Un caso especial de precondiciones validadas es el manejo de excepciones: el método genera una excepción cuando no se cumple la precondición. 
 
 El método `getCell()` anterior se puede implementar de la siguiente manera:
 
 
+```java
+    if (row >= 0 && row < TOTALROWS && column >= 0 
+            && column < TOTALCOLUMNS) {
+        return grid[row][column];
+    } else {
+        throw new Exception("Out of bound");
+    }
 ```
-if (row >= 0 && row < TOTALROWS 
- && column >= 0 && column < TOTALCOLUMNS) {
-	   return grid[row][column];
-	} else {
-	   throw new Exception("Out of bound");
-	}
-}
+**Pregunta:** Escribe la nueva precondición. ¿Se relaciona con la postcondición revisada?
 
-```
-**Pregunta:** Escribe la nueve precondición. ¿Se relacionada con la postcondición revisada?.
+**Respuesta:** La precondición sigue siendo la misma. La postcondición tampoco cambió. Aunque el método ya no retorna un valor nulo cuando no se cumple la precondición, sino que lanza una excepción, esto no constituye parte de la postcondición. Entendemos que la postcondición describe solo las posibles respuestas del método ante una entrada que satisface la precondición. Lo demás se puede tratar con excepciones.
 
-En TDD, la precondición y la postcondición de un método cambian con el tiempo a medida que evoluciona el proceso de desarrollo. 
- 
+En TDD, la precondición y la postcondición de un método cambian con el tiempo a medida que evoluciona el proceso de desarrollo. La precondición y la poscondición en un momento determinado solo especifican las suposiciones que subyacen en el código actual. 
 
-La precondición y la poscondición en un momento determinado solo implican las suposiciones que subyacen en el código actual. 
-
-Ten en cuenta que un programa TicTacToe puede adoptar la primera versión de `getCell()`, suponiendo que todas las llamadas a `getCell` proporcionen una fila y una columna válidas. 
-
-La razón es que `getCell` solo será llamado por `TicTacToeGUI`  que es confiable porque el mismo desarrollador o el mismo equipo lo escribe. 
-Esto implica que las siguientes pruebas para los criterios de aceptación AC 1.2 y AC 1.3 se vuelven redundantes e inútiles.
+Ten en cuenta que un programa TicTacToe puede adoptar la primera versión de `getCell()`, suponiendo que todas las llamadas a `getCell` proporcionen una fila y una columna válidas. La razón es que `getCell()` solo será llamado por `TicTacToeGUI`  que es confiable porque el mismo desarrollador o el mismo equipo lo escribe. Esto implica que las siguientes pruebas para los criterios de aceptación AC 1.2 y AC 1.3 se vuelven redundantes e inútiles.
 
 ```
 public void testInvalidRow(){
@@ -125,47 +134,50 @@ public void testInvalidColumn() {
       assertEquals(" ", board.getCell(0, 3), null);
 }
 ```
-#### Especificación de pre-postcondiciones
 
-Las precondiciones  y postcondiciones deben especificarse con precisión, ya sea documentación API escrita o aserciones ejecutables. 
+---
+## Especificación de pre-postcondiciones
 
-Por ejemplo, la precondición y la postcondición a continuación brindan una especificación rigurosa del método `int max(int [ ], list)`, que devuelve el valor máximo de una lista dada de enteros, 
+Las precondiciones y postcondiciones deben especificarse con precisión, ya sea documentación API escrita o aserciones ejecutables. 
+
+Por ejemplo, la precondición y la postcondición a continuación brindan una especificación rigurosa del método `int max(int[] list)`, que devuelve el valor máximo de una lista dada de enteros, 
 donde `max` representa el valor de retorno.
 
 ```
 Precondition: list.length>0
-Postcondition: max>= list[i] for each i 
-  (0 ≤ i< list.length), and there exists j 
-  (0 ≤ j< list.length) such that max=list[j]
+Postcondition: max >= list[i] for each i (0 <= i < list.length), 
+    and there exists j (0 <= j n < list.length) such that max = list[j]
 ```
-Esta especificación se puede usar para razonar sobre la corrección de una implementación concreta de `max (lista int [ ])`. Considera el siguiente código:
+Esta especificación se puede usar para razonar sobre la corrección de una implementación concreta de `max (int[] list)`. Considera el siguiente código:
 
-```
+```java
 int max(int[] list){
 	int result=list[0];
 	for (int i=0; i<list.length-1; i++){
 	     if (result<list[i])
-		result=list[i];
+		    result=list[i];
 	}
 	return result;
 }
 ``` 
-**Pregunta:**  Dada `list = [3,2, 5]` ¿se cumple La postcondición ?. La expresión `i < list.length -1` debe cambiarse a `i < list.length` o `i < list.length -1`. 
+**Pregunta:**  Dada `list = [3, 2, 5]`, ¿se cumple la postcondición? ¿La expresión `i < list.length -1` debe cambiarse a `i < list.length`?
+
+**Respuesta:** No se cumple la postcondición. El valor de retorno no es el mayor de todos porque este se encuentra al final de la lista, y el bucle no considera este valor por culpa de la expresión `i < list.length -1`. Por esto debería cambiarse a `i < list.length`.
 
 También se pueden usar precondiciones y postcondiciones para diseñar casos de prueba. 
 
 Obtener una especificación precisa puede ser una tarea no trivial. 
 
-Considera `int [ ] sort(int[ ] p)` que ordena una lista dada de enteros en orden ascendente. Sea `q` la lista resultante. 
+Considera `int[] sort(int[] p)` que ordena una lista dada de enteros en orden ascendente. Sea `q` la lista resultante. 
 La precondición es `p.length > 0`. Una posible postcondición es que `p` y `q` tengan el mismo tamaño, y todos los valores en `q` se clasifiquen en orden ascendente. 
 
 Se puede formalizar de la siguiente manera: 
 
-**Postcondición (v1):** `q.length = p.length y q[i] <= q[i +1]` para cualquier `i, 0 <= i < q.length -1`. 
+**Postcondición (v1):** `q.length = p.length y q[i] <= q[i +1]` para cualquier `i (0 <= i < q.length -1)`
 
 Si bien parece captar los significados de tipo, es incorrecto. 
 
-Como contraejemplo, se satisface con la siguiente implementación defectuosa, que simplemente devuelve una lista de 1 con la misma longitud:
+Como contraejemplo, se satisface con la siguiente implementación defectuosa, que simplemente devuelve una lista de unos (1) con la misma longitud:
 
 ```
 public int [ ] sort (int p [ ]){
@@ -197,16 +209,17 @@ Sin embargo, una especificación completa puede necesitar considerar lo que debe
 
 Considera el siguiente método en una clase `VendingMachine` que permite a un cliente comprar artículos de una máquina expendedora.
 
-``` 
+``` java
 public boolean purchase(String drink){
-        if (drink.equalsIgnoreCase(COFFEE)){
-            if (coffee.getCount()>0&&deposit>=coffee.getPrice()){
-                coffee.sell();
-                calculateChange(coffee.getPrice());
-                return true;
-            }
-        } 
+    if (drink.equalsIgnoreCase(COFFEE)){
+        if (coffee.getCount()>0&&deposit>=coffee.getPrice()){
+            coffee.sell();
+            calculateChange(coffee.getPrice());
+            return true;
+        }
+    } 
     ...
+}
 ``` 
 Una máquina expendedora vende varios artículos, como café, refrescos y jugos. 
 Cuando se compra un artículo de café, los cambios esperados incluyen: 
