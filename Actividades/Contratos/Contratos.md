@@ -40,7 +40,7 @@ Una vez que se establecen las precondiciones y postcondiciones del método, es h
 Hacerlo puede ser tan simple como una instrucción `if` como se muestra en la siguiente lista.
 
 
-```
+```java
 public class TaxCalculator {
     public double calculateTax(double value) {
 
@@ -48,37 +48,39 @@ public class TaxCalculator {
         	     throw new RuntimeException("...");
     	}
       double taxValue = 0;
-
 ``` 
 
 La postcondición también se implementa como un simple if. Si algo sale mal, lanzamos una excepción, alertando al consumidor que la postcondición no se cumple
 
-```
+```java
+    ...
     if(taxValue < 0) { 
         throw new RuntimeException("...");
     }
 
     return taxValue;
-
-	}
-}
+    ...
 ``` 
 
-Dejar claras las precondiciones y posteriores en la documentación también es fundamental y muy recomendable. 
+Dejar claras las precondiciones y poscondiciones en la documentación también es fundamental y muy recomendable. 
 
-**Pregunta:** Escribe el Javadoc del método `calculateTax` describiendo su contrato, en el código anterior.  Revisa el archivo `TaxCalculator.java`.
+**Pregunta:** Escribe el Javadoc del método `calculateTax` describiendo su contrato, en el código anterior. Revisa el archivo `TaxCalculator.java`.
+
+![](sources/2023-05-29-20-51-28.png)
 
 ## La palabra clave assert
 
-El lenguaje Java ofrece la palabra clave `assert`, que es una forma nativa de escribir aserciones. En el ejemplo anterior, en lugar de lanzar una excepción, podríamos escribir `assert value >= 0 : " Valor no puede ser negativo"`. . Si `value` no es mayor o igual a 0, la máquina virtual de Java (JVM) generará un `AssertionError`. 
+El lenguaje Java ofrece la palabra clave `assert`, que es una forma nativa de escribir aserciones. En el ejemplo anterior, en lugar de lanzar una excepción, podríamos escribir `assert value >= 0 : " Valor no puede ser negativo"`. Si `value` no es mayor o igual a 0, la máquina virtual de Java (JVM) generará un `AssertionError`. 
 
 **Pregunta:**  Escribe una versión de `TaxCalculator` usando asserts para ello completa el archivo `TaxCalculator1.java`.
+
+![](sources/2023-05-29-20-49-27.png)
 
 Decidir si usar instrucciones `assert` o declaraciones `if `simples que arrojan excepciones es algo para discutir con los miembros de tu equipo.
 
 ## Precondiciones  y postcondiciones fuertes y débiles
 
-Al definir precondiciones y posteriores, una decisión importante es cuán débiles o fuertes deseas que sean. En el ejemplo anterior manejamos la precondición con mucha fuerza: si entra un valor negativo, viola la precondición del método, por lo que detenemos el programa. 
+Al definir precondiciones y postcondiciones, una decisión importante es cuán débiles o fuertes deseas que sean. En el ejemplo anterior manejamos la precondición con mucha fuerza: si entra un valor negativo, viola la precondición del método, por lo que detenemos el programa. 
 
 Una forma de evitar detener el programa debido a números negativos sería debilitar la precondición. En otras palabras, en lugar de aceptar solo valores mayores que cero, el método podría aceptar cualquier valor, positivo o negativo. 
 
@@ -94,7 +96,7 @@ Esto contrasta con la versión anterior, donde un número negativo arroja un err
 
 **Pregunta:** ¿Puedes aplicar el mismo razonamiento a las postcondiciones? , ¿como relacionas el siguiente listado que devuelve un código de error en lugar de una excepción?
 
-```
+```java
 public double calculateTax(double value) {
 // verificación de la precondición
      if (value < 0) {
@@ -104,6 +106,8 @@ public double calculateTax(double value) {
   //...
 }
 ``` 
+
+**Respuesta** No se puede aplicar lo mismo a las postcondiciones porque debilitarlas rompería el código del cliente. Solo se pueden fortalecer.
 
 ## Invariantes 
 
@@ -117,7 +121,7 @@ Imagina una clase `Basket` que almacena los productos que el usuario compra en u
 
 Aquí hay un esqueleto de la clase.
 
-```
+```java
 public class Basket {
   private BigDecimal totalValue = BigDecimal.ZERO;
       private Map<Product, Integer> basket = new HashMap<>();
@@ -144,7 +148,7 @@ Esta no es una precondición ni una poscondición: es un invariante y la clase e
 
 **Pregunta:** Explica y completa el siguiente listado de invariantes de la clase `Basket`:
 
-```
+```java
 public class Basket {
    private BigDecimal totalValue = BigDecimal.ZERO;
    private Map<Product, Integer> basket = new HashMap<>();
@@ -178,7 +182,7 @@ public class Basket {
 
 **Pregunta:**  ¿Qué función tiene el método `invariant()`  en el siguiente listado?
 
-``` 
+```java
  public void add(Product product, int qtyToAdd) {
          // ... metodos ...
              assert invariant() : "...";
