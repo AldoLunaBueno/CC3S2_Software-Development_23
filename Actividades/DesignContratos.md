@@ -16,11 +16,13 @@
 ---
 ## Introducción
 
-1. El diseño por contrato ve a la precondición y la postcondición de un método como un contrato entre el método (proveedor o servidor) y sus llamadores (cliente): 
-si un cliente llama al método con la precondición satisfecha, entonces el proveedor entrega un estado final en el que se satisface la poscondición (el resultado que el cliente espera).
+1. El diseño por contrato ve a la precondición y la postcondición de un método como un contrato entre el método (proveedor o servidor) y sus llamadores (cliente):
+   
+    Si un cliente llama al método con la precondición satisfecha, entonces el proveedor entrega un estado final en el que se satisface la poscondición (el resultado que el cliente espera).
 
-2. El **contrato** es un acuerdo formal de los derechos y obligaciones de cada parte: 
-la precondición es una obligación para el cliente y un derecho para el proveedor, mientras que la postcondición es un derecho para el cliente y una obligación para el proveedor. 
+2. El **contrato** es un acuerdo formal de los derechos y obligaciones de cada parte:
+   
+    La precondición es una obligación para el cliente y un derecho para el proveedor, mientras que la postcondición es un derecho para el cliente y una obligación para el proveedor. 
 
 ## Reglas
 
@@ -32,35 +34,63 @@ El siguiente método `reportTriangle` informa el tipo de triángulo: recto, agud
 
 La precondición asumida es que los tres ángulos sean positivos y su suma sea 180.
 
-``` 
-Precondition: a>0, b>0, c>0 and a +b +c =180
-Postcondition:  
-right, if a  =90 or b = 90 or c= 90; 
- obtuse  if a > 90 or >=90 or c > 90
-else acute  
-public enum TriangleType {RIGHT, ACUTE, OBTUSE, OBTUSE};
-
+```java
+/*
+Precondition: a>0, b>0, c>0 and a + b + c = 180
+Postcondition:
+right, if a = 90 or b = 90 or c = 90; 
+ obtuse  if a > 90 or b > 90 or c > 90
+else acute
+public enum TriangleType {RIGHT, ACUTE, OBTUSE};
+*/
 public TriangleType reportTriangle(double a, double b, double c){
-        if (a==90||b==90||c==90){
-            return TriangleType.RIGHT;
-        } else		
-        if (a>90||b>90||c>90) 
-            return TriangleType.OBTUSE;
-        else 
-            return TriangleType.ACUTE;
+    if (a==90||b==90||c==90){
+        return TriangleType.RIGHT;
+    } else
+    if (a>90||b>90||c>90) 
+        return TriangleType.OBTUSE;
+    else 
+        return TriangleType.ACUTE;
 }
 ```  
 
 **Problema:** Considera el siguiente código de cliente, que primero obtiene tres ángulos y llama a reportTriangle(a,b,c): 
 
-```
+```java
 double a = ...;
 double b = ...;
 double c = ...;
 TriangleType result = reportTriangle(a,b,c);
-``` 
-¿cuáles son los resultados para `(90, 45, 45)`, `(120, 40, 20)` y `(50, 60, 70)`= , ¿qué sucede con `(90, -45, 135)` ?. 
+```
+
+**Pregunta:**
+¿Cuáles son los resultados para `(90, 45, 45)`, `(120, 40, 20)` y `(50, 60, 70)`= , ¿qué sucede con `(90, -45, 135)` ?. 
 ¿Quién es el responsable de este fallo, el proveedor o el cliente?. Corrige este error. 
+
+**Respuesta**
+Reusltados: `RIGHT, OBTUSE, ACUTE, RIGHT`. El último resultado es producto de una violación de la precondición del método `reportTriangle`, por lo que es un fallo. El cliente tiene la responsabilidad, ya que las precondiciones de un método son las obligaciones que el cliente debe cumplir si quiere usarlo, son su contrato. Una forma de corregir este problema desde el lado del proveedor sería convertir las precondiciones asumidas a validadas para forzar al cliente a usar valores válidos. Tendríamos el siguiente código:
+
+```java
+public TriangleType reportTriangle(double a, double b, double c){
+    // preconditions:
+    if (a < 0 || b < 0 || c < 0) {
+        throw new IllegalArgumentException();
+    }
+    if (a + b + c != 180) {
+        throw new IllegalArgumentException();
+    }
+
+    if (a==90||b==90||c==90){
+        return TriangleType.RIGHT;
+    } else
+    if (a>90||b>90||c>90) 
+        return TriangleType.OBTUSE;
+    else 
+        return TriangleType.ACUTE;
+}
+```
+
+
 
 ### Reglas de violación de pre/postcondiciones
 
@@ -70,17 +100,14 @@ La regla de violación de la precondición establece que `una violación de la p
 
 La regla de violación de la postcondición establece que `una violación de la postcondiciónes es la manifestación de un error en el proveedor` porque el proveedor no cumplió con su contrato. 
 
-**Pregunta:** En el ejemplo anterior indica una violación de precondición. 
-
-
 Considera `sqrt(double x)` que devuelve la raíz cuadrada de un valor doble no negativo. 
 
-La poscondición establece que la raíz cuadrada de `x` al cuadrado es aproximadamente igual a `x`.  
+La poscondición establece que el cuadrado de la raíz cuadrada de `x` es aproximadamente igual a `x`.  
 Dos números de punto flotante son aproximadamente iguales si el valor absoluto de su diferencia es lo suficientemente pequeño. 
 
 ```
 Precondición: x >= 0 
-Postcondición: abs(sqrt(x)* sqrt(x) - x) < epsilon
+Postcondición: abs(sqrt(x) * sqrt(x) - x) < epsilon
 double sqrt (double x) 
 
 ``` 
@@ -93,15 +120,19 @@ assert abs(y*y -x) < épsilon
 ```
 
 
-**Pregunta:** El siguiente método `isVowel` verifica si una letra determinada es una vocal. "Y" a veces se considera una vocal cuando aparece en palabras como `cry`, `fly` y `sky`.
+**isVowel()**
 
-```
+El siguiente método `isVowel` verifica si una letra determinada es una vocal. "Y" a veces se considera una vocal cuando aparece en palabras como `cry`, `fly` y `sky`.
+
+```java
+/*
 Precondition: letter ∈ {'a'-'z', 'A'-'Z'}   
 Postcond: true if letter ∈ {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}; otherwise, false
+*/
 boolean isVowel(char letter) { 
-      String vowels = "aeiouy&@";
-      char ch = Character.toLowerCase(letter);
-returns vowels.indexOf(ch) >= 0;  
+    String vowels = "aeiouy&@";
+    char ch = Character.toLowerCase(letter);
+    return vowels.indexOf(ch) >= 0;
 }
 ```
 
@@ -113,23 +144,27 @@ char letter = ...;
 boolean result = isVowel(letter);
 ``` 
 
-Si el carácter obtenido es `'A'`, es decir, `letter = 'A', isVowel('A')` devuelve `true`  entonces `result = true`. 
+Si el carácter obtenido es `'A'`, es decir, `letter = 'A', isVowel(letter)` devuelve `true`  entonces `result = true`. 
 
 Si el carácter es `'Z'`, entonces `result = false`. 
 
 Para cada una de estas llamadas, se cumple la precondición. 
 
-¿Qué sucede cuando `letter = '@'` ?.
+**Pregunta:** ¿Qué sucede cuando `letter = '@'` ?
+
+**Respuesta:** Puesto que `'@'` no es una letra mayúscula o minúscula, se estaría violando la precondición. Sin embargo, el método sigue funcionando y retorna `True` porque este caracter está en la cadena `vowels`. Entonces, también se estaría violando la postcondición. En conclusión, según la regla de violación de precondición y postcondición, hay error tanto en el código del cliente como del proveedor.
 
 Modifiquemos ligeramente a la siguiente versión, donde falta `'e'`  en la lista de vocales:
 
-``` 
+```java
+/*
 Precondition: letter ∈ {'a'-'z', 'A'-'Z'}   
 Postcond: true if letter ∈ {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}; otherwise, false
+*/
 boolean isVowel(char letter) { 
-      String vowels = "aiouy"; // e esta perdido
-      char ch = Character.toLowerCase(letter);
-returns vowels.indexOf(ch) >= 0;  
+    String vowels = "aiouy"; // e esta perdido
+    char ch = Character.toLowerCase(letter);
+    return vowels.indexOf(ch) >= 0;
 }
 ``` 
 La llamada `isVowel('E')` devuelve `false` lo cual es incorrecto. En este caso, se cumple la precondición, pero se viola la postcondición. 
@@ -138,9 +173,11 @@ Según la regla de violación de la postcondición, el código de proveedor ante
 
 ### Regla de precondición razonable 
 
-La regla de la precondición razonable requiere que la precondición aparezca en la documentación oficial distribuida a los autores de los clientes y que la necesidad de la precondición se justifique lógicamente en términos de la especificación, no para la conveniencia de implementación del proveedor. 
+La regla de la precondición razonable requiere que: 
+1. la precondición aparezca en la documentación oficial distribuida a los clientes y que
+2. la necesidad de la precondición se justifique lógicamente en términos de la especificación, no para la conveniencia de implementación del proveedor. 
 
-En el diseño por contrato, la precondición pretende aclarar qué casos no puede manejar el método en relación con los requisitos lógicos. Por ejemplo, es razonable requerir `p.length > 0` para `sort(int [ ] p)`. Otros buenos ejemplos son `list.length >0` para `max(int[ ] list)` , `not empty()` para `pop()` y `x>=0` para `sqrt(double x)`. 
+En el diseño por contrato, la precondición pretende **aclarar qué casos no puede manejar el método** en relación con los requisitos lógicos. Por ejemplo, es razonable requerir `p.length > 0` para `sort(int [ ] p)`. Otros buenos ejemplos son `list.length >0` para `max(int[ ] list)` , `not empty()` para `pop()` y `x>=0` para `sqrt(double x)`. 
 
 ### Regla de disponibilidad de precondiciones
 
@@ -174,17 +211,19 @@ El cliente ya no cumple la nueva precondición sin cambios, el código de client
 
 ### Regla de cambio de contrato 
 
+**¿Cómo cambiar el contrato sin romper el código de los clientes?**
+
 Generalmente, necesitamos inspeccionar todo el código del cliente cuando el contrato de un método ha cambiado. Hay algunas circunstancias en las que el cambio de precondición y posterior puede no romper el código del cliente, incluido el código de prueba. 
 
-Una precondición más débil  no causa daño al cliente que satisface la precondición existente antes de la llamada, mientras que una poscondición más fuerte no causa daño al cliente que confía en que la poscondición existente se satisfaga después de la llamada . 
+Una precondición más débil no causa daño al cliente que satisface la precondición existente antes de la llamada, mientras que una poscondición más fuerte no causa daño al cliente que confía en que la poscondición existente se satisfaga después de la llamada . 
 
 Por lo tanto, la actualización no romperá el contrato original. 
 
 Dadas dos condiciones desiguales `P1` y `P2`. Se dice que `P1` es más fuerte que `P2` (o `P2` es más débil que `P1`) si `P1` implica `P2`. 
 
-Por ejemplo, `x > 10` es más fuerte que `x > 5`, `y > 0` es más fuerte que y >=0. 
+Por ejemplo, `x > 10` es más fuerte que `x > 5`, `y > 0` es más fuerte que `y >=0`. 
 
-En el ejemplo anterior de `int f1(int x)`, la actualización no es segura debido a una precondición más sólida y una postcondición más débil. 
+En el ejemplo anterior de `int f1(int x)`, la actualización no es segura debido a una precondición más fuerte y una postcondición más débil. 
 
 El cambio de precondición `x > 0` y postcondición `y > 1` estaría bien. 
 
@@ -196,7 +235,7 @@ Dos condiciones desiguales pueden no tener una relación más fuerte ni más dé
 
 Por ejemplo, `x = 1` no es ni más fuerte ni más débil que `x = 2`. Otros ejemplos son `x >0 vs. x +y > 0`, `x >0 vs. y >0`, `isDigit(ch) vs. isLetter(ch)`. 
 
-Si la nueva precondición (o postcondición) no es ni más débil ni más extraña que la precondición (o postcondición) original, la actualización puede romper el código del cliente. 
+Si la nueva precondición (o postcondición) no es ni más débil ni más fuerte que la precondición (o postcondición) original, la actualización puede romper el código del cliente. 
 
 **Pregunta:**
 
@@ -210,7 +249,9 @@ for (int i = 0; i < count; i ++){
 }
 ```
 
-¿Qué sucede si modificamos `genRandomIntegers`. mantenemos la precondición pero cambiamos la postcondición a `list.length=count-1`?.  
+¿Qué sucede si modificamos `genRandomIntegers` manteniendo la precondición pero cambiando la postcondición a `list.length=count-1`?.  
+
+**Respuesta:** La postcondición cambió, pero no es más fuerte o más débil, lo que nos deja solo una posibilidad: la anterior y la nueva postcondición son desiguales. Son desiguales porque ninguna implica a la otra: `list.length=count-1` no implica `list.length=count` ni viceversa. Por lo tanto, el código de cliente se rompe.
 
 ### Cambio de contrato en desarrollo incremental
 
