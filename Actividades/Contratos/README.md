@@ -27,7 +27,6 @@ Como es habitual, los datos provienen de diferentes fuentes, como bases de datos
 
 De los requisitos de esta clase, el cálculo solo tiene sentido para números positivos. 
 
-
 ## Precondiciones y postcondiciones 
 
 Del ejemplo del cálculo de impuestos, debemos reflexionar sobre las precondiciones que el método necesita para funcionar correctamente, así como sus postcondiciones: lo que el método garantiza como resultados. 
@@ -66,6 +65,8 @@ Dejar claras las precondiciones y poscondiciones en la documentación también e
 
 **Pregunta:** Escribe el Javadoc del método `calculateTax` describiendo su contrato, en el código anterior. Revisa el archivo `TaxCalculator.java`.
 
+**Respusta:**
+
 ![](sources/2023-05-29-20-51-28.png)
 
 ## La palabra clave assert
@@ -73,6 +74,8 @@ Dejar claras las precondiciones y poscondiciones en la documentación también e
 El lenguaje Java ofrece la palabra clave `assert`, que es una forma nativa de escribir aserciones. En el ejemplo anterior, en lugar de lanzar una excepción, podríamos escribir `assert value >= 0 : " Valor no puede ser negativo"`. Si `value` no es mayor o igual a 0, la máquina virtual de Java (JVM) generará un `AssertionError`. 
 
 **Pregunta:**  Escribe una versión de `TaxCalculator` usando asserts para ello completa el archivo `TaxCalculator1.java`.
+
+**Respusta:**
 
 ![](sources/2023-05-29-20-49-27.png)
 
@@ -99,10 +102,9 @@ Esto contrasta con la versión anterior, donde un número negativo arroja un err
 ```java
 public double calculateTax(double value) {
 // verificación de la precondición
-     if (value < 0) {
-               return 0;
+    if (value < 0) {
+      return 0;
 	}
-
   //...
 }
 ``` 
@@ -111,40 +113,53 @@ public double calculateTax(double value) {
 
 ## Invariantes 
 
-Hemos visto en clase  que las precondiciones deben cumplirse antes de la ejecución de un método y las postcondiciones deben cumplirse después de la ejecución de un método. 
+Hemos visto en clase que las precondiciones deben cumplirse antes de la ejecución de un método y las postcondiciones deben cumplirse después de la ejecución de un método. 
 
 A las condiciones que siempre deben cumplirse antes y después de la ejecución de un método se llaman **invariantes**. 
 
 Un invariante es, por lo tanto, una condición que se mantiene durante toda la vida útil de un objeto o una estructura de datos. 
 
-Imagina una clase `Basket` que almacena los productos que el usuario compra en una tienda en línea. La clase ofrece métodos como  `add(Product p, int quantity)` que agrega un producto `p` a `quantity` y `remove(Product p)`, que elimina el producto por completo del carrito. 
+Imagina una clase `Basket` (canasta o carrito de compras) que almacena los productos que el usuario compra en una tienda en línea. La clase ofrece métodos como  `add(Product p, int quantity)`, que agrega una cantidad `qtyToAdd` de productos `p`,  y `remove(Product p)`, que elimina el producto `p` por completo del carrito.
 
 Aquí hay un esqueleto de la clase.
 
 ```java
 public class Basket {
   private BigDecimal totalValue = BigDecimal.ZERO;
-      private Map<Product, Integer> basket = new HashMap<>();
+  private Map<Product, Integer> basket = new HashMap<>();
  
   public void add(Product product, int qtyToAdd) {
 
   }
-public void remove(Product product) {
 
-   }
+  public void remove(Product product) {
+
+  }
 }
 
 ``` 
 
 **Pregunta:** Escribe para el método `add()` sus pre/postcondiciones.    
 
-**Pregunta:** Modela otra postcondiciones aquí, como `el nuevo valor total debe ser mayor que el valor total anterior`. Usa  la clase `BigDecimal` en lugar de un `double`. 
+**Respuesta:**
+
+![](sources/2023-05-30-11-35-23.png)
+
+**Pregunta:** Modela otras postcondiciones aquí, como `el nuevo valor total debe ser mayor que el valor total anterior`. Usa  la clase `BigDecimal` en lugar de un `double`. 
 `BigDecimals` se recomienda siempre que desees evitar problemas de redondeo que pueden ocurrir cuando usas doubles. 
+
+**Respuesta:**
+
+![](sources/2023-05-30-11-33-55.png)
 
 **Pregunta:** Escribe las pre/post condiciones del método `remove()`.
 
-Independientemente de los productos que se agreguen o eliminen de `basket`, el valor total de `basket` nunca debe ser negativo. 
-Esta no es una precondición ni una poscondición: es un invariante y la clase es responsable de mantenerlo. 
+**Respuesta:**
+
+
+![](sources/2023-05-30-11-20-25.png)
+
+Independientemente de los productos que se agreguen o eliminen de `basket`, el valor total `totalValue` nunca debe ser negativo. Esta no es una precondición ni una poscondición: es un invariante y la clase es responsable de mantenerlo. 
 
 **Pregunta:** Explica y completa el siguiente listado de invariantes de la clase `Basket`:
 
@@ -165,9 +180,9 @@ public class Basket {
     assert totalValue.compareTo(BigDecimal.ZERO) >= 0 :
     	"..."
 
-     }
+    }
 
-     public void remove(Product product) {
+    public void remove(Product product) {
        assert product != null : "...";
        assert basket.containsKey(product) : "...";
 
@@ -176,26 +191,36 @@ public class Basket {
       assert !basket.containsKey(product) : "...";
       assert totalValue.compareTo(BigDecimal.ZERO) >= 0 :
            "El valor total no puede ser negativo ."
-     }
+    }
 }
 ``` 
+
+**Respusta:**
+
+![](sources/2023-05-30-13-35-41.png)
+
+![](sources/2023-05-30-13-41-49.png)
 
 **Pregunta:**  ¿Qué función tiene el método `invariant()`  en el siguiente listado?
 
 ```java
- public void add(Product product, int qtyToAdd) {
-         // ... metodos ...
-             assert invariant() : "...";
-         }
-          public void remove(Product product) {
-                 // ... metosos ...
-           assert invariant() : "...";
-      }
-           private boolean invariant() {
-              return totalValue.compareTo(BigDecimal.ZERO) >= 0;
-         }
-}
+  public void add(Product product, int qtyToAdd) {
+      // ... methods ...
+      assert invariant() : "...";
+  }
+  public void remove(Product product) {
+      // ... methods ...
+      assert invariant() : "...";
+  }
+  private boolean invariant() {
+      return totalValue.compareTo(BigDecimal.ZERO) >= 0;
+  }
 ```
+
+**Respuesta:**
+
+La función del método `invariant()` es la de encapsular las condiciones que no son ni precondiciones ni postcondiciones, es decir, las condiciones invariantes.
+
 ¿Qué pasa si cambiamos el contrato de una clase o método? Supongamos que el método `calculateTax` que discutimos anteriormente necesita nuevas precondiciones. 
 En lugar de `el valor debe ser mayor o igual a 0`, se cambia a `el valor debe ser mayor o igual a 100`. ¿Qué impacto tendría este cambio en el sistema y nuestras suites de prueba?
 
@@ -205,32 +230,32 @@ La forma más sencilla de comprender el impacto de un cambio no es mirar el camb
 
 Definir precondiciones, postcondiciones e invariantes claras (y automatizarlas en tu código mediante, por ejemplo, aserciones) ayuda a los desarrolladores de muchas maneras. 
 
-Primero, las aserciones aseguran que los errores se detecten temprano en el entorno de producción. Tan pronto como se viola un contrato, el programa se detiene en lugar de continuar con su ejecución, lo que suele ser una buena idea. El error que obtiene de una violación de aserción es muy específico y sabes exactamente para qué depurar. Este puede no ser el caso sin aserciones. 
+Primero, **las aserciones aseguran que los errores se detecten temprano en el entorno de producción.** Tan pronto como se viola un contrato, el programa se detiene en lugar de continuar con su ejecución, lo que suele ser una buena idea. El error que obtiene de una violación de aserción es muy específico y sabes exactamente para qué depurar. Este puede no ser el caso sin aserciones. 
 
 Imagina un programa que realiza cálculos. El método que hace el cálculo pesado no funciona bien con números negativos. Sin embargo, en lugar de definir dicha restricción como una precondición explícita, el método devuelve una salida no válida si ingresa un número negativo. 
 
 Este número no válido luego se pasa a otras partes del sistema, lo que puede provocar otro comportamiento inesperado. Dado que el programa no falla per se, puede ser difícil para el desarrollador saber que la causa raíz del problema fue una violación de la precondición. 
 
-En segundo lugar, las precondiciones, las postcondiciones y las invariantes brindan a los desarrolladores ideas sobre qué probar. 
+En segundo lugar, **las precondiciones, las postcondiciones y las invariantes brindan a los desarrolladores ideas sobre qué probar.**
 Tan pronto como vemos la precondición `qty > 0`, sabemos que esto es algo para ejercitar a través de pruebas unitarias, de integración o de sistema. 
 
-Por lo tanto, **los contratos no reemplazan las pruebas (unitarias): las complementan**. 
+Por lo tanto, los contratos no reemplazan las pruebas (unitarias): las complementan. 
 
-En tercer lugar, estos contratos explícitos facilitan mucho la vida de los consumidores. La clase (o servidor, si se piensa en ella como una aplicación cliente-servidor) hace su trabajo siempre que el consumidor (o cliente) utiliza correctamente sus métodos. 
+En tercer lugar, **estos contratos explícitos facilitan mucho la vida de los consumidores.** La clase (o servidor, si se piensa en ella como una aplicación cliente-servidor) hace su trabajo siempre que el consumidor (o cliente) utiliza correctamente sus métodos. 
 
 Si el cliente usa los métodos del servidor para que se mantengan sus precondiciones, el servidor garantiza que las postcondiciones se mantendrán después de la llamada al método. En otras palabras, el servidor se asegura de que el método entregue lo que promete. 
 
 Supongamos que un método espera solo números positivos (como precondición)  promete devolver solo números positivos (como postcondición). Como cliente, si pasas un número positivo,  seguro de que el servidor devolverá un número positivo y nunca un número negativo. El cliente, por tanto, no necesita comprobar si la devolución es negativa, simplificando su código. 
 
-Se ve el diseño por contrato como una práctica de prueba per se. Se ve más como una técnica de diseño. Por eso también se incluye en la parte de desarrollo del flujo de trabajo de prueba del desarrollador. 
+No se ve el diseño por contrato como una práctica de prueba per se. Se ve más como una técnica de diseño. Por eso también se incluye en la parte de desarrollo del flujo de trabajo de prueba del desarrollador. 
 
 ## ¿Precondiciones débiles o fuertes? 
 
-Una decisión de diseño muy importante cuando se modelan contratos es si utilizar contratos fuertes o débiles. Esta es una cuestión de compensaciones. Considera un método con una precondición débil. 
+Una decisión de diseño muy importante cuando se modelan contratos es si utilizar contratos fuertes o débiles. **Esta es una cuestión de compensaciones.**
 
-Por ejemplo, el método acepta cualquier valor de entrada, incluido nulo. Este método es fácil de usar para los clientes: cualquier llamada funcionará y el método nunca generará una excepción relacionada con la violación de una precondición (ya que no hay precondiciones que violar). 
+Considera un método con una precondición débil. Por ejemplo, el método acepta cualquier valor de entrada, incluido nulo. Este método es fácil de usar para los clientes: cualquier llamada funcionará y el método nunca generará una excepción relacionada con la violación de una precondición (ya que no hay precondiciones que violar). Sin embargo, esto supone una carga adicional para el método, ya que tienes que manejar entradas no válidas. 
 
-Sin embargo, esto supone una carga adicional para el método, ya que tienes que manejar entradas no válidas. Por otro lado, considere a un contrato fuerte: el método solo acepta números positivos y no acepta valores nulos. La carga adicional ahora está del lado del cliente. El cliente debe asegurarse de que no viole las precondiciones del método. Esto puede requerir un código adicional.
+Ahora considera a una precondición fuerte. El método solo acepta números positivos y no acepta valores nulos. La carga adicional ahora está del lado del cliente. El cliente debe asegurarse de que no viole las precondiciones del método. Esto puede requerir un código adicional.
 
 No hay un camino claro a seguir, y la decisión debe tomarse considerando todo el contexto. 
 
@@ -244,7 +269,7 @@ Por otro lado, los contratos aseguran que la comunicación entre clases se reali
 
 Tanto la validación como los contratos deberían ocurrir, ya que son diferentes. La cuestión es cómo evitar la repetición. Tal vez la validación y la precondición sean las mismas, lo que significa que hay una repetición de código o que la verificación se realiza dos veces. 
 
-Como regla general, hay que  evitar la repetición. Tu arquitectura debe garantizar que algunas zonas del código sean seguras y que los datos ya se hayan limpiado. 
+Como regla general, hay que evitar la repetición (DRY). Tu arquitectura debe garantizar que algunas zonas del código sean seguras y que los datos ya se hayan limpiado. 
 
 Por otro lado, si un contrato es muy importante y nunca debe romperse (el impacto podría ser significativo), no importa usar un poco de repetición y poder computacional adicional para verificarlo tanto en el momento de la validación de entrada como en el momento de la verificación del contrato. 
 
@@ -255,11 +280,11 @@ Por otro lado, si un contrato es muy importante y nunca debe romperse (el impact
 
 Java no ofrece un mecanismo claro para expresar contratos de código.  La palabra clave `assert` en Java está bien, pero si olvidas habilitarla en el tiempo de ejecución, es posible que los contratos no se verifiquen en producción. Es por eso que muchos desarrolladores prefieren usar excepciones (marcadas o no marcadas). 
 
-Aquí hay una  regla general: 
+Aquí hay una regla general: 
 
 - Si estas modelando los contratos de una biblioteca o clase de utilidad, se prefiere las excepciones. 
-- Si estas modelando clases de negocios y sus interacciones y los datos se limpiaron en capas anteriores (por ejemplo, en el controlador de una arquitectura Model-View-Controller [MVC]) se prefiere las aserciones. 
-- Si estás modelando clases de negocios pero no estas seguro de si los datos ya se limpiar usa excepciones. 
+- Si estas modelando clases de negocios y sus interacciones y los datos se limpiaron en capas anteriores (por ejemplo, en el controlador de una arquitectura Model-View-Controller [MVC]), se prefiere las aserciones. 
+- Si estás modelando clases de negocios pero no estas seguro de si los datos ya se limpiaron, usa excepciones. 
 
 Hay que modelar las validaciones de formas más elegantes ¿?.
 
@@ -292,7 +317,7 @@ Comprender cuándo no usar una práctica es tan importante como saber cuándo us
 
 La experiencia me muestra que hacer que las precondiciones, las postcondiciones y las invariantes sean explícitas en el código no es costoso y no lleva mucho tiempo. Por lo tanto, se recomienda que consideres usar este enfoque. 
 
-Hay que resaltar que el diseño por contrato no reemplaza la necesidad de realizar pruebas. ¿Por qué?. Porque, no se puede expresar todo el comportamiento esperado de un fragmento de código únicamente con precondiciones, postcondiciones e invariantes. 
+Hay que resaltar que el diseño por contrato no reemplaza la necesidad de realizar pruebas. ¿Por qué? Porque no se puede expresar todo el comportamiento esperado de un fragmento de código únicamente con precondiciones, postcondiciones e invariantes. 
 
 En la práctica, diseña contratos para garantizar que las clases puedan comunicarse entre sí y realiza pruebas para asegurarse de que el comportamiento de la clase sea el correcto.
 
