@@ -1,3 +1,5 @@
+package Pregunta_1;
+
 public class Clump {
     public int countClumps(int[] nums) {
         int countClumps = 0;

@@ -9,5 +9,8 @@
         <module name="Pregunta-1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Pregunta-2" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
