@@ -60,11 +60,9 @@ Y obtenemos el siguiente resultado:
 
 ## Pregunta 2
 
+## Pregunta 3
+
 Implementamos como nos piden una sistema mínimo de reservas con una pequeña documentación en el método clave:
 
 ![](sources/2023-06-21-11-52-40.png)
-
-
-
-## Pregunta 3
 
