@@ -1,4 +1,4 @@
-package com.wordz;
+package java.com.wordz;
 
 public class Wordz {
     public static void main(String[] args) {
