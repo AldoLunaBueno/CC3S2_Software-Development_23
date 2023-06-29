@@ -5,31 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9819998-33d3-4b12-8571-8a341464a152" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ejemploMock/MailServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ejemploMock/UserNotifications.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ejemploMock/WelcomeEmailTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/wordz/ejemplo/UserGreeting.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/wordz/ejemplo/UserId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/wordz/ejemplo/UserProfiles.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ejemplo/UserGreetingTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ejemplo.UserGreetingTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/ejemplo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ejemplo.UserGreetingTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserGreeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ejemploStub/UserGreeting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ejemploStub/UserId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserProfiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ejemploStub/UserProfiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ejemplo/UserGreetingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ejemploStub/UserGreetingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Mockito/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Mockito/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -264,7 +240,8 @@
       <workItem from="1687797039956" duration="1290000" />
       <workItem from="1687829749880" duration="2236000" />
       <workItem from="1687912161572" duration="5646000" />
-      <workItem from="1688003847022" duration="4149000" />
+      <workItem from="1688003847022" duration="4786000" />
+      <workItem from="1688042257026" duration="390000" />
     </task>
     <servers />
   </component>

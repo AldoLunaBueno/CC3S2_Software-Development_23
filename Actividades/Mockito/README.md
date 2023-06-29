@@ -297,13 +297,19 @@ Almacena valores de parámetros para cada llamada. Cuando llegamos a usar el mé
 
 **Iniciativa de exploración:**
 
-Aquí vemos cómo falla la prueba hecha con `verify()` porque 
+Aquí vemos cómo falla la prueba hecha con `verify()` debido a que el método `sendEmail()` del mock no fue invocado dentro del método `welcomeNewUser()` que queremos probar.
 
 ![](sources/2023-06-28-22-23-25.png)
 
+Ahora sí invocamos el método, pero con un mensaje incorrecto: _Bienvenido, amiguito._ La prueba falla, lo que nos dice algo más acerca de cómo funcionan los mocks. Con un mock no solo se busca verificar que un método del colaborador sea invocado dentro del SUT, sino también que sea invocado con los parámetros que queremos. Así falló:
+
 ![](sources/2023-06-28-22-30-57.png)
 
+Con los parámetros correctos, la prueba ya da verde:
+
 ![](sources/2023-06-28-22-31-34.png)
+
+Ahora ya sabemos cuál es la diferencia entre un stub y un mock. El stub simula tener una parte del comportamiento del colobarador para interactuar dentro del SUT, mientras que el mock no hace nada y solo sirve para verificar que un método del colaborador fue invocado como queremos dentro del SUT. Y lo que tienen en común es que en ambos necesitamos meter al doble de pruebas dentro del SUT, es decir, hacer una inyección de dependencias. Aquí vimos que podemos hacer esto a través del constructor, aunque podrían haber otras formas de hacerlo.
 
 ### Borrando la distinción entre stubs y mocks 
 
@@ -333,22 +339,22 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class UserGreetingTest {
-      @Mock
-      private UserProfiles profiles;
+	@Mock
+	private UserProfiles profiles;
       
     @Test
-       void formatsGreetingWithName() {
-        when(profiles.fetchNicknameFor(any()))
-             .thenReturn("Kapumota");
-          var greeting = new UserGreeting(profiles);
-    	String actual =
-      	greeting.formatGreeting(new UserId(""));
-    	assertThat(actual)
-      	.isEqualTo("Hola y bienvenido, Kapumota");
+	void formatsGreetingWithName() {
+		when(profiles.fetchNicknameFor(any()))
+			.thenReturn("Kapumota");
+		var greeting = new UserGreeting(profiles);
+		String actual =
+			greeting.formatGreeting(new UserId(""));
+		assertThat(actual)
+			.isEqualTo("Hola y bienvenido, Kapumota");
 	}
 }
 ``` 
-Agregamos un comparador de argumentos `any() al método `fetchNicknameFor()`. Esto le indica a Mockito que devuelva el valor esperado Kapumota sin importar qué valor de parámetro se pase a `fetchNicknameFor()`. 
+Agregamos un comparador de argumentos `any()` al método `fetchNicknameFor()`. Esto le indica a Mockito que devuelva el valor esperado _Kapumota_ sin importar qué valor de parámetro se pase a `fetchNicknameFor()`. 
 
 Mockito ofrece una serie de comparadores de argumentos, descritos en la documentación oficial de Mockito. 
 
@@ -359,16 +365,15 @@ Estos comparadores de argumentos son especialmente útiles cuando se crea un stu
 A medida que creamos el código, debemos asegurarnos de que maneje bien las condiciones de error. Algunas condiciones de error son fáciles de probar. 
 
 Un ejemplo podría ser un validador de entrada de usuario. Para probar que maneja el error causado por datos no válidos, simplemente escribimos una prueba que te proporciona datos no válidos 
-y luego escribimos una aseveración para verificar que se informó con éxito que los datos no eran válidos. Pero, ¿qué pasa con el código que lo usa? 
+y luego escribimos una aseveración para verificar que se informó con éxito que los datos no eran válidos. Pero ¿qué pasa con el código que lo usa? 
 
 Si el SUT es un código que responde a una condición de error planteada por uno de sus colaboradores, necesitamos probar esa respuesta de error.
 
-Cómo lo probamos depende del mecanismo que elegimos para informar ese error. Es posible que estemos usando un código de estado simple, en cuyo caso, devolver ese código de error desde un 
-código auxiliar funcionará muy bien. 
+Cómo lo probamos depende del mecanismo que elegimos para informar ese error. Es posible que estemos usando un código de estado simple, en cuyo caso, devolver ese código de error desde un código auxiliar funcionará muy bien. 
 
 También es posible que hayamos elegido usar excepciones de Java para informar este error. Las excepciones son controvertidas. 
 Si se usan incorrectamente, pueden conducir a un flujo de control muy poco claro en tu código. 
-Sin embargo, necesitamos saber cómo probarlos, ya que aparecen en varias librerías de Java y estilos de codificación internos. 
+Sin embargo, necesitamos saber cómo probarlos, ya que aparecen en varias bibliotecas de Java y estilos de codificación internos. 
 
 Afortunadamente, no hay nada difícil en escribir la prueba para el código de manejo de excepciones.
 
@@ -383,22 +388,20 @@ Mockito tiene una buena función para hacer esto, así que veamos un ejemplo de 
     	doThrow(new IllegalArgumentException())
         	.when(mailServer).sendEmail(any(),any(),any());
     	var notifications
-        	= new UserNotifications( mailServer );
-    	assertThatExceptionOfType(NotificationFailureException.
-class)
-            	.isThrownBy(()->notifications
-.welcomeNewUser("not-an-email-address"));
+        	= new UserNotifications(mailServer);
+    	assertThatExceptionOfType(NotificationFailureException.class)
+            .isThrownBy(()->notifications
+				.welcomeNewUser("not-an-email-address"));
 	}
-``` 
-Al comienzo de esta prueba, usamos Mockito `doThrow()` para configurar el objeto mock. Esto configura el objeto mock de Mockito `mailServer` para lanzar `IllegalArgumentException` cada vez que
-llamamos a `sendEmail()`, sin importar qué valores de parámetro enviemos. Esto refleja una decisión de diseño para hacer que `sendEmail()` arroje esa excepción como un mecanismo para informar 
-que la dirección de correo electrónico no era válida. 
+```
+
+Al comienzo de esta prueba, usamos Mockito `doThrow()` para configurar el objeto mock. Esto configura el objeto mock de Mockito `mailServer` para lanzar `IllegalArgumentException` cada vez que llamamos a `sendEmail()`, sin importar qué valores de parámetro enviemos. Esto refleja una decisión de diseño para hacer que `sendEmail()` arroje esa excepción como un mecanismo para informar  que la dirección de correo electrónico no era válida. 
 
 Cuando el SUT llama a `mailServer.sendEmail()`  ese método lanzará `IllegalArgumentExeption`.
 
 Para este ejemplo, decidimos envolver el SUT y volver a generar `IllegalArgumentException`. Elegimos crear una nueva excepción relacionada con la responsabilidad de las notificaciones de los usuarios. 
-Lo llamaremos `NotificationFailureException`. Luego, el paso de aserción de la prueba usa la característica de la librería AssertJ `assertThatExceptionOfType()`. 
-Esto realiza los pasos `Act` y `Assert` juntos. 
+Lo llamaremos `NotificationFailureException`. Luego, el paso de aserción de la prueba usa el método de AssertJ `assertThatExceptionOfType()`. Esto realiza los pasos `Act` y `Assert` juntos. 
+
 Llamamos al método SUT `welcomeNewUser()` y aseveramos que arroja el error `NotificationFailureException`. 
 
 Podemos ver cómo esto es suficiente para desencadenar la respuesta de manejo de excepciones en el código SUT. 
