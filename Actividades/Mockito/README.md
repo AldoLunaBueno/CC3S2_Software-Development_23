@@ -427,22 +427,20 @@ Para este ejemplo, la prueba cubrirá el caso en el que intentamos obtener una p
 @ExtendWith(MockitoExtension.class) 
 public class WordSelectionTest { 
     @Mock 
-    private WordRepository repository; 
+    private WordRepository repository;
+
     @Mock 
-    private NumerosAleatorios random; 
+    private NumerosAleatorios random;
+
     @Test 
-
     public void reportsWordNotFound() { 
-        doThrow(new WordRepositoryException()) 
-                .when(repository) 
-                  .fetchWordByNumber(anyInt()); 
-        var selection = new WordSelection(repository, 
-                                          random); 
+        doThrow(new WordRepositoryException())
+			.when(repository) 
+            .fetchWordByNumber(anyInt()); 
+        var selection = new WordSelection(repository, random); 
         assertThatExceptionOfType(WordSelectionException.class) 
-                .isThrownBy( 
-                        ()->selection.getRandomWord()); 
-    } 
-
+            .isThrownBy(()->selection.getRandomWord()); 
+    }
 } 
 ```
 

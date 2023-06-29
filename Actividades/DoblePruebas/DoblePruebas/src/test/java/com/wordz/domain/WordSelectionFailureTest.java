@@ -13,10 +13,8 @@ import static org.mockito.Mockito.doThrow;
 public class WordSelectionFailureTest {
     @Mock
     private WordRepository repository;
-
     @Mock
     private NumerosAleatorios random;
-
     @Test
     void reportsWordNotFound() {
         doThrow(new WordRepositoryException())
@@ -26,9 +24,7 @@ public class WordSelectionFailureTest {
         var selection = new WordSelection(repository,
                 random);
 
-        assertThatExceptionOfType(
-                WordSelectionException.class)
-                .isThrownBy(
-                        ()->selection.chooseRandomWord());
+        assertThatExceptionOfType(WordSelectionException.class)
+                .isThrownBy(()->selection.chooseRandomWord());
     }
 }
