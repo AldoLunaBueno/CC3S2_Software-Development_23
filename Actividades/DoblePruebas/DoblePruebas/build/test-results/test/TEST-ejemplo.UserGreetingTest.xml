@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ejemplo.UserGreetingTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-29T02:54:39" hostname="ALDO" time="0.466">
+  <properties/>
+  <testcase name="formatGreetingWithName()" classname="ejemplo.UserGreetingTest" time="0.466"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

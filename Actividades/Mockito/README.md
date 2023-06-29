@@ -1,11 +1,17 @@
-## Curso de desarrollo de software
+# Trabajando con Mockito <!-- omit in toc -->
 
-Inicia un repositorio llamado CC-3S2 y dentro una carpeta llamada Actividades. Dentro de esta carpeta completa con código con Mockito la actividad  `DoblePruebas` y coloca todas tus respuestas.
+> Esta actividad es individual y la continuación de la anterior actividad de doble de pruebas.
 
-Esta actividad es individual y la continuación de la anterior actividad de doble de pruebas.
+- [Introducción](#introducción)
+- [Escribiendo un stub con Mockito](#escribiendo-un-stub-con-mockito)
+- [Escribiendo un mock con Mockito](#escribiendo-un-mock-con-mockito)
+	- [Borrando la distinción entre stubs y mocks](#borrando-la-distinción-entre-stubs-y-mocks)
+- [Comparadores (matchers) de argumentos](#comparadores-matchers-de-argumentos)
+- [Manejo del código de errores con pruebas](#manejo-del-código-de-errores-con-pruebas)
+- [Ejercicio con Wordz](#ejercicio-con-wordz)
 
-### Trabajando con Mockito
 
+## Introducción
 
 Mockito es una librería de código abierto gratuita que proporciona una amplia gama de funciones destinadas a crear dobles de prueba con muy poco código. 
 El sitio web de Mockito se puede encontrar en https://site.mockito.org/. 
@@ -14,7 +20,7 @@ Para comenzar extraemos la librería Mockito y una librería de extensión en el
 
 El extracto de build.gradle se ve así: 
 
-```
+```java
 dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-
 api:5.8.2'
@@ -28,7 +34,7 @@ jupiter:4.8.0'
 
 ```
 
-### Escribir un stub con Mockito
+## Escribiendo un stub con Mockito
 
 Veamos cómo Mockito nos ayuda a crear un objeto stub. Usaremos TDD para crear una clase `UserGreeting` que brinde un saludo personalizado, después de obtener el apodo de la interfaz `UserProfiles`. 
 
@@ -36,7 +42,7 @@ Escribamos esto usando pequeños pasos, para ver cómo TDD y Mockito funcionan j
 
 1. Escribe la clase de prueba básica JUnit5 e intégrela con Mockito:
 
-```
+```java
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -46,9 +52,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 ``` 
 `@ExtendWith(MockitoExtension.class)` marca esta prueba como usando Mockito. Cuando ejecutamos esta prueba JUnit5, la anotación garantiza que se ejecute el código de la librería Mockito.
 
- 2. Agrega una prueba que confirme el comportamiento esperado. Capturaremos esto en una aserción:
+2. Agrega una prueba que confirme el comportamiento esperado. Capturaremos esto en una aserción:
 
-```
+```java
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -57,7 +63,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserGreetingTest {
 	@Test
 	void formatsGreetingWithName() {
-    	String actual = «»;
+    	String actual = "";
     	assertThat(actual)
        	.isEqualTo("Hola y bienvenido, Kapumota");
 	}
@@ -67,14 +73,19 @@ Este es el uso estándar de los frameworks JUnit y AssertJ como hemos visto ante
 
 **Problema:** ¿Qué sucede si ejecutas la prueba ahora?. 
 
+**Respuesta:** Evidentemente, al comparar la cadena vacía con la cadena esperada que está ahí, la prueba va a fallar.
+
+![](sources/2023-06-27-21-06-59.png)
+
 3. Elimina el SUT, la clase que queremos escribir, con un paso Act: 
 
-```
+```java
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @ExtendWith(MockitoExtension.class)
 public class UserGreetingTest {
 	private static final UserId USER_ID
@@ -95,7 +106,7 @@ Este paso elimina las dos nuevas clases de código de producción, como se muest
 
 4. Agrega un esqueleto de clase `UserGreeting`: 
 
-```
+```java
 public class UserGreeting {
 	public String formatGreeting(UserId id) {
     	throw new UnsupportedOperationException();
@@ -108,7 +119,7 @@ La decisión de diseño capturada aquí muestra que el comportamiento es proporc
 
 5. Agrega un esqueleto de ID de usuario de clase:
 
-``` 
+``` java
 public class UserId {
 	public UserId(String id) {
 	}
@@ -116,10 +127,18 @@ public class UserId {
 ```
 **Problema:** ¿Qué sucede si ejecutas la prueba ahora?.  Explica la salida.
 
+**Respuesta:**
+
+Esta es la salida:
+
+![](sources/2023-06-27-22-02-07.png)
+
+Aquí se ve que el caso de prueba falla en el paso Act, no en el paso Asert. Esto es porque la implementación del método evaluado lanza una excepción.
+
 6. Otra decisión de diseño a capturar es que la clase `UserGreeting` dependerá de una interfaz `UserProfiles`. 
 Necesitamos crear un campo, crear el esqueleto de la interfaz e inyectar el campo en un nuevo constructor para el SUT
 
-``` 
+```java
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -136,7 +155,7 @@ public class UserGreetingTest {
     	String actual =
         	         greeting.formatGreeting(USER_ID);
     	assertThat(actual)
-        	         .isEqualTo(“Hola y bienvenido Kapumota”);
+        	         .isEqualTo("Hola y bienvenido Kapumota");
 	}
 }
 
@@ -145,9 +164,12 @@ Continuamos agregando el código mínimo para que la prueba se compile.
 
 **Problema:** ¿Qué sucede si ejecutas la prueba ahora?. Explica la salida.
 
+
+**Respuesta:** Sigue saliendo el mismo error, ya que el método evaluado `formatGreeting()` sigue siendo el mismo.
+
 7. Agrega comportamiento al método `formatGreeting()`: 
 
-``` 
+```java
 public class UserGreeting {
 	private final UserProfiles profiles;
 	public UserGreeting(UserProfiles profiles) {
@@ -164,9 +186,13 @@ public class UserGreeting {
 
 9. Ejecute la prueba. ¿Qué sucede?.
 
+![](sources/2023-06-27-22-16-40.png)
+
+Ahora la variable `profiles` que se le pasa al constructor `UserGreeting()` es nula, pero el método evaluado la utiliza internamente para llamar al método fetchNicknameFor(). Se lanza una expeción de NullPointerException siempre que esto pasa, por eso la prueba falla. Este sería un buen momento para agregar un doble de prueba que entregue alguna lista simulada de perfiles. Sería un doble que implementa la interface `UserProfiles`.
+
 10. Agrega la anotación `@Mock` al campo `profiles`: 
 
-```
+```java
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -191,12 +217,20 @@ public class UserGreetingTest {
             	.isEqualTo("Hola y bienvenido  Kapumota");
 	}
 }
-``` 
+```
 **Problema:** ¿Qué sucede si ejecutas la prueba ahora?. Explica la salida.
 
- 11. Configura `@Mock` para devolver los datos del stub  correctos para la prueba.
+**Respuesta:** La prueba ya no falla por una excepción, sino porque el assert no se cumple. Esto es lo que deseamos que ocurra en el paso Assert, así que vamos bien.
 
-``` 
+Se puede notar la diferencia visualmente si vemos el ícono de X dentro de un círculo amarillo que encabeza el nombre del caso de prueba que falló, a la izquierda. Antes era un signo de admiración dentro de un círculo rojo, lo cual significa que ocurrió una excepción antes de que el assert se puediera verificar. Este es el nuevo resultado:
+
+![](sources/2023-06-28-21-19-00.png)
+
+Ahora, ¿por qué ocurrió esto? Solo agregamos la etiqueta `@Mock` a la variable `profiles`. Parece que lo que hizo fue "darse cuenta" de que el tipo de dato de salida del método llamado por este objeto es de tipo String, para luego simular que retorna un String predefinido en esta biblioteca: _null_. Si queremos aprovecharnos de esto para nuestra prueba, debemos saber cómo cambiar esa cadena predefinida por la que queremos: _Kapumota_.
+
+11. Configura `@Mock` para devolver los datos del stub  correctos para la prueba.
+
+```java
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -225,18 +259,22 @@ public class UserGreetingTest {
             	.isEqualTo("Hola y bienvenido, Kapumota");
 	}
 }
+```
 
-````
 12. ¿Qué sucede si vuelves a ejecutar la prueba?. 
 
-### Escribiendo un mock con Mockito
+La prueba por fin pasó:
+
+![](sources/2023-06-28-21-55-19.png)
+
+## Escribiendo un mock con Mockito
 
 Mockito puede crear objetos mocks con la misma facilidad que los stubs. Todavía podemos usar la anotación `@Mock` en un campo que deseamos convertir en un mock, quizás dando sentido a la anotación. 
 Usamos el método de `verify()` de Mockito para verificar que el SUT llamó a un método esperado en un colaborador. V
 
 eamos cómo se usa un mock. Escribiremos una prueba para algún código SUT que esperamos enviar un correo electrónico a través de `MailServer`:
 
-``` 
+```java
 @ExtendWith(MockitoExtension.class)
 class WelcomeEmailTest {
 	@Mock
@@ -259,7 +297,7 @@ La comprobación también verifica que se haya llamado con los valores de parám
 Mockito utiliza la generación de código para lograr todo esto. Envuelve la interfaz que etiquetamos con la anotación `@Mock` e intercepta todas y cada una de las llamadas. 
 Almacena valores de parámetros para cada llamada. Cuando llegamos a usar el método `verify()` para confirmar que el método se llamó correctamente, Mockito tiene todos los datos que necesita para hacerlo. 
 
-#### Borrando la distinción entre stubs y mocks 
+### Borrando la distinción entre stubs y mocks 
 
 Una cosa a tener en cuenta sobre la terminología de Mockito es que difumina la distinción entre un stub y un objeto mock. 
 
@@ -267,14 +305,14 @@ En Mockito, creamos dobles de prueba que se etiquetan como objetos mocks. Pero e
 
 Configurar un doble de prueba para que sea tanto un stub como un mock es un olor a código de prueba. No está mal, pero vale la pena hacer una pausa para pensar. 
 
-### Comparadores (matchers) de argumentos
+## Comparadores (matchers) de argumentos
 
 Mockito proporciona métodos de librería llamados comparadores de argumentos. Estos son métodos estáticos que se usan dentro de las sentencias `when()` y `verify()`. 
 Los comparadores de argumentos se utilizan para indicar a Mockito que responda a un rango de valores de parámetros, incluidos valores nulos y desconocidos, que podrían pasar a un método bajo prueba. 
 
 La siguiente prueba utiliza un comparador de argumentos que acepta cualquier valor de `UserId`: 
 
-```
+```java
 import ejemplos.UserGreeting;
 import ejemplos.UserId;
 import ejemplos.UserProfiles;
@@ -306,9 +344,9 @@ Agregamos un comparador de argumentos `any() al método `fetchNicknameFor()`. Es
 
 Mockito ofrece una serie de comparadores de argumentos, descritos en la documentación oficial de Mockito. 
 
-Estos comparadores de argumentos son especialmente útiles cuando se crea un stub para simular una condición de error. 
+Estos comparadores de argumentos son especialmente útiles cuando se crea un stub para simular una condición de error.
 
-### Manejo del código de errores con pruebas 
+## Manejo del código de errores con pruebas
 
 A medida que creamos el código, debemos asegurarnos de que maneje bien las condiciones de error. Algunas condiciones de error son fáciles de probar. 
 
@@ -331,7 +369,7 @@ Luego, debemos hacer arreglos para que el stub arroje la excepción apropiada cu
 
 Mockito tiene una buena función para hacer esto, así que veamos un ejemplo de prueba de Mockito que usa excepciones:
 
-``` 
+```java
 @Test
 	public void rejectsInvalidEmailRecipient() {
     	doThrow(new IllegalArgumentException())
@@ -363,7 +401,7 @@ En este caso, todo lo que tiene que hacer el nuevo código es lanzar un error de
 Hacemos esto para informar que algo salió mal mediante el envío de una notificación. Como parte de las consideraciones normales de capas del sistema, queremos reemplazar la excepción original por una
 más general, que se adapta mejor a esta capa de código. 
 
-### Ejercicio con Wordz  
+## Ejercicio con Wordz  
 
 En este ejercicio, aplicaremos lo que hemos aprendido escribiendo una prueba para una clase que elegirá una palabra al azar para que el jugador la adivine de un conjunto de palabras almacenadas. Crearemos una interfaz llamada `WordRepository` para acceder a las palabras almacenadas. Haremos esto a través de un método `fetchWordByNumber(wordNumber)`, donde `wordNumber` identifica una palabra. 
 
@@ -374,7 +412,7 @@ Estaremos escribiendo una clase `WordSelection`, que es responsable de elegir un
 Para este ejemplo, la prueba cubrirá el caso en el que intentamos obtener una palabra de la interfaz de `WordRepository` pero por alguna razón, no está allí. Podemos escribir la prueba de la siguiente manera:  
 
  
-```
+```java
 @ExtendWith(MockitoExtension.class) 
 public class WordSelectionTest { 
     @Mock 

@@ -5,16 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9819998-33d3-4b12-8571-8a341464a152" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserProfiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ejemplo/UserGreetingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wordz/Wordz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wordz/Wordz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ejemplos/BatteryMonitor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ejemplos/DeviceApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ejemplos/LanzamientoDados.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ejemplos/NumerosAleatorios.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ejemplos/NumerosGeneradosAleatoriamente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ejemplos/LanzamientoDadosTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ejemplos/StubNumeroAleatorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/ejemplos.LanzamientoDadosTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/ejemplos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-ejemplos.LanzamientoDadosTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/BatteryMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/BatteryMonitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/DeviceApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/DeviceApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/LanzamientoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/LanzamientoDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/MailServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/MailServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/NumerosAleatorios.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/NumerosAleatorios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/NumerosGeneradosAleatoriamente.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/NumerosGeneradosAleatoriamente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/UserGreeting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wordz/ejemplo/UserGreeting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ejemplos/appLanzamientoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplos/appLanzamientoDados.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/wordz/domain/WordTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/wordz/domain/WordTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ejemplos/LanzamientoDadosTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplosTest/LanzamientoDadosTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ejemplos/MockMailServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplosTest/MockMailServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ejemplos/StubNumeroAleatorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/exclueded/ejemplosTest/StubNumeroAleatorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Mockito/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Mockito/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +78,14 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
@@ -62,6 +102,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/UNI/Ciclo 23-1/Software/Curso-CC3S2-2023/Actividades/DoblePruebas/DoblePruebas&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -75,30 +116,17 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Gradle.LanzamientoDadosTest">
-    <configuration name="DiceRollTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ejemplos.DiceRollTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.wordz.ejemplo" />
+      <recent name="ejemplo" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\UNI\Ciclo 23-1\Software\Curso-CC3S2-2023\Actividades\DoblePruebas\DoblePruebas\src\main\java\com\wordz\ejemplo" />
+      <recent name="D:\UNI\Ciclo 23-1\Software\Curso-CC3S2-2023\Actividades\DoblePruebas\DoblePruebas\exclueded" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.UserGreetingTest (1)">
     <configuration name="LanzamientoDadosTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -145,6 +173,29 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="UserGreetingTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ejemplo.UserGreetingTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="UserGreetingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -158,7 +209,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ejemplos.UserGreetingTest&quot;" />
+            <option value="&quot;UserGreetingTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -168,7 +219,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="WelcomeEmailTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserGreetingTest.formatGreetingWithName" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -181,7 +232,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ejemplos.WelcomeEmailTest&quot;" />
+            <option value="&quot;UserGreetingTest.formatGreetingWithName&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -206,11 +257,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UserGreetingTest (1)" />
+        <item itemvalue="Gradle.UserGreetingTest" />
+        <item itemvalue="Gradle.UserGreetingTest.formatGreetingWithName" />
         <item itemvalue="Gradle.LanzamientoDadosTest" />
         <item itemvalue="Gradle.LanzamientoDadosTest (1)" />
-        <item itemvalue="Gradle.DiceRollTest" />
-        <item itemvalue="Gradle.WelcomeEmailTest" />
-        <item itemvalue="Gradle.UserGreetingTest" />
       </list>
     </recent_temporary>
   </component>
@@ -227,6 +278,8 @@
       <workItem from="1685896048083" duration="5703000" />
       <workItem from="1687797039956" duration="1290000" />
       <workItem from="1687829749880" duration="2236000" />
+      <workItem from="1687912161572" duration="5646000" />
+      <workItem from="1688003847022" duration="2038000" />
     </task>
     <servers />
   </component>

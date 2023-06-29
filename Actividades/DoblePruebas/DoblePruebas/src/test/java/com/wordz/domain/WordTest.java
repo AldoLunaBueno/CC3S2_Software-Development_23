@@ -11,12 +11,6 @@ public class WordTest {
         var word = new Word("A");
         var score = word.guess("Z");
         assertScoreForGuess(score, INCORRECT);
-        int i = 0;
-        assertThat(i)
-                .isGreaterThanOrEqualTo(1)
-                .isLessThanOrEqualTo(6);
-        String str = "";
-        str.
     }
 
     @Test
