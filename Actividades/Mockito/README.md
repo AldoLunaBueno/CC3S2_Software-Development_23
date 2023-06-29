@@ -270,9 +270,7 @@ La prueba por fin pasó:
 ## Escribiendo un mock con Mockito
 
 Mockito puede crear objetos mocks con la misma facilidad que los stubs. Todavía podemos usar la anotación `@Mock` en un campo que deseamos convertir en un mock, quizás dando sentido a la anotación. 
-Usamos el método de `verify()` de Mockito para verificar que el SUT llamó a un método esperado en un colaborador. V
-
-eamos cómo se usa un mock. Escribiremos una prueba para algún código SUT que esperamos enviar un correo electrónico a través de `MailServer`:
+Usamos el método de `verify()` de Mockito para verificar que el SUT llamó a un método esperado en un colaborador. Veamos cómo se usa un mock. Escribiremos una prueba para algún código SUT que esperamos enviar un correo electrónico a través de `MailServer`:
 
 ```java
 @ExtendWith(MockitoExtension.class)
@@ -296,6 +294,16 @@ La comprobación también verifica que se haya llamado con los valores de parám
 
 Mockito utiliza la generación de código para lograr todo esto. Envuelve la interfaz que etiquetamos con la anotación `@Mock` e intercepta todas y cada una de las llamadas. 
 Almacena valores de parámetros para cada llamada. Cuando llegamos a usar el método `verify()` para confirmar que el método se llamó correctamente, Mockito tiene todos los datos que necesita para hacerlo. 
+
+**Iniciativa de exploración:**
+
+Aquí vemos cómo falla la prueba hecha con `verify()` porque 
+
+![](sources/2023-06-28-22-23-25.png)
+
+![](sources/2023-06-28-22-30-57.png)
+
+![](sources/2023-06-28-22-31-34.png)
 
 ### Borrando la distinción entre stubs y mocks 
 

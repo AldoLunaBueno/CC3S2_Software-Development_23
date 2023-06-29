@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ejemploMock.WelcomeEmailTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-29T03:31:09" hostname="ALDO" time="0.399">
+  <properties/>
+  <testcase name="sendWelcomeEmail()" classname="ejemploMock.WelcomeEmailTest" time="0.399"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

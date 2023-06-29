@@ -1,4 +1,4 @@
-package com.wordz.ejemplo;
+package ejemploStub;
 
 public class UserId {
     public UserId(String id) {

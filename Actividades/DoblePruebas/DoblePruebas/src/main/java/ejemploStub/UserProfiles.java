@@ -1,4 +1,4 @@
-package com.wordz.ejemplo;
+package ejemploStub;
 
 public interface UserProfiles {
     String fetchNicknameFor(UserId id);

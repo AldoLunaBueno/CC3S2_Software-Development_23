@@ -1,8 +1,5 @@
-package ejemplo;
+package ejemploStub;
 
-import com.wordz.ejemplo.UserGreeting;
-import com.wordz.ejemplo.UserId;
-import com.wordz.ejemplo.UserProfiles;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
