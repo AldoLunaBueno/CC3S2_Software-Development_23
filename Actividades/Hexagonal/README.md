@@ -1,8 +1,24 @@
-## Curso de desarrollo de software
+# Arquitectura hexagonal
 
-Inicia un repositorio llamado CC-3S2 y dentro una carpeta llamada Actividades. Dentro de esta carpeta abre una carpeta llamada `Hexagonal` y coloca todas tus respuestas.Esta actividad es individual. 
+> Configurar la versión de gradle en esta actividad a una versión compatible del SDK.
 
-Configurar la versión de gradle en esta actividad a una versión compatible del SDK.
+- [Arquitectura hexagonal](#arquitectura-hexagonal)
+  - [Introducción](#introducción)
+  - [Los sistemas externos son difíciles](#los-sistemas-externos-son-difíciles)
+  - [Los problemas de entorno traen problemas](#los-problemas-de-entorno-traen-problemas)
+  - [Inversión de dependencia al rescate](#inversión-de-dependencia-al-rescate)
+  - [Generalizando este enfoque a la arquitectura hexagonal](#generalizando-este-enfoque-a-la-arquitectura-hexagonal)
+  - [Resumen de los componentes de la arquitectura hexagonal](#resumen-de-los-componentes-de-la-arquitectura-hexagonal)
+  - [Las reglas de oro de la arquitectura hexagonal](#las-reglas-de-oro-de-la-arquitectura-hexagonal)
+  - [Abstracción del sistema externo](#abstracción-del-sistema-externo)
+  - [Decidir qué necesita el modelo de dominio](#decidir-qué-necesita-el-modelo-de-dominio)
+  - [Escribir el código de dominio](#escribir-el-código-de-dominio)
+  - [Sustitución de dobles de prueba por sistemas externos](#sustitución-de-dobles-de-prueba-por-sistemas-externos)
+  - [Pruebas unitarias de unidades más grandes](#pruebas-unitarias-de-unidades-más-grandes)
+  - [Wordz: abstracción de la base de datos](#wordz-abstracción-de-la-base-de-datos)
+
+
+## Introducción
 
 En esta actividad, vamos a combinar todas esas técnicas en un poderoso enfoque de diseño conocido como arquitectura hexagonal. 
 
@@ -11,7 +27,7 @@ Las tareas de desarrollo, como cambiar el proveedor de una base de datos, se sim
 
 También podremos realizar pruebas unitarias en unidades más grandes, trayendo algunas pruebas que requieren pruebas de extremo a extremo en otros enfoques bajo pruebas unitarias.  
 
-#### Los sistemas externos son difíciles  
+## Los sistemas externos son difíciles  
 
 Las dependencias de sistemas externos causan problemas en el desarrollo. La solución conduce a un buen enfoque de diseño. 
 
@@ -19,7 +35,7 @@ Veamos una forma sencilla de manejar sistemas externos. La tarea del usuario es 
 
 <img src="Imagenes/Ejemplo1.png" width="520px" height="180px">
 
-#### Los problemas de entorno traen problemas  
+## Los problemas de entorno traen problemas  
 
 El entorno en el que se ejecuta el software a menudo genera desafíos. 
 
@@ -44,7 +60,7 @@ Existen muchos desafíos cuando mezclamos servicios externos y una sola pieza de
 **Pregunta:** ¿Qué podemos hacer al respecto para resolver o hacer que los sistemas externos sean más fáciles de manejar?.
 
 
-#### Inversión de dependencia al rescate  
+## Inversión de dependencia al rescate  
 
 Aprendimos sobre el principio de inversión de dependencia anteriormente. Vimos que nos ayuda a aislar algún código que queríamos probar de los detalles de sus colaboradores. Notamos que era útil para probar cosas que se conectaban a sistemas externos que estaban fuera de el control. 
 
@@ -68,7 +84,7 @@ El mayor beneficio es que podemos intercambiar cualquier pieza de código que pu
 
 Estas son ventajas muy significativas, no solo en términos de TDD y pruebas, sino también en términos de cómo se organiza el código. 
 
-#### Generalizando este enfoque a la arquitectura hexagonal  
+## Generalizando este enfoque a la arquitectura hexagonal  
 
 ¿Podríamos extender este enfoque a toda la aplicación y obtener los mismos beneficios? ¿Podríamos encontrar una manera de separar toda la lógica de la aplicación y las representaciones de datos de las restricciones de la influencia externa? 
 
@@ -81,7 +97,7 @@ El diagrama anterior muestra lo que sucede cuando generalizamos el uso de la inv
 Se llama arquitectura hexagonal, también conocida como puertos y adaptadores por el término original utilizado por Alastair Cockburn, quien describió por primera vez este enfoque. 
 
 
-#### Resumen de los componentes de la arquitectura hexagonal 
+## Resumen de los componentes de la arquitectura hexagonal 
 
 Para proporcionarnos este aislamiento de la lógica de aplicación central, la arquitectura hexagonal divide todo el programa en cuatro espacios:  
 
@@ -146,7 +162,7 @@ A partir de esto podemos tomar dos decisiones estructurales de alto nivel:
 
 Las herramientas de análisis estático como [SonarQube](https://docs.sonarqube.org/latest/) pueden automatizar las comprobaciones de importación como parte del proceso de construcción.  
 
-#### Las reglas de oro de la arquitectura hexagonal  
+## Las reglas de oro de la arquitectura hexagonal  
 
 - El modelo de dominio nunca se conecta directamente a nada en la capa del adaptador para que la lógica de la aplicación no dependa de los detalles de los sistemas externos.
 - Los adaptadores se conectan a los puertos para aislar el código que se conecta a los sistemas externos.
@@ -155,13 +171,13 @@ Las herramientas de análisis estático como [SonarQube](https://docs.sonarqube.
 
 Estas reglas simples mantienen el diseño en línea y preservan el aislamiento del modelo de dominio.  
 
-### Abstracción del sistema externo  
+## Abstracción del sistema externo  
 
 Tomaremos un enfoque paso a paso para manejar sistemas externos, donde primero decidiremos qué necesita el modelo de dominio, luego resolveremos las abstracciones correctas que ocultan sus detalles técnicos. 
 
 Consideraremos dos sistemas externos comunes: solicitudes web y acceso a bases de datos.  
 
-#### Decidir qué necesita el modelo de dominio
+## Decidir qué necesita el modelo de dominio
 
  El lugar para comenzar el diseño es con el modelo de dominio. Necesitamos diseñar un puerto adecuado para que el modelo de dominio interactúe. Este puerto debe estar libre de cualquier detalle de el sistema externo y al mismo tiempo, debe responder a la pregunta de para qué la aplicación necesita este sistema. Estamos creando una abstracción. 
 
@@ -280,7 +296,7 @@ Esta abstracción nos ofrece beneficios al poder usar un doble de prueba para es
 
 Nunca se sabe cuándo un servicio externo podría cerrarse o volverse demasiado costoso de usar. Es bueno mantener las opciones abiertas usando la arquitectura hexagonal. 
 
-### Escribir el código de dominio  
+## Escribir el código de dominio  
 
 Aqui veremos algunas de las cosas en las que debemos pensar mientras escribimos el código para el modelo de dominio. Cubriremos qué tipos de bibliotecas debemos y no debemos usar en el modelo de dominio, cómo tratamos la configuración y la inicialización de la aplicación y también pensaremos en el impacto que tienen los frameworks de trabajo populares.  
 
@@ -306,7 +322,7 @@ El modelo de dominio se puede escribir utilizando cualquier paradigma de program
 
 La buena noticia es que cualquiera que sea el paradigma que elijamos, podremos escribir el modelo de dominio con éxito. Si bien el código puede tener un aspecto diferente, se puede escribir una funcionalidad equivalente utilizando cualquiera de los paradigmas.  
 
-### Sustitución de dobles de prueba por sistemas externos  
+## Sustitución de dobles de prueba por sistemas externos  
 
 Discutiremos una de las mayores ventajas que la arquitectura hexagonal aporta a TDD: alta capacidad de prueba. También trae algunas ventajas de flujo de trabajo.  
 
@@ -330,7 +346,7 @@ Obtenemos varios beneficios al hacer esto:
 
 Una consecuencia de poder probar todo el modelo de dominio es que podemos aplicar TDD y  pruebas unitarias FIRST  a unidades de programa mucho más grandes. La siguiente sección analiza lo que eso significa para nosotros.  
 
-#### Pruebas unitarias de unidades más grandes  
+## Pruebas unitarias de unidades más grandes  
 
 Podemos probar unidades que son tan grandes como una historia de usuario.  
 
@@ -374,7 +390,7 @@ El uso de más pruebas unitarias mejora los tiempos de compilación, ya que las 
 
 Se necesitan menos pruebas de integración, lo cual es bueno ya que se ejecutan más lentamente y son más propensas a obtener resultados incorrectos.  
 
-### Wordz: abstracción de la base de datos  
+## Wordz: abstracción de la base de datos  
 
 En esta sección, aplicaremos lo que hemos aprendido a nuestra aplicación Wordz y crearemos un puerto adecuado para obtener las palabras para presentarlas a un usuario.   
 
