@@ -1,21 +1,20 @@
-# Arquitectura hexagonal
+# Arquitectura hexagonal <!-- omit in toc -->
 
 > Configurar la versión de gradle en esta actividad a una versión compatible del SDK.
 
-- [Arquitectura hexagonal](#arquitectura-hexagonal)
-  - [Introducción](#introducción)
-  - [Los sistemas externos son difíciles](#los-sistemas-externos-son-difíciles)
-  - [Los problemas de entorno traen problemas](#los-problemas-de-entorno-traen-problemas)
-  - [Inversión de dependencia al rescate](#inversión-de-dependencia-al-rescate)
-  - [Generalizando este enfoque a la arquitectura hexagonal](#generalizando-este-enfoque-a-la-arquitectura-hexagonal)
-  - [Resumen de los componentes de la arquitectura hexagonal](#resumen-de-los-componentes-de-la-arquitectura-hexagonal)
-  - [Las reglas de oro de la arquitectura hexagonal](#las-reglas-de-oro-de-la-arquitectura-hexagonal)
-  - [Abstracción del sistema externo](#abstracción-del-sistema-externo)
-  - [Decidir qué necesita el modelo de dominio](#decidir-qué-necesita-el-modelo-de-dominio)
-  - [Escribir el código de dominio](#escribir-el-código-de-dominio)
-  - [Sustitución de dobles de prueba por sistemas externos](#sustitución-de-dobles-de-prueba-por-sistemas-externos)
-  - [Pruebas unitarias de unidades más grandes](#pruebas-unitarias-de-unidades-más-grandes)
-  - [Wordz: abstracción de la base de datos](#wordz-abstracción-de-la-base-de-datos)
+- [Introducción](#introducción)
+- [Los sistemas externos son difíciles](#los-sistemas-externos-son-difíciles)
+- [Los problemas de entorno traen problemas](#los-problemas-de-entorno-traen-problemas)
+- [Inversión de dependencia al rescate](#inversión-de-dependencia-al-rescate)
+- [Generalizando este enfoque a la arquitectura hexagonal](#generalizando-este-enfoque-a-la-arquitectura-hexagonal)
+- [Resumen de los componentes de la arquitectura hexagonal](#resumen-de-los-componentes-de-la-arquitectura-hexagonal)
+- [Las reglas de oro de la arquitectura hexagonal](#las-reglas-de-oro-de-la-arquitectura-hexagonal)
+- [Abstracción del sistema externo](#abstracción-del-sistema-externo)
+- [Decidir qué necesita el modelo de dominio](#decidir-qué-necesita-el-modelo-de-dominio)
+- [Escribir el código de dominio](#escribir-el-código-de-dominio)
+- [Sustitución de dobles de prueba por sistemas externos](#sustitución-de-dobles-de-prueba-por-sistemas-externos)
+- [Pruebas unitarias de unidades más grandes](#pruebas-unitarias-de-unidades-más-grandes)
+- [Wordz: abstracción de la base de datos](#wordz-abstracción-de-la-base-de-datos)
 
 
 ## Introducción
@@ -42,6 +41,7 @@ El entorno en el que se ejecuta el software a menudo genera desafíos.
 
 **Problema:** Indica los problemas que puedan ocurrir debido al entorno.  
 
+**Respuesta:** Si el entorno de ejecución no está aislado del sistema, puede haber conflictos entre versiones de una misma herramienta. También pueden haber problemas debido al sistema operativo del entorno de ejecución. 
 
 Una base de datos almacena datos, causando problemas para las pruebas. Supongamos que escribimos una prueba contra una base de datos de prueba, que comienza escribiendo un nombre de usuario de prueba. Si hemos ejecutado esta prueba antes, el nombre de usuario de la prueba ya estará almacenado en la base de datos. 
 
@@ -55,18 +55,19 @@ Una tarea común en el software comercial es aceptar el pago de un cliente. Para
 
 **Problema:** Enuncia algunos desafios que se presentan en este caso.
 
+**Repuesta:** Algunos desafíos de usar API de terceros son la documentación, la validación de los datos y el manejo de errores. En cuanto a la documentación, puede sucecer que esta esté desactualizada o que no documente información clave como parámetros o cabeceras. En cuanto a la validación de los datos, puede ser que la API rechace una petición sin dar la información necesaria para entender por qué fue rechazada. En cuanto al manejo de errores, es posible que los mensajes de errores sean poco claros sobre qué sucedió mal dentro de la API, arrojando por ejemplo códigos de error que no tienen que ver con el error que ocurrió realmente. Lamentablemente, ninguno de estos desafíos se puede superar del todo. Es algo que depende la gente involucrada con esta API.
+
 Existen muchos desafíos cuando mezclamos servicios externos y una sola pieza de código monolítica, lo que complica tanto el mantenimiento como las pruebas. 
 
-**Pregunta:** ¿Qué podemos hacer al respecto para resolver o hacer que los sistemas externos sean más fáciles de manejar?.
-
+**Pregunta:** ¿Qué podemos hacer al respecto para resolver o hacer que los sistemas externos sean más fáciles de manejar?
 
 ## Inversión de dependencia al rescate  
 
-Aprendimos sobre el principio de inversión de dependencia anteriormente. Vimos que nos ayuda a aislar algún código que queríamos probar de los detalles de sus colaboradores. Notamos que era útil para probar cosas que se conectaban a sistemas externos que estaban fuera de el control. 
+Aprendimos sobre el principio de inversión de dependencia anteriormente. Vimos que nos ayuda a aislar algún código que queríamos probar de los detalles de sus colaboradores. Notamos que era útil para probar cosas que se conectaban a sistemas externos que estaban fuera del control. 
 
 Vimos cómo el principio de responsabilidad única nos guió a dividir el software en tareas más pequeñas y más enfocadas.  
 
-Aplicando estas ideas a el ejemplo anterior de informe de ventas, llegaríamos a un diseño mejorado, como se muestra en el siguiente diagrama:  
+Aplicando estas ideas al ejemplo anterior de informe de ventas, llegaríamos a un diseño mejorado, como se muestra en el siguiente diagrama:  
 
 <img src="Imagenes/Ejemplo2.png" width="520px" height="180px">
 
@@ -78,9 +79,9 @@ El diagrama anterior muestra cómo hemos aplicado los principios SOLID para divi
 
 Esto ya hace que sea un poco más fácil trabajar con la aplicación.
 
-Aquí también podemos aplicar el principio de inversión de dependencia. ¿Cómo?.
+Aquí también podemos aplicar el principio de inversión de dependencia. ¿Cómo?
 
-El mayor beneficio es que podemos intercambiar cualquier pieza de código que pueda acceder a cualquier base de datos, sin cambiar el código de cálculo. Por ejemplo, podríamos cambiar de una base de datos Postgres SQL a una base de datos Mongo NoSQL sin cambiar el código de cálculo. Podemos usar un doble de prueba para la base de datos para que podamos probar el código de cálculo como una prueba unitaria [FIRST](https://medium.com/@tasdikrahman/f-i-r-s-t-principles-of-testing-1a497acda8d6). 
+El mayor beneficio es que podemos intercambiar cualquier pieza de código que pueda acceder a cualquier base de datos **sin cambiar el código de cálculo**. Por ejemplo, podríamos cambiar de una base de datos Postgres SQL a una base de datos Mongo NoSQL sin cambiar el código de cálculo. Podemos usar un doble de prueba para la base de datos para que podamos probar el código de cálculo como una prueba unitaria [FIRST](https://medium.com/@tasdikrahman/f-i-r-s-t-principles-of-testing-1a497acda8d6). 
 
 Estas son ventajas muy significativas, no solo en términos de TDD y pruebas, sino también en términos de cómo se organiza el código. 
 
@@ -120,13 +121,13 @@ Los adaptadores encapsulan todo el conocimiento que el sistema necesita para int
 
 **Los adaptadores se conectan a los puertos**
 
-Los puertos son parte del modelo de dominio. Abstraen los detalles del intrincado conocimiento del adaptador de su sistema externo. Los puertos responden a una pregunta ligeramente diferente: ¿para qué necesitamos ese sistema externo? 
+Los puertos son parte del modelo de dominio. Abstraen los detalles del intrincado conocimiento del adaptador de su sistema externo. Los puertos responden a una pregunta ligeramente diferente: **¿para qué necesitamos ese sistema externo?**
 
-Los puertos usan el principio de Inversión de Dependencia para aislar el código de dominio de conocer cualquier detalle sobre los adaptadores. Están escritos puramente en términos de el modelo de dominio.
+Los puertos usan el principio de Inversión de Dependencia para aislar el código de dominio de conocer cualquier detalle sobre los adaptadores. Están escritos puramente en términos del modelo de dominio.
 
 Dado el ejemplo de informe de ventas anterior, el puerto de comandos incluiría una forma de solicitar un informe de ventas. En el código, podría verse tan simple como esto: 
 
-```
+```java
 package com.sales.domain; 
 import java.time.LocalDate; 
 public interface Commands { 
@@ -139,12 +140,12 @@ Este fragmento de código presenta lo siguiente:
 
 - Sin referencias a `HttpServletRequest` ni nada que ver con HTTP
 - Sin referencias a formatos JSON
-- Referencias a el modelo de dominio: `SalesReport` y `java.time.LocalDate`.
+- Referencias al modelo de dominio: `SalesReport` y `java.time.LocalDate`.
 - El modificador de acceso `públic`, por lo que se puede llamar desde el adaptador REST. 
 
 Esta interfaz es un puerto. Nos brinda una forma general de obtener un informe de ventas de la aplicación. 
 
-**Los puertos se conectan a el modelo de dominio**
+**Los puertos se conectan al modelo de dominio**
 
 El modelo de dominio representa las cosas que los usuarios quieren hacer, en código. Cada historia de usuario se describe mediante un código aquí. 
 Idealmente, el código de esta capa utiliza el lenguaje del problema que estamos resolviendo, en lugar de detalles tecnológicos. Cuando hacemos esto bien, este código describe acciones que preocupan a los usuarios en los términos que nos han contado.
@@ -179,7 +180,7 @@ Consideraremos dos sistemas externos comunes: solicitudes web y acceso a bases d
 
 ## Decidir qué necesita el modelo de dominio
 
- El lugar para comenzar el diseño es con el modelo de dominio. Necesitamos diseñar un puerto adecuado para que el modelo de dominio interactúe. Este puerto debe estar libre de cualquier detalle de el sistema externo y al mismo tiempo, debe responder a la pregunta de para qué la aplicación necesita este sistema. Estamos creando una abstracción. 
+ El lugar para comenzar el diseño es con el modelo de dominio. Necesitamos diseñar un puerto adecuado para que el modelo de dominio interactúe. Este puerto debe estar libre de cualquier detalle del sistema externo y al mismo tiempo, debe responder a la pregunta de para qué la aplicación necesita este sistema. Estamos creando una abstracción. 
 
 Pero hay varios tipos comunes de abstracciones que usaremos. Esto se debe a que se utilizan tipos comunes de sistemas externos al crear una aplicación web típica. La primera y más obvia es la conexión a la propia web. En la mayoría de las aplicaciones, encontraremos algún tipo de almacén de datos, normalmente un sistema de base de datos de terceros. 
 
@@ -189,11 +190,11 @@ Veamos formas de abstraer estos sistemas externos comunes.
 
 **Abstracción de solicitudes y respuestas web**  
 
-La aplicación responderá a las solicitudes y respuestas HTTP. El puerto que necesitamos diseñar representa la solicitud y la respuesta en términos de el modelo de dominio, eliminando la tecnología web. 
+La aplicación responderá a las solicitudes y respuestas HTTP (mensajes HTTP que nos llegan). El puerto que necesitamos diseñar representa la solicitud y la respuesta en términos del modelo de dominio, eliminando la tecnología web. 
 
-El ejemplo de informe de ventas podría presentar estas ideas como dos objetos de dominio simples. Estas solicitudes se pueden representar mediante una clase `RequestSalesReport`:  
+El ejemplo de informe de ventas podría presentar estas ideas como dos objetos de dominio simples. Estas solicitudes se pueden representar mediante una clase `RequestSalesReport` (solicitud de reporte de ventas):  
 
-```
+```java
 package com.sales.domain; 
 import java.time.LocalDate; 
 public class RequestSalesReport {
@@ -211,7 +212,7 @@ public class RequestSalesReport {
 } 
 ```
 
-Aquí, podemos ver las piezas críticas de el modelo de dominio de la solicitud:  
+Aquí, podemos ver las piezas críticas del modelo de dominio de la solicitud:  
 
 - Lo que estamos solicitando, es decir, un informe de ventas, capturado en el nombre de la clase
 - Los parámetros de esa solicitud, es decir, las fechas de inicio y finalización del período del informe.  
@@ -241,9 +242,9 @@ Un puerto de base de datos tiene dos componentes:
 
 Existe un objeto de valor para transferir datos de un lugar a otro. Dos objetos de valor que contienen los mismos valores de datos se consideran iguales. Son ideales para transferir datos entre la base de datos y el código.  
 
-Volviendo a el ejemplo de informe de ventas, un posible diseño para el repositorio sería este: 
+Volviendo al ejemplo de informe de ventas, un posible diseño para el repositorio sería este: 
 
-```
+```java
 package com.sales.domain; 
 public interface SalesRepository { 
     List<Sale> allWithinDateRange(LocalDate start, 
@@ -254,7 +255,7 @@ public interface SalesRepository {
 Aquí, tenemos un método llamado `allWithinDateRange()` que nos permite obtener un conjunto de transacciones de ventas individuales que se encuentran dentro de un rango de fechas particular. 
 Los datos se devuelven como `java.util.List` de objetos de valor `Sale`.  Estos son objetos de modelo de dominio con todas las funciones. 
 
-Es posible que tengan métodos que realicen parte de la lógica de la aplicación crítica. Pueden ser poco más que estructuras de datos básicas, tal vez utilizando una estructura `record` de Java 17. Esta elección es parte de el trabajo al decidir cómo se ve un diseño bien diseñado en el caso específico.  
+Es posible que tengan métodos que realicen parte de la lógica de la aplicación crítica. Pueden ser poco más que estructuras de datos básicas, tal vez utilizando una estructura `record` de Java 17. Esta elección es parte del trabajo al decidir cómo se ve un diseño bien diseñado en el caso específico.  
 
 Nuevamente, podemos ver lo que no está presente:  
 
@@ -264,23 +265,23 @@ Nuevamente, podemos ver lo que no está presente:
 - Esquema de base de datos y nombres de tablas
 - Detalles del procedimiento almacenado en la base de datos  
 
-El diseño de repositorio se centran en lo que el modelo de dominio necesita que proporcione la base de datos, pero no restringe la forma en que lo proporciona. Como resultado, se deben tomar algunas decisiones interesantes al diseñar el repositorio, con respecto a cuánto trabajo ponemos en la base de datos y cuánto hacemos en el propio modelo de dominio. 
+El diseño de repositorio se centra en lo que el modelo de dominio necesita que proporcione la base de datos, pero no restringe la forma en que lo proporciona. Como resultado, se deben tomar algunas decisiones interesantes al diseñar el repositorio, con respecto a cuánto trabajo ponemos en la base de datos y cuánto hacemos en el propio modelo de dominio. 
 
-Ejemplos de esto incluyen decidir si escribiremos una consulta compleja en el adaptador de base de datos o si escribiremos consultas más simples y realizaremos trabajo adicional en el modelo de dominio. Asimismo, ¿haremos uso de procedimientos almacenados en la base de datos?. 
+Ejemplos de esto incluyen decidir si escribiremos una consulta compleja en el adaptador de base de datos o si escribiremos consultas más simples y realizaremos trabajo adicional en el modelo de dominio. Asimismo, ¿haremos uso de procedimientos almacenados en la base de datos?
 
-Cualesquiera que sean las compensaciones que decidamos en estas decisiones, una vez más, el adaptador de la base de datos es donde residen todas esas decisiones. El adaptador es donde vemos las cadenas de conexión de la base de datos, las cadenas de consulta, los nombres de las tablas, etc. El adaptador encapsula los detalles de diseño de el esquema de datos y tecnología de base de datos. 
+Cualesquiera que sean las compensaciones que decidamos en estas decisiones, una vez más, el adaptador de la base de datos es donde residen todas esas decisiones. El adaptador es donde vemos las cadenas de conexión de la base de datos, las cadenas de consulta, los nombres de las tablas, etc. El adaptador encapsula los detalles de diseño del esquema de datos y tecnología de base de datos. 
 
 **Abstracción de llamadas a servicios web** 
 
 Hacer llamadas a otros servicios web es una tarea de desarrollo frecuente. Los ejemplos incluyen llamadas a procesadores de pagos y servicios de búsqueda de direcciones. 
 
-A veces, estos son servicios externos de terceros y, a veces, viven dentro de la flota de servicios web. De cualquier manera, generalmente requieren que se realicen algunas llamadas HTTP desde la aplicación.  
+A veces, estos son servicios externos de terceros y, otras veces, viven dentro de la flota de servicios web. De cualquier manera, generalmente requieren que se realicen algunas llamadas HTTP desde la aplicación.  
 
 La abstracción de estas llamadas procede de manera similar a la abstracción de la base de datos. El puerto se compone de una interfaz que invierte la dependencia del servicio web al que llamamos y algunos objetos de valor que transfieren datos.  
 
 Un ejemplo de abstracción de una llamada a una API de mapeo como Google Maps, por ejemplo, podría verse así:  
 
-```
+```java
 package com.sales.domain; 
 public interface MappingService { 
    void addReview(GeographicLocation location, 
@@ -318,7 +319,7 @@ El modelo de dominio se puede escribir utilizando cualquier paradigma de program
 
 - Habilidades y preferencias existentes del equipo: ¿Qué paradigma conoce mejor el equipo? ¿Qué paradigma les gustaría usar, dada la oportunidad?
 - Bibliotecas, frameworks y bases de código existentes: si vamos a utilizar código preescrito – y seamos realistas, es casi seguro que lo haremos – entonces, ¿qué paradigma se adaptaría mejor a ese código?
-- Guías de estilo y otros mandatos de código: ¿Estamos trabajando con una guía de estilo o paradigma existente? Si nos pagan por el trabajo, o estamos contribuyendo a un proyecto de código abierto existente – tendremos que adoptar el paradigma que se nos ha propuesto.  
+- Guías de estilo y otros mandatos de código: ¿Estamos trabajando con una guía de estilo o paradigma existente? Si nos pagan por el trabajo, o estamos contribuyendo a un proyecto de código abierto existente tendremos que adoptar el paradigma que se nos ha propuesto.  
 
 La buena noticia es que cualquiera que sea el paradigma que elijamos, podremos escribir el modelo de dominio con éxito. Si bien el código puede tener un aspecto diferente, se puede escribir una funcionalidad equivalente utilizando cualquiera de los paradigmas.  
 
@@ -334,7 +335,7 @@ Podemos probar toda la lógica central de la aplicación sin entornos de prueba,
 
   <img src="Imagenes/Ejemplo4.png" width="560px" height="300px">
 
-Podemos ver que todos los adaptadores han sido reemplazados por dobles de prueba, liberándonos completamente de el entorno de sistemas externos. 
+Podemos ver que todos los adaptadores han sido reemplazados por dobles de prueba, liberándonos completamente del entorno de sistemas externos. 
 
 Las pruebas unitarias ahora pueden cubrir todo el modelo de dominio, lo que reduce la necesidad de pruebas de integración. 
 
@@ -342,7 +343,7 @@ Obtenemos varios beneficios al hacer esto:
 
 - Podemos escribir pruebas TDD primero con facilidad
 - Obtenemos los beneficios de la prueba de la unidad FIRST
-- Libera a el equipo
+- Libera al equipo
 
 Una consecuencia de poder probar todo el modelo de dominio es que podemos aplicar TDD y  pruebas unitarias FIRST  a unidades de programa mucho más grandes. La siguiente sección analiza lo que eso significa para nosotros.  
 
@@ -352,7 +353,7 @@ Podemos probar unidades que son tan grandes como una historia de usuario.
 
 El enfoque combinado de diseño con arquitectura hexagonal y comportamientos de prueba en lugar de detalles de implementación conduce a un sistema de capas interesante. En lugar de tener capas tradicionales, como podríamos tener en una arquitectura de tres niveles, tenemos círculos de comportamiento de nivel cada vez más alto. 
 
-Dentro de el modelo de dominio, encontraremos esas pruebas en pequeño. Pero a medida que nos movemos hacia afuera, hacia la capa adaptadora, encontraremos unidades de comportamiento más grandes.  
+Dentro del modelo de dominio, encontraremos esas pruebas en pequeño. Pero a medida que nos movemos hacia afuera, hacia la capa adaptadora, encontraremos unidades de comportamiento más grandes.  
 
 **Pruebas unitarias de historias de usuario completas**  
 
@@ -361,11 +362,11 @@ Los puertos en el modelo de dominio forman un límite natural de alto nivel del 
 - La esencia de las solicitudes de los usuarios.
 - La esencia de una respuesta de la aplicación
 - La esencia de cómo se necesita almacenar y acceder a los datos
-- Todo utilizando código libre tecnología  
+- Todo utilizando tecnología de código libre
 
 Esta capa es la esencia de lo que hace la aplicación, libre de los detalles de cómo lo hace. Es nada menos que las propias historias de usuario originales. 
 
-Lo más significativo de este modelo de dominio es que podemos escribir pruebas de  unidad FIRST. Tenemos todo lo que necesitamos para reemplazar los sistemas externos difíciles de probar con simples dobles de prueba. 
+Lo más significativo de este modelo de dominio es que podemos escribir pruebas unitarias FIRST. Tenemos todo lo que necesitamos para reemplazar los sistemas externos difíciles de probar con simples dobles de prueba. 
 
 Podemos escribir pruebas unitarias que cubran historias de usuario completas, lo que confirma que la lógica central es correcta.  
 
@@ -382,7 +383,7 @@ Ahora podemos hacer una prueba de manejo en tres granularidades contra el modelo
 
 Este es un gran beneficio de la arquitectura hexagonal. El aislamiento de los servicios externos tiene el efecto de empujar la lógica esencial de una historia de usuario al modelo de dominio, donde interactúa con los puertos. 
 
-Como hemos visto, esos puertos por diseño, son trivialmente fáciles de escribir dobles de prueba. 
+Como hemos visto, es trivialmente fácil escribir dobles de prueba para los puertos debido a su diseño.
 
 A medida que cubrimos amplias áreas de funcionalidad con pruebas unitarias, desdibujamos la línea entre integración y prueba unitaria. Eliminamos el trabajo de los desarrolladores que prueban más historias de usuarios al hacer que la prueba sea más fácil. 
 
@@ -422,7 +423,7 @@ La clase de prueba comienza con la declaración del paquete y las importaciones 
 **Tarea:** Implementa y comprueba el uso del siguiente código: 
 
 
-```
+```java
 package com.wordz.domain; 
 import org.junit.jupiter.api.BeforeEach; 
 import org.junit.jupiter.api.Test; 
@@ -442,7 +443,7 @@ public class WordSelectionTest {
 
 Define algunas constantes enteras para la legibilidad: 
 
-```
+```java
 private static final int HIGHEST_WORD_NUMBER = 3; 
 private static final int WORD_NUMBER_SHINE = 2;  
 ```
@@ -450,7 +451,7 @@ private static final int WORD_NUMBER_SHINE = 2;
 Necesitas dos dobles de prueba, que queremos que Mockito genere. Necesitas un stub para el repositorio de palabras y un stub para un generador de números aleatorios.
 Debes agregar campos para estos stubs. Marca los campos con la anotación Mockito `@Mock` para que Mockito  genere los dobles:  
 
-```
+```java
 @Mock 
 private WordRepository repository; 
  @Mock 
@@ -459,12 +460,12 @@ private NumerosAleatorios random;
 
 Llama al método de prueba `selectsWordAtRandom()`. Explica lo que hace en el código siguiente:
 
-```
-@Test 
+```java
+    @Test 
     void selectsWordAtRandom() { 
         when(repository.highestWordNumber()) 
-            .thenReturn(HIGHEST_WORD_NUMBER); 
-when(repository.fetchWordByNumber(WORD_NUMBER_SHINE)) 
+            .thenReturn(HIGHEST_WORD_NUMBER);
+        when(repository.fetchWordByNumber(WORD_NUMBER_SHINE)) 
             .thenReturn("SHINE"); 
         when(random.next(HIGHEST_WORD_NUMBER)) 
             .thenReturn(WORD_NUMBER_SHINE); 
@@ -472,12 +473,13 @@ when(repository.fetchWordByNumber(WORD_NUMBER_SHINE))
                                          random); 
         String actual = selector.chooseRandomWord(); 
         assertThat(actual).isEqualTo("SHINE"); 
-    } 
-} 
+    }
 ```
-Explica el funcionamiento de la clase `WordSelection` , de `WordRepository`. de `Numeros aleatorios` y el método `chooseRandomWord()` y de los siguientes códigos:
+**Pregunta:** Explica el funcionamiento de la clase `WordSelection` , de `WordRepository`. de `Numeros aleatorios` y el método `chooseRandomWord()` y de los siguientes códigos:
 
-```
+**Respuesta:** La clase WordSelection maneja dos campos para hacer la búsqueda de una palabra: repository y random. Estos campos representan de manera abstracta, respectivamente, un banco de palabras numeradas (cuyo puerto tiene la interfaz `WordRepository`) y un número entero aleatorio (cuyo puerto tiene la interfaz `NumerosAleatorios`). El caso de uso por el cual el usuario escoge una palabra aleatoriamente está representado, en su esencia, por el método `chooseRandomWord()` de esta clase. Dentro de este método se espera que se llamen otros métodos dados por las interfaces, como `highestWordNumber()` o `next()`. Por eso estas llamadas han sido prepraradas mediante stubs, que emulan un comportamiento muy concreto que tendrían los objetos reales del exterior del modelo de dominio, con las cuales estamos haciendo inyección de dependencias en estas pruebas. La palabra que se usa para esta prueba es "SHINE".
+
+```java
 @BeforeEach 
 void beforeEachTest() { 
     when(repository.highestWordNumber()) 
@@ -487,7 +489,7 @@ void beforeEachTest() {
 } 
 ```
 
-```
+```java
 package com.wordz.domain; 
 public interface WordRepository { 
     String fetchWordByNumber(int number); 
@@ -497,7 +499,7 @@ public interface WordRepository {
 
 La prueba también revisa la interfaz necesaria para el generador de números aleatorios:  
 
-```
+```java
 package com.wordz.domain; 
 public interface NumerosAleatorios{ 
     int next(int upperBoundInclusive); 
@@ -508,7 +510,7 @@ El método `next()` devuelve int en el rango de 1 al número `upperBoundInclusiv
 
 Con las interfaces de prueba y puerto definidas, podemos escribir el código del modelo de dominio: 
 
-```
+```java
 package com.wordz.domain; 
 public class WordSelection { 
     private final WordRepository repository; 
