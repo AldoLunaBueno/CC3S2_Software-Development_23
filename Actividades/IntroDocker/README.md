@@ -53,13 +53,15 @@ docker restart -i <container>
 
 ### Crea una imagen
 
-Luego de haber instalado git en el contenedor anterior con Ubuntu 20.04, creamos una imagen de este contenedor con todo lo que tiene extra: 
+Luego de haber instalado git en el contenedor anterior con Ubuntu 20.04, podemos crear una imagen de este contenedor con todo lo que tiene extra: 
 
 ```
 docker commit <container> <new_image_name>
 ```
 
 ![](sources/2023-07-07-18-54-25.png)
+
+Esto significa que no solo podemos ir de una imagen a un contendor, sino también de un contendor a una imagen.
 
 ### Dockerfile
 
