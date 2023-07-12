@@ -317,5 +317,3 @@ Y podemos agregar el parámetro --volume para eliminar también los volúmenes:
 ```bash
 docker system prune --volumes
 ```
-
-![](sources/2023-07-10-22-03-56.png)
