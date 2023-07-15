@@ -106,4 +106,49 @@ public class AirportTest {
             }
         }
     }
+
+    @DisplayName("Dado que hay un vuelo Premium")
+    @Nested
+    class PremiumFlightTest {
+        private Flight premiumFlight;
+        private Passenger checha;
+        private Passenger lore;
+        @BeforeEach
+        void setUp() {
+            premiumFlight = new PremiumFlight("3");
+            checha = new Passenger("Checha", false);
+            lore = new Passenger("Lore", true);
+        }
+        @Nested
+        @DisplayName("Cuando tenemos un pasajero regular")
+        class RegularPassenger {
+
+            @Test
+            @DisplayName("Entonces no puedes agregarlo")
+            public void testPremiumFlightRegularPassenger() {
+                assertAll("Verifica todas las condiciones para un pasajero regular y un vuelo premium",
+                        () -> assertEquals(false, premiumFlight.addPassenger(checha)),
+                        () -> assertEquals(0, premiumFlight.getPassengersList().size()),
+                        () -> assertEquals(false, premiumFlight.removePassenger(checha)),
+                        () -> assertEquals(0, premiumFlight.getPassengersList().size())
+                );
+            }
+        }
+
+        @Nested
+        @DisplayName("Cuando tenemos un pasajero VIP")
+        class VipPassenger {
+
+            @Test
+            @DisplayName("Luego puedes agregarlo o eliminarlo de un vuelo premium")
+            public void testPremiumFlightVipPassenger() {
+                assertAll("Verifica todas las condiciones para un pasajero VIP y un vuelo premium",
+                        () -> assertEquals(true, premiumFlight.addPassenger(lore)),
+                        () -> assertEquals(1, premiumFlight.getPassengersList().size()),
+                        () -> assertEquals(true, premiumFlight.removePassenger(lore)),
+                        () -> assertEquals(0, premiumFlight.getPassengersList().size())
+                );
+            }
+        }
+    }
 }
