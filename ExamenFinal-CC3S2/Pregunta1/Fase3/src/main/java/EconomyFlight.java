@@ -1,9 +1,5 @@
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class EconomyFlight extends Flight {
     public EconomyFlight(String id) {
         super(id);
