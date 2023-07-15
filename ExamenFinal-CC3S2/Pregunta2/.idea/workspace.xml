@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de380a78-d7c5-416d-93e5-4a4c80f2d3b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Jetty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/WebClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TestWebClientInicial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pregunta1/Fase2/src/main/java/EconomyFlight.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta1/Fase2/src/main/java/EconomyFlight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pregunta1/Fase2/target/classes/EconomyFlight.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta1/Fase2/target/classes/EconomyFlight.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Pregunta3/src/test/java/TestHttpURLConnectionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jetty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestWebClientInicial.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pregunta3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pregunta3/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta3/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +47,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Jetty">
     <configuration name="Jetty" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Jetty" />
       <module name="Pregunta2" />
@@ -61,9 +55,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestWebClientInicial" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Pregunta2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestWebClientInicial" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Jetty" />
+        <item itemvalue="JUnit.TestWebClientInicial" />
       </list>
     </recent_temporary>
   </component>
@@ -77,6 +81,7 @@
       <updated>1689300422285</updated>
       <workItem from="1689300423601" duration="2980000" />
       <workItem from="1689338959354" duration="1642000" />
+      <workItem from="1689437226731" duration="1932000" />
     </task>
     <servers />
   </component>

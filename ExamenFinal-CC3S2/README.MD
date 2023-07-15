@@ -43,4 +43,17 @@
     No conseguimos mejor covertura de código. Esto constata el hecho de que la covertura de código solo es un indicador de la calidad del software, no una medida de esta.
 
         
-    
+## Pregunta 2
+
+ Cuando ejecutamos la clase Jetty y abrimos el servidor http://localhost:8081_ en un navegador, no se puede ver el contenido del archivo _pom.xml_. Nos responde con un error 404:
+
+![](sources/2023-07-15-11-42-23.png)
+
+Todavía no sabemos a qué se podría deber el problema, y lamentablemente nos impide avanzar con la pregunta.
+
+## Pregunta 3
+
+
+
+## Pregunta 4
+
