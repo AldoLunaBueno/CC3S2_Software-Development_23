@@ -7,5 +7,5 @@
 # Pregunta 2. Mockito (5 pts.)
 
 
-# Pregunta 3. Docker y Kubernetes (5 pts.)
+# Pregunta 3. Docker y Microservicios (5 pts.)
 
