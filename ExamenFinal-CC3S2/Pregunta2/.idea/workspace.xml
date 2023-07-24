@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de380a78-d7c5-416d-93e5-4a4c80f2d3b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Pregunta3/src/test/java/TestHttpURLConnectionFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jetty.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestWebClientInicial.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pregunta3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pregunta3/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pregunta3/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +75,8 @@
       <updated>1689300422285</updated>
       <workItem from="1689300423601" duration="2980000" />
       <workItem from="1689338959354" duration="1642000" />
-      <workItem from="1689437226731" duration="1932000" />
+      <workItem from="1689437226731" duration="2057000" />
+      <workItem from="1689533044698" duration="386000" />
     </task>
     <servers />
   </component>
