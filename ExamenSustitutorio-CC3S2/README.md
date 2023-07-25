@@ -110,6 +110,39 @@ El reporte nos muestra que la cobertura de código en las ramas ahora es del 100
 
 ## Pregunta 2. Mockito (5 pts.)
 
+**Pregunta: Explica los resultados del archivo.json**
+
+Obtenemos una respuesta JSON con tres claves. La clave _message_ tiene asociado el valor _success_, lo que significa que la solicitud fue exitosa. La clave _number_ tiene por valor 10, lo que indica que hay 10 astronautas en el espacio. Y la clave _people_ se asocia con un arreglo de objetos JSON que representan los datos de cada astronauta. 
+
+Así, para cada astronauta tenemos la clave _name_, que representa su nombre, y la clave _craft_, que representa la estación espacial en la que está viajando por el espacio.
+
+**Assignament y AstroResponse**
+
+![](sources/2023-07-25-00-02-00.png)
+
+Se nos dice que creemos también getters y setters para los atributos, pero los setters no se puede crear porque los atributos tienen restricción _final_.
+
+**AstroGateway**
+
+Es nuestra clase de acceso a datos, y nos devuelve una instancia de AstroResponse con el método getResponse() sobreescrito de la interfaz Gateway. Implementamos la clase de la siguiente manera:
+
+![](sources/2023-07-24-23-58-01.png)
+
+Con HttpClient enviamos la solicitud HTTP GET, por medio de su método send(), el cual nos entrega una respuesta HttpResponse. Para esto, antes usamos HttpRequest para dirigir la solicitud hacia la URL del servicio web RESTful.
+
+De la respuesta obtenemos el objeto JSON, y convertimos este a un objeto POJO (AstroResponse). Esto conversión la hacemos gracias a una biblioteca de deserialización llamada GSON. Encontramos referencia a ella en [este artículo](https://www.baeldung.com/java-httpclient-map-json-response). De ahí copiamos la dependencia para nuestro _pom.xml_, y luego la actualizamos.
+
+**AstroService**
+
+Aplicando inyección de dependencias, no creamos una instancia de AstroGateway, sino que la inyectamos a través del constructor:
+
+![](sources/2023-07-25-00-04-33.png)
+
+Ahora implementamos el método getAstroData() que se nos indica:
+
+![](sources/2023-07-25-00-28-49.png)
+
+Este método nos entrega un HashMap que enumera cuántos astronautas hay en cada estación espacial. Para ello le pedimos la respuesta a astroGateway en forma de objeto AstroResponse, e iteramos por todas las personas representadas por la clase de asignaciones Assignment.
 
 ## Pregunta 3. Docker y Microservicios (5 pts.)
 
