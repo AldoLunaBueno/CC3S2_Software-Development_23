@@ -156,6 +156,27 @@ Para que la prueba sea más entendible, la hemos ordenado según el método AAA,
 
 De lo que explicamos en la anterior pregunta, está claro que la única dependencia de AutoService es AstroGateway.
 
+**Pregunta:** Digamos que tu prueba de integración falló y ahora se quiere crear una prueba para AstroService. Una verdadera prueba unitaria para AstroService necesita un sustituto del gateway algún tipo de objeto falso (stub o mock) que devolverá exactamente lo que queremos cuando el servicio llame al método getResponse. No se quiere que ningún problema con el gateway afecte el éxito o el fracaso de las pruebas del servicio. **Proporciona tu propio objeto falso para en una clase llamada FakeGateway que codifica una respuesta.**
+
+Implementamos la clase FakeGateway para sustituir a la clase AstroGateway. El método getResponse() solo retorna un objeto AstroResponse hardcodeado sencillo que no necesita de ninguna llamada al servicio web RESTful.
+
+![](sources/2023-07-25-01-48-14.png)
+
+**Pregunta: Escribe una prueba unitaria del servicio que usa FakeGateway. ¿Cuál es la respuesta devuelta por el mock gateway? Explica tus resultados.**
+
+Creamos otra prueba que esta vez, gracias a esta clase FakeGateway, será una prueba unitaria:
+
+![](sources/2023-07-25-01-54-09.png)
+
+La prueba pasa sin ningún problema.
+
+**Pregunta: Utiliza Mockito  en la  interfaz Gateway.** Confia en Mockito para crear el mock del gateway  y luego inyectaro en el servicio. **Verifica  que el servicio haya invocado el método getResponse en gateay exactamente una vez.**
+
+![](sources/2023-07-25-02-16-31.png)
+
+Primero creamos un mock de AstroGateway con el método mock() de Mockito. No nos intersa darle un comportamiento predefinido porque es un mock, no un stub. Lo inyectamos a AstroService, cuyo método getAstroData() llamamos a continuación.
+
+En esta llamada el método AstroGateway.getResponse() debe ser invocado exactamente una vez. Eso es lo que verificamos con el método verify() de Mockito.
 
 ## Pregunta 3. Docker y Microservicios (5 pts.)
 
