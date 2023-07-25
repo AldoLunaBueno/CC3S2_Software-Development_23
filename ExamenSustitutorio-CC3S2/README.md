@@ -1,15 +1,14 @@
-# Examen sustitutorio CC3S2 <!-- omit int toc -->
+# Examen sustitutorio CC3S2 <!-- omit in toc -->
 
-- [Examen sustitutorio CC3S2 ](#examen-sustitutorio-cc3s2-)
-  - [Pregunta 1. RGR en Tic-Tac-Toe (10 pts.)](#pregunta-1-rgr-en-tic-tac-toe-10-pts)
-    - [Requisito 1: colocación de piezas](#requisito-1-colocación-de-piezas)
-      - [Prueba - limites del tablero I](#prueba---limites-del-tablero-i)
-      - [Implementación](#implementación)
-      - [Prueba - limites del tablero II](#prueba---limites-del-tablero-ii)
-      - [Implementación](#implementación-1)
-      - [Prueba - lugar ocupado](#prueba---lugar-ocupado)
-  - [Pregunta 2. Mockito (5 pts.)](#pregunta-2-mockito-5-pts)
-  - [Pregunta 3. Docker y Microservicios (5 pts.)](#pregunta-3-docker-y-microservicios-5-pts)
+- [Pregunta 1. RGR en Tic-Tac-Toe (10 pts.)](#pregunta-1-rgr-en-tic-tac-toe-10-pts)
+  - [Requisito 1: colocación de piezas](#requisito-1-colocación-de-piezas)
+    - [Prueba - limites del tablero I](#prueba---limites-del-tablero-i)
+    - [Prueba - limites del tablero II](#prueba---limites-del-tablero-ii)
+    - [Prueba - lugar ocupado](#prueba---lugar-ocupado)
+    - [Refactorización](#refactorización)
+  - [Requisito 2](#requisito-2)
+- [Pregunta 2. Mockito (5 pts.)](#pregunta-2-mockito-5-pts)
+- [Pregunta 3. Docker y Microservicios (5 pts.)](#pregunta-3-docker-y-microservicios-5-pts)
 
 
 ## Pregunta 1. RGR en Tic-Tac-Toe (10 pts.)
@@ -38,31 +37,74 @@ Y, a continuación, implementamos lo suficiente para que pase:
 
 ![](sources/2023-07-24-16-50-35.png)
 
-#### Implementación   
-
-Para la implementación creamos una matriz de ceros para representar los lugares vacíos del tablero, y el método `TicTacToe.jugar()` cambiará un cero por uno:
-
-![](sources/2023-07-24-17-17-42.png)
-
 #### Prueba - limites del tablero II
 
 Subrequisito: Cuando una pieza se coloca en una posición inválida del eje y, se lanza RuntimeException.
 
 Análogamente, seguimos el mismo proceso de la prueba anterior. Creamos el método de prueba correspondiente al subrequisito y este falla porque todavía no hemos implementado la validación del eje y:
 
-![](sources/2023-07-24-17-27-44.png)
+![](sources/2023-07-24-18-46-27.png)
 
-Con la validación las pruebas ya pasan:
+Con la implementación de la validación las pruebas ya pasan:
 
-![](sources/2023-07-24-17-25-41.png)
-
-#### Implementación
-
-Este subrequisito no nos motiva a implementar nada nuevo.
+![](sources/2023-07-24-18-47-30.png)
 
 #### Prueba - lugar ocupado 
 
 Subrequisito: Cuando una pieza se coloca en un espacio ocupado, se lanza RuntimeException.
+
+Escribimos la prueba usando el método `TicTacToe.jugar()` en el paso Arrange y Act con la misma posición. La prueba no pasa:
+
+![](sources/2023-07-24-18-50-56.png)
+
+Para la implementación creamos una matriz de cadenas vacías  para representar los lugares vacíos del tablero, y el método `TicTacToe.jugar()` llenará la cadena vacía por una "X". Las pruebas ya pasan:
+
+![](sources/2023-07-24-19-00-26.png)
+
+#### Refactorización
+
+Extraemos una a una las partes diferenciables de nuestro método `TicTacToe.jugar()`. Nos ayudamos de IntelliJ para extraer el código en otros métodos:
+
+![](sources/2023-07-24-19-12-06.png)
+
+Así quedan el constructor, el método `TicTacToe.jugar()`, y todos los métodos producto de las extraciones:
+
+![](sources/2023-07-24-19-27-16.png)
+![](sources/2023-07-24-19-27-51.png)
+![](sources/2023-07-24-19-28-12.png)
+
+Pensamos que es importante resaltar una refactorización que hicimos: la extracción de los métodos `setPiece()` y `getPiece()`. Son el setter y el getter de la matriz de cadenas `grid`. Esta matriz se usa desde varias partes del código, como `initBoard()` y `checkOccupied()`. Por eso es que, sin esta refactorización, nos exponemos a cometer el error de introducir una pieza en una posición errónea simplemente por colocar x en vez de x-1 en la primera coordenada, por ejemplo.
+
+Y, gracias a nuestras pruebas, podemos estar seguros de que no hemos dañado el código:
+
+![](sources/2023-07-24-19-18-37.png)
+
+Corremos las pruebas con cobertura de código y obtenemos el siguiente reporte de JaCoCo:
+
+![](sources/2023-07-24-21-04-41.png)
+
+La cobertura no es completa cuando analizamos las ramas. 
+
+
+Vemos en detalle el reporte:
+
+![](sources/2023-07-24-22-14-01.png)
+
+Y nos damos cuenta de que esto sucede porque no estamos cubriendo los casos en los que se coloca la pieza en una coordenada inválida del eje x o del eje y pero por debajo, es decir, con valores menores a 1.
+
+Por esta razón, vamos a agregar esos casos que se nos escapan. Y, al hacerlo, elevaremos la calidad de nuestras pruebas, porque vamos a parametrizarlas:
+
+![](sources/2023-07-24-21-53-00.png)
+
+Como se ve en la imagen, agregamos una caso que invalída la colocación de una pieza en el eje x por debajo del límite, con 0. 
+
+Hacemos lo mismo para la prueba que se encarga del otro eje y analizamos la cobertura de código:
+
+![](sources/2023-07-24-22-10-14.png)
+
+El reporte nos muestra que la cobertura de código en las ramas ahora es del 100 %.
+
+### Requisito 2
 
 
 

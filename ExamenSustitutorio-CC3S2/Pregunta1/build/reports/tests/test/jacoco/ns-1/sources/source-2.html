@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > TicTacToe</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: TicTacToe (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TicTacToe</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85,7%
+  </span>
+  <span class="absValue">
+    (24/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (27/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;public class TicTacToe {
+&nbsp;    private String[][] grid;
+<b class="fc">&nbsp;    public TicTacToe() {</b>
+<b class="fc">&nbsp;        initBoard();</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    public void jugar(int x, int y) {
+<b class="fc">&nbsp;        checkBounds(x, y);</b>
+<b class="fc">&nbsp;        checkOccupied(x, y);</b>
+<b class="fc">&nbsp;        setPiece(x, y, &quot;X&quot;);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private void setPiece(int x, int y, String piece) {
+<b class="fc">&nbsp;        grid[x-1][y-1] = piece;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private String getPiece(int x, int y) {
+<b class="fc">&nbsp;        return grid[x - 1][y - 1];</b>
+&nbsp;    }
+&nbsp;    private void initBoard() {
+<b class="fc">&nbsp;        grid = new String[3][3];</b>
+<b class="fc">&nbsp;        for (int i = 1; i &lt;= 3; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 1; j &lt;= 3; j++) {</b>
+<b class="fc">&nbsp;                setPiece(i, j, &quot;&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private static void checkBounds(int x, int y) {
+<b class="fc">&nbsp;        checkXAxis(x);</b>
+<b class="fc">&nbsp;        checkYAxis(y);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private void checkOccupied(int x, int y) {
+<b class="fc">&nbsp;        if (!getPiece(x, y).isEmpty()) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;Posición ocupada&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private static void checkYAxis(int y) {
+<b class="pc">&nbsp;        if (y &lt; 1 || y &gt; 3) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;Eje Y inválido&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private static void checkXAxis(int x) {
+<b class="pc">&nbsp;        if (x &lt; 1 || x &gt; 3) {</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;Eje X inválido&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-07-24 22:12</div>
+</div>
+</body>
+</html>
