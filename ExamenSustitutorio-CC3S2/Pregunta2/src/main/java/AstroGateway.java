@@ -21,7 +21,7 @@ public class AstroGateway implements Gateway<AstroResponse> {
             // En caso de éxito
             if (response.statusCode() == 200) {
                 String responseJson = response.body();
-                // Convertimos la respuesta JSON en un POJO (AstroResponse)
+                // Convertimos la respuesta JSON en un Java POJO (AstroResponse)
                 Gson gson = new Gson();
                 return gson.fromJson(responseJson, AstroResponse.class);
             } else {  // En caso de error

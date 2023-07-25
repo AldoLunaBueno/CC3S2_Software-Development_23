@@ -144,5 +144,18 @@ Ahora implementamos el método getAstroData() que se nos indica:
 
 Este método nos entrega un HashMap que enumera cuántos astronautas hay en cada estación espacial. Para ello le pedimos la respuesta a astroGateway en forma de objeto AstroResponse, e iteramos por todas las personas representadas por la clase de asignaciones Assignment.
 
+**Pregunta: Escribe una prueba de integración llamada AstroServiceTest.java**
+
+![](sources/2023-07-25-01-21-04.png)
+
+Esta es una prueba de integración porque estamos probando a la vez las clases AstroService y AstroGateway. El método AstroGateWay.getResponse() se usa dentro del método AstroService.getAstroData().
+
+Para que la prueba sea más entendible, la hemos ordenado según el método AAA, aunque no es una prueba unitaria.
+
+**Pregunta: Para usar Mockito, debes determinar las dependencias de la clase que está probando. ¿Para AstroService, cual es la única dependencia?**
+
+De lo que explicamos en la anterior pregunta, está claro que la única dependencia de AutoService es AstroGateway.
+
+
 ## Pregunta 3. Docker y Microservicios (5 pts.)
 

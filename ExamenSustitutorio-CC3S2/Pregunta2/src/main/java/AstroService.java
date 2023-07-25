@@ -11,7 +11,7 @@ public class AstroService {
     public Map<String, Long> getAstroData() {
         Map<String, Long> map = new HashMap<>();
         AstroResponse astroResponse = astroGateway.getResponse();
-        if (astroResponse != null) {
+        if (astroResponse == null) {
             return null;
         }
         List<Assignment> people = astroResponse.getPeople();
